@@ -2,4 +2,19 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="defaultColor">#FFFAFAFA</color>
+    <color name="darkGrey">#FF808089</color>
+    <color name="lightGrey">#FFF2F4F5</color>
+    <color name="darkGreen">#FF198155</color>
+    <color name="green">#FF23C16B</color>
+    <color name="lightGreen">#FFDAEFDE</color>
+    <color name="skinColor">#FFFCD9BB</color>
+    <color name="darkRed">#FFBF1D28</color>
+    <color name="lightRed">#FFFFDBDE</color>
+    <color name="darkYellow">#FFCC8100</color>
+    <color name="yellow">#FFFFC400</color>
+    <color name="lightYellow">#FFFFF5C7</color>
+    <color name="darkBlue">#FF0D5BB5</color>
+    <color name="lightBlue">#FFDBEEFF</color>
+    <color name="pinputColor">#FF545454</color>
 </resources>
