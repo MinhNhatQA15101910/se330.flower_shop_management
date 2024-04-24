@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/pacifico_regular"
+                android:fontFamily="@font/pacifico"
                 android:text="FlowerFly!"
                 android:textColor="@color/darkGreen"
                 android:textSize="40sp" />

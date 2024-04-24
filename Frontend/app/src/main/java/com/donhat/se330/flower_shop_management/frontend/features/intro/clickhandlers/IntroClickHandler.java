@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import com.donhat.se330.flower_shop_management.frontend.features.intro.activities.WelcomeActivity;
+import com.donhat.se330.flower_shop_management.frontend.features.welcome.activities.WelcomeActivity;
 
 public class IntroClickHandler {
     private final Context _context;
