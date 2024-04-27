@@ -1,4 +1,4 @@
-package com.donhat.se330.flower_shop_management.frontend.features.intro.clickhandlers;
+package com.donhat.se330.flower_shop_management.frontend.features.intro.eventhandlers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,10 +6,10 @@ import android.view.View;
 
 import com.donhat.se330.flower_shop_management.frontend.features.welcome.activities.WelcomeActivity;
 
-public class IntroClickHandler {
+public class IntroEventHandler {
     private final Context _context;
 
-    public IntroClickHandler(Context context) {
+    public IntroEventHandler(Context context) {
         _context = context;
     }
 

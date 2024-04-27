@@ -11,11 +11,11 @@ import androidx.databinding.DataBindingUtil;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ActivityIntroBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.intro.clickhandlers.IntroClickHandler;
+import com.donhat.se330.flower_shop_management.frontend.features.intro.eventhandlers.IntroEventHandler;
 
 public class IntroActivity extends AppCompatActivity {
     private ActivityIntroBinding _activityIntroBinding;
-    private IntroClickHandler _introClickHandler;
+    private IntroEventHandler _introEventHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,8 @@ public class IntroActivity extends AppCompatActivity {
                 R.layout.activity_intro
         );
 
-        _introClickHandler = new IntroClickHandler(this);
+        _introEventHandler = new IntroEventHandler(this);
 
-        _activityIntroBinding.setIntroClickHandler(_introClickHandler);
+        _activityIntroBinding.setIntroEventHandler(_introEventHandler);
     }
 }

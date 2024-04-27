@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="introClickHandler"
-            type="com.donhat.se330.flower_shop_management.frontend.features.intro.clickhandlers.IntroClickHandler" />
+            name="introEventHandler"
+            type="com.donhat.se330.flower_shop_management.frontend.features.intro.eventhandlers.IntroEventHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/lightGreen"
-        android:onClick="@{introClickHandler::onIntroClicked}"
+        android:onClick="@{introEventHandler::onIntroClicked}"
         tools:context=".features.intro.activities.IntroActivity">
 
         <LinearLayout
