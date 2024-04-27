@@ -35,6 +35,7 @@
         <ImageView
             android:layout_width="320dp"
             android:layout_height="320dp"
+            android:contentDescription="Image carousel 1"
             android:src="@drawable/img_carousel_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
