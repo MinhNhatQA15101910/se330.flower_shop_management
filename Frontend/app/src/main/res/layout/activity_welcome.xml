@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="welcomeEventHandler"
+            type="com.donhat.se330.flower_shop_management.frontend.features.welcome.eventhandlers.WelcomeEventHandler" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -32,12 +39,14 @@
             app:selectedDotColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/welcome_btn"
             android:layout_width="215dp"
             android:layout_height="40dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/green_background_button"
             android:elevation="0dp"
             android:fontFamily="@font/inter_bold"
+            android:onClick="@{welcomeEventHandler::onWelcomeBtnClicked}"
             android:text="Get Started"
             android:textAllCaps="false"
             android:textColor="@color/white"
