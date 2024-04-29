@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="signUpEventHandler"
+            type="com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers.SignUpEventHandler" />
+    </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -258,6 +265,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_bold"
+                        android:onClick="@{signUpEventHandler::navigateToLoginFragment}"
                         android:text="Log in"
                         android:textColor="@color/darkGreen"
                         android:textSize="14sp" />
