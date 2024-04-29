@@ -8,6 +8,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
@@ -56,7 +57,7 @@ public class WelcomeActivity extends AppCompatActivity {
         _activityWelcomeBinding.dotsIndicator.attachTo(_activityWelcomeBinding.viewPager2);
 
         // View model
-        _welcomeViewModel = new WelcomeViewModel();
+        _welcomeViewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
 
         // Event handler
         _welcomeEventHandler = new WelcomeEventHandler(this, _welcomeViewModel);
