@@ -17,4 +17,5 @@
     <color name="darkBlue">#FF0D5BB5</color>
     <color name="lightBlue">#FFDBEEFF</color>
     <color name="pinputColor">#FF545454</color>
+    <color name="hintTextColor">#FF72777A</color>
 </resources>
