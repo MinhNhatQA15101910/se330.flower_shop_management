@@ -7,6 +7,7 @@ public class ForgotPasswordViewModel extends ViewModel {
     private final MutableLiveData<String> email = new MutableLiveData<>("");
     private final MutableLiveData<Boolean> isEmailEmpty = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> isEmailValid = new MutableLiveData<>(true);
+    private final MutableLiveData<Boolean> isVerifyLoading = new MutableLiveData<>(false);
 
     public MutableLiveData<String> getEmail() {
         return email;
@@ -18,5 +19,9 @@ public class ForgotPasswordViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> getIsEmailValid() {
         return isEmailValid;
+    }
+
+    public MutableLiveData<Boolean> getIsVerifyLoading() {
+        return isVerifyLoading;
     }
 }

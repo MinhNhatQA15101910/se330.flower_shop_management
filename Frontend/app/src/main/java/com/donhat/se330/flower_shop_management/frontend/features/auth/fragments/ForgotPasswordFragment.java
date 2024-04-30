@@ -62,6 +62,16 @@ public class ForgotPasswordFragment extends Fragment implements ValidationManage
             }
         });
 
+        _forgotPasswordViewModel.getIsVerifyLoading().observe(getViewLifecycleOwner(), isVerifyLoading -> {
+            if (isVerifyLoading) {
+                _fragmentForgotPasswordBinding.verifyBtn.setVisibility(View.INVISIBLE);
+                _fragmentForgotPasswordBinding.verifyLoader.setVisibility(View.VISIBLE);
+            } else {
+                _fragmentForgotPasswordBinding.verifyBtn.setVisibility(View.VISIBLE);
+                _fragmentForgotPasswordBinding.verifyLoader.setVisibility(View.INVISIBLE);
+            }
+        });
+
         return _fragmentForgotPasswordBinding.getRoot();
     }
 
