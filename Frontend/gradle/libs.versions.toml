@@ -8,6 +8,7 @@ material = "1.11.0"
 activity = "1.9.0"
 constraintlayout = "2.1.4"
 dotsindicator = "5.0"
+pinview = "1.4.4"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -18,6 +19,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 dotsindicator = { group = "com.tbuonomo", name = "dotsindicator", version.ref = "dotsindicator" }
+pinview = { group = "io.github.chaosleung", name = "pinview", version.ref = "pinview" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

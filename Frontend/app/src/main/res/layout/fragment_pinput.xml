@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        app:cardCornerRadius="20dp"
+        tools:context=".features.auth.fragments.PinputFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="12dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/check_your_email_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="Check your email"
+                android:textColor="@color/darkGreen"
+                android:textSize="26sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/send_email_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="We sent a reset email to"
+                android:textColor="@color/darkGrey"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/check_your_email_text_view" />
+
+            <TextView
+                android:id="@+id/email_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_semibold"
+                android:text="example@gmail.com"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/send_email_text_view" />
+
+            <TextView
+                android:id="@+id/countdown_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/inter_medium"
+                android:text="enter 6 digit code that mentioned in the email - 60s"
+                android:textColor="@color/darkGrey"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_text_view" />
+
+            <com.chaos.view.PinView
+                android:id="@+id/pin_view"
+                style="@style/PinWidget.PinView"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/inter_semibold"
+                android:inputType="number"
+                android:itemBackground="@drawable/pinput_background"
+                android:textColor="@color/pinputColor"
+                android:textSize="18sp"
+                app:itemCount="6"
+                app:itemHeight="42dp"
+                app:itemRadius="12dp"
+                app:itemSpacing="15dp"
+                app:itemWidth="35dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/countdown_text_view"
+                app:lineColor="#00000000" />
+
+            <LinearLayout
+                android:id="@+id/buttons_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pin_view">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/previous_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/white_background_btn"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="Previous"
+                    android:textAllCaps="false"
+                    android:textColor="@color/darkGreen" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/verify_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/green_background_btn"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Verify"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/verify_loader"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:indeterminate="true"
+                        app:indicatorColor="@color/white"
+                        app:indicatorSize="40dp"
+                        app:layout_constraintBottom_toBottomOf="@id/verify_btn"
+                        app:layout_constraintEnd_toEndOf="@id/verify_btn"
+                        app:layout_constraintStart_toStartOf="@id/verify_btn"
+                        app:layout_constraintTop_toTopOf="@id/verify_btn"
+                        app:trackColor="@color/green" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/buttons_layout">
+
+                <TextView
+                    android:id="@+id/not_getting_code_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:text="Haven't got the code yet? "
+                    android:textColor="@color/darkGreen"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/resend_email_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:text="Resend email"
+                    android:textColor="@color/darkGreen"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
