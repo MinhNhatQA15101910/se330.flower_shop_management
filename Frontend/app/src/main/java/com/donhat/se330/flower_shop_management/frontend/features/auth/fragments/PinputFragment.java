@@ -12,11 +12,15 @@ import android.view.ViewGroup;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.FragmentPinputBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers.SignUpEventHandler;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers.PinputEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.PinputViewModel;
 
 public class PinputFragment extends Fragment {
     private FragmentPinputBinding _fragmentPinputBinding;
+    private AuthViewModel _authViewModel;
+    private PinputViewModel _pinputViewModel;
+    private PinputEventHandler _pinputEventHandler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,8 +32,24 @@ public class PinputFragment extends Fragment {
                 false
         );
 
+        // View Models
+        _authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
+        _pinputViewModel = new ViewModelProvider(this).get(PinputViewModel.class);
+
+        _fragmentPinputBinding.setPinputViewModel(_pinputViewModel);
+
+        // Event handler
+        _pinputEventHandler = new PinputEventHandler(_authViewModel, _pinputViewModel);
+
+        _fragmentPinputBinding.setPinputEventHandler(_pinputEventHandler);
+
         // Pin View manager
         _fragmentPinputBinding.pinView.requestFocus();
+
+        // Observe
+        _authViewModel.getResentEmail().observe(getViewLifecycleOwner(), resentEmail -> {
+            _fragmentPinputBinding.emailTextView.setText(resentEmail);
+        });
 
         return _fragmentPinputBinding.getRoot();
     }

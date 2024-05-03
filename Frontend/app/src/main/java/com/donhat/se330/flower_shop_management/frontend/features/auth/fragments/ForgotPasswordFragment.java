@@ -15,10 +15,8 @@ import com.donhat.se330.flower_shop_management.frontend.databinding.FragmentForg
 import com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers.ForgotPasswordEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.ForgotPasswordViewModel;
-import com.donhat.se330.flower_shop_management.frontend.utils.ValidationManager;
-import com.google.android.material.textfield.TextInputLayout;
 
-public class ForgotPasswordFragment extends Fragment implements ValidationManager.ErrorSetter {
+public class ForgotPasswordFragment extends Fragment {
     private FragmentForgotPasswordBinding _fragmentForgotPasswordBinding;
     private AuthViewModel _authViewModel;
     private ForgotPasswordViewModel _forgotPasswordViewModel;
@@ -41,7 +39,7 @@ public class ForgotPasswordFragment extends Fragment implements ValidationManage
         _fragmentForgotPasswordBinding.setForgotPasswordViewModel(_forgotPasswordViewModel);
 
         // Event handler
-        _forgotPasswordEventHandler = new ForgotPasswordEventHandler(getContext(), _authViewModel, _forgotPasswordViewModel);
+        _forgotPasswordEventHandler = new ForgotPasswordEventHandler(_authViewModel, _forgotPasswordViewModel);
 
         _fragmentForgotPasswordBinding.setForgotPasswordEventHandler(_forgotPasswordEventHandler);
 
@@ -73,10 +71,5 @@ public class ForgotPasswordFragment extends Fragment implements ValidationManage
         });
 
         return _fragmentForgotPasswordBinding.getRoot();
-    }
-
-    @Override
-    public void setError(TextInputLayout textInputLayout, String errorMsg) {
-        textInputLayout.setError(errorMsg);
     }
 }

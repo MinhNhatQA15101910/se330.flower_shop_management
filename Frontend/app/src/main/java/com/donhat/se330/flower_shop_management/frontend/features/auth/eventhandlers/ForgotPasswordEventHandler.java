@@ -1,21 +1,18 @@
 package com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers;
 
-import android.content.Context;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.LoginFragment;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.PinputFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.ForgotPasswordViewModel;
 
 public class ForgotPasswordEventHandler {
-    private final Context _context;
     private final AuthViewModel _authViewModel;
     private final ForgotPasswordViewModel _forgotPasswordViewModel;
 
-    public ForgotPasswordEventHandler(Context context, AuthViewModel authViewModel, ForgotPasswordViewModel forgotPasswordViewModel) {
-        _context = context;
+    public ForgotPasswordEventHandler(AuthViewModel authViewModel, ForgotPasswordViewModel forgotPasswordViewModel) {
         _authViewModel = authViewModel;
         _forgotPasswordViewModel = forgotPasswordViewModel;
     }
@@ -24,7 +21,7 @@ public class ForgotPasswordEventHandler {
         _authViewModel.getAuthFragment().setValue(new LoginFragment());
     }
 
-    public void verifyPassword(View view) {
+    public void verifyEmail(View view) {
         if (isValidAll()) {
             _forgotPasswordViewModel.getIsVerifyLoading().setValue(true);
 
@@ -33,7 +30,8 @@ public class ForgotPasswordEventHandler {
                     () -> {
                         _forgotPasswordViewModel.getIsVerifyLoading().setValue(false);
 
-                        Toast.makeText(_context, "Valid", Toast.LENGTH_SHORT).show();
+                        _authViewModel.getResentEmail().setValue(_forgotPasswordViewModel.getEmail().getValue());
+                        _authViewModel.getAuthFragment().setValue(new PinputFragment());
                     },
                     2000
             );

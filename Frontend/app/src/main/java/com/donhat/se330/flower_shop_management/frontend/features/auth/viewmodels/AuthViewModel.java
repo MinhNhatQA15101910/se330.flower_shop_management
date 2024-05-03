@@ -8,8 +8,13 @@ import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.
 
 public class AuthViewModel extends ViewModel {
     private final MutableLiveData<Fragment> authFragment = new MutableLiveData<>(new LoginFragment());
+    private final MutableLiveData<String> resentEmail = new MutableLiveData<>("");
 
     public MutableLiveData<Fragment> getAuthFragment() {
         return authFragment;
+    }
+
+    public MutableLiveData<String> getResentEmail() {
+        return resentEmail;
     }
 }
