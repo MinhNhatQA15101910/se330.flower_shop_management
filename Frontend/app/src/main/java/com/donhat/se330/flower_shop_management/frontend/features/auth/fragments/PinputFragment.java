@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +41,7 @@ public class PinputFragment extends Fragment {
         _fragmentPinputBinding.setPinputViewModel(_pinputViewModel);
 
         // Event handler
-        _pinputEventHandler = new PinputEventHandler(_authViewModel, _pinputViewModel);
+        _pinputEventHandler = new PinputEventHandler(_authViewModel, _pinputViewModel, getContext());
 
         _fragmentPinputBinding.setPinputEventHandler(_pinputEventHandler);
 
@@ -49,6 +51,31 @@ public class PinputFragment extends Fragment {
         // Observe
         _authViewModel.getResentEmail().observe(getViewLifecycleOwner(), resentEmail -> {
             _fragmentPinputBinding.emailTextView.setText(resentEmail);
+        });
+
+        _pinputViewModel.getIsVerifyLoading().observe(getViewLifecycleOwner(), isVerifyLoading -> {
+            _fragmentPinputBinding.verifyBtn.setVisibility(isVerifyLoading ? View.INVISIBLE : View.VISIBLE);
+            _fragmentPinputBinding.verifyLoader.setVisibility(isVerifyLoading ? View.VISIBLE : View.INVISIBLE);
+        });
+
+        // Events in code behind
+        _fragmentPinputBinding.pinView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().length() == 6) {
+                    _pinputEventHandler.verifyPincode();
+                }
+            }
         });
 
         return _fragmentPinputBinding.getRoot();

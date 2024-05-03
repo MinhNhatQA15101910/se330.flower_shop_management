@@ -37,6 +37,7 @@ public class ForgotPasswordFragment extends Fragment {
         _forgotPasswordViewModel = new ViewModelProvider(this).get(ForgotPasswordViewModel.class);
 
         _fragmentForgotPasswordBinding.setForgotPasswordViewModel(_forgotPasswordViewModel);
+        _fragmentForgotPasswordBinding.setLifecycleOwner(this);
 
         // Event handler
         _forgotPasswordEventHandler = new ForgotPasswordEventHandler(_authViewModel, _forgotPasswordViewModel);
@@ -61,13 +62,8 @@ public class ForgotPasswordFragment extends Fragment {
         });
 
         _forgotPasswordViewModel.getIsVerifyLoading().observe(getViewLifecycleOwner(), isVerifyLoading -> {
-            if (isVerifyLoading) {
-                _fragmentForgotPasswordBinding.verifyBtn.setVisibility(View.INVISIBLE);
-                _fragmentForgotPasswordBinding.verifyLoader.setVisibility(View.VISIBLE);
-            } else {
-                _fragmentForgotPasswordBinding.verifyBtn.setVisibility(View.VISIBLE);
-                _fragmentForgotPasswordBinding.verifyLoader.setVisibility(View.INVISIBLE);
-            }
+            _fragmentForgotPasswordBinding.verifyBtn.setVisibility(isVerifyLoading ? View.INVISIBLE : View.VISIBLE);
+            _fragmentForgotPasswordBinding.verifyLoader.setVisibility(isVerifyLoading ? View.VISIBLE : View.INVISIBLE);
         });
 
         return _fragmentForgotPasswordBinding.getRoot();

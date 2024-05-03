@@ -132,6 +132,7 @@
                         android:layout_height="40dp"
                         android:background="@drawable/green_background_btn"
                         android:fontFamily="@font/inter_bold"
+                        android:onClick="@{pinputEventHandler::verifyPincode}"
                         android:text="Verify"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
