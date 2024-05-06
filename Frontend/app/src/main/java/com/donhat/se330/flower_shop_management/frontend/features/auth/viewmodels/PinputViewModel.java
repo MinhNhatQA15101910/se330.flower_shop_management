@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 public class PinputViewModel extends ViewModel {
     private final MutableLiveData<String> pincode = new MutableLiveData<>("");
     private final MutableLiveData<Boolean> isVerifyLoading = new MutableLiveData<>(false);
+    private final MutableLiveData<Integer> remainingSeconds = new MutableLiveData<>(60);
 
     public MutableLiveData<String> getPincode() {
         return pincode;
@@ -13,5 +14,9 @@ public class PinputViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> getIsVerifyLoading() {
         return isVerifyLoading;
+    }
+
+    public MutableLiveData<Integer> getRemainingSeconds() {
+        return remainingSeconds;
     }
 }

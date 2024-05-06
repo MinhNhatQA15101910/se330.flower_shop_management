@@ -1,9 +1,13 @@
 package com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.ChangePasswordFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.ForgotPasswordFragment;
@@ -19,6 +23,34 @@ public class PinputEventHandler {
         _authViewModel = authViewModel;
         _pinputViewModel = pinputViewModel;
         _context = context;
+
+        new CountDownTimer(60000, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                _pinputViewModel.getRemainingSeconds().setValue(
+                        _pinputViewModel.getRemainingSeconds().getValue() - 1
+                );
+            }
+
+            @Override
+            public void onFinish() {
+                _authViewModel.getAuthFragment().setValue(new ForgotPasswordFragment());
+
+                AlertDialog.Builder dlgAlert = new AlertDialog.Builder(_context);
+                dlgAlert.setTitle("Email verify timeout")
+                        .setMessage("You must enter your verify code before the time is over.")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setCancelable(true)
+                        .create()
+                        .show();
+            }
+        }.start();
     }
 
     public void navigateToForgotPasswordFragment(View view) {
