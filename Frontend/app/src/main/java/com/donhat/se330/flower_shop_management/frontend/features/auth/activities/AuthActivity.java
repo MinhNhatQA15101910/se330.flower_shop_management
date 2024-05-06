@@ -28,9 +28,23 @@ public class AuthActivity extends AppCompatActivity implements HasDefaultViewMod
         );
 
         // View Model
-        _authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        setViewModels();
 
         // Observe
+        observeData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        _activityAuthBinding = null;
+    }
+
+    private void setViewModels() {
+        _authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+    }
+
+    private void observeData() {
         _authViewModel.getAuthFragment().observe(this, authFragment -> {
             _transaction = getSupportFragmentManager().beginTransaction();
             _transaction.replace(R.id.auth_fragment, authFragment);

@@ -3,7 +3,6 @@ package com.donhat.se330.flower_shop_management.frontend.features.intro.activiti
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
@@ -24,6 +23,16 @@ public class IntroActivity extends AppCompatActivity {
         );
 
         // Event handler
+        setEventHandlers();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        _activityIntroBinding = null;
+    }
+
+    private void setEventHandlers() {
         _introEventHandler = new IntroEventHandler(this);
 
         _activityIntroBinding.setIntroEventHandler(_introEventHandler);

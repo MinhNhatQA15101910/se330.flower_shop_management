@@ -35,30 +35,61 @@ public class PinputFragment extends Fragment {
         );
 
         // View Models
+        setViewModels();
+
+        // Event handler
+        setEventHandlers();
+
+        // Observe
+        observeData();
+
+        // Listeners
+        setListeners();
+
+        return _fragmentPinputBinding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        _fragmentPinputBinding = null;
+    }
+
+    private void setViewModels() {
         _authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
         _pinputViewModel = new ViewModelProvider(this).get(PinputViewModel.class);
 
         _fragmentPinputBinding.setPinputViewModel(_pinputViewModel);
+    }
 
-        // Event handler
+    private void setEventHandlers() {
         _pinputEventHandler = new PinputEventHandler(_authViewModel, _pinputViewModel, getContext());
 
         _fragmentPinputBinding.setPinputEventHandler(_pinputEventHandler);
+    }
 
-        // Pin View manager
-        _fragmentPinputBinding.pinView.requestFocus();
-
-        // Observe
+    private void observeData() {
         _authViewModel.getResentEmail().observe(getViewLifecycleOwner(), resentEmail -> {
             _fragmentPinputBinding.emailTextView.setText(resentEmail);
         });
 
         _pinputViewModel.getIsVerifyLoading().observe(getViewLifecycleOwner(), isVerifyLoading -> {
-            _fragmentPinputBinding.verifyBtn.setVisibility(isVerifyLoading ? View.INVISIBLE : View.VISIBLE);
-            _fragmentPinputBinding.verifyLoader.setVisibility(isVerifyLoading ? View.VISIBLE : View.INVISIBLE);
+            _fragmentPinputBinding.verifyBtn.setVisibility(
+                    isVerifyLoading ?
+                            View.INVISIBLE :
+                            View.VISIBLE
+            );
+            _fragmentPinputBinding.verifyLoader.setVisibility(
+                    isVerifyLoading ?
+                            View.VISIBLE :
+                            View.INVISIBLE
+            );
         });
+    }
 
-        // Events in code behind
+    private void setListeners() {
+        _fragmentPinputBinding.pinView.requestFocus();
+
         _fragmentPinputBinding.pinView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -77,7 +108,5 @@ public class PinputFragment extends Fragment {
                 }
             }
         });
-
-        return _fragmentPinputBinding.getRoot();
     }
 }

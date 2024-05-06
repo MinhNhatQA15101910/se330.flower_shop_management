@@ -31,13 +31,27 @@ public class SignUpFragment extends Fragment {
         );
 
         // View model
-        _authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
+        setViewModels();
 
         // Event handler
+        setEventHandlers();
+
+        return _fragmentSignUpBinding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        _fragmentSignUpBinding = null;
+    }
+
+    private void setViewModels() {
+        _authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
+    }
+
+    private void setEventHandlers() {
         _signUpEventHandler = new SignUpEventHandler(getContext(), _authViewModel);
 
         _fragmentSignUpBinding.setSignUpEventHandler(_signUpEventHandler);
-
-        return _fragmentSignUpBinding.getRoot();
     }
 }

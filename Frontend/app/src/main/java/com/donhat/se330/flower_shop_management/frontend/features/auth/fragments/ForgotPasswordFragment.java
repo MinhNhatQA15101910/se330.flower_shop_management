@@ -33,18 +33,38 @@ public class ForgotPasswordFragment extends Fragment {
         );
 
         // View model
+        setViewModels();
+
+        // Event handler
+        setEventHandlers();
+
+        // Observe
+        observeData();
+
+        return _fragmentForgotPasswordBinding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        _fragmentForgotPasswordBinding = null;
+    }
+
+    private void setViewModels() {
         _authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
         _forgotPasswordViewModel = new ViewModelProvider(this).get(ForgotPasswordViewModel.class);
 
         _fragmentForgotPasswordBinding.setForgotPasswordViewModel(_forgotPasswordViewModel);
         _fragmentForgotPasswordBinding.setLifecycleOwner(this);
+    }
 
-        // Event handler
+    private void setEventHandlers() {
         _forgotPasswordEventHandler = new ForgotPasswordEventHandler(_authViewModel, _forgotPasswordViewModel);
 
         _fragmentForgotPasswordBinding.setForgotPasswordEventHandler(_forgotPasswordEventHandler);
+    }
 
-        // Observe
+    private void observeData() {
         _forgotPasswordViewModel.getIsEmailEmpty().observe(getViewLifecycleOwner(), isEmailEmpty -> {
             if (isEmailEmpty) {
                 _fragmentForgotPasswordBinding.emailLayout.setError("Email cannot be empty.");
@@ -62,10 +82,16 @@ public class ForgotPasswordFragment extends Fragment {
         });
 
         _forgotPasswordViewModel.getIsVerifyLoading().observe(getViewLifecycleOwner(), isVerifyLoading -> {
-            _fragmentForgotPasswordBinding.verifyBtn.setVisibility(isVerifyLoading ? View.INVISIBLE : View.VISIBLE);
-            _fragmentForgotPasswordBinding.verifyLoader.setVisibility(isVerifyLoading ? View.VISIBLE : View.INVISIBLE);
+            _fragmentForgotPasswordBinding.verifyBtn.setVisibility(
+                    isVerifyLoading ?
+                            View.INVISIBLE :
+                            View.VISIBLE
+            );
+            _fragmentForgotPasswordBinding.verifyLoader.setVisibility(
+                    isVerifyLoading ?
+                            View.VISIBLE :
+                            View.INVISIBLE
+            );
         });
-
-        return _fragmentForgotPasswordBinding.getRoot();
     }
 }
