@@ -1,6 +1,6 @@
 package com.donhat.se330.flower_shop_management.frontend.models;
 
-import com.donhat.se330.flower_shop_management.frontend.constants.Size;
+import com.donhat.se330.flower_shop_management.frontend.constants.enums.Size;
 
 import org.json.JSONException;
 import org.json.JSONObject;

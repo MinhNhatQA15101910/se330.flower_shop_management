@@ -10,8 +10,8 @@ import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.ChangePasswordViewModel;
 
 public class ChangePasswordEventHandler {
-    private ChangePasswordViewModel _changePasswordViewModel;
-    private AuthViewModel _authViewModel;
+    private final ChangePasswordViewModel _changePasswordViewModel;
+    private final AuthViewModel _authViewModel;
 
     public ChangePasswordEventHandler(AuthViewModel authViewModel, ChangePasswordViewModel changePasswordViewModel) {
         _changePasswordViewModel = changePasswordViewModel;

@@ -59,7 +59,7 @@ public class ForgotPasswordFragment extends Fragment {
     }
 
     private void setEventHandlers() {
-        _forgotPasswordEventHandler = new ForgotPasswordEventHandler(_authViewModel, _forgotPasswordViewModel);
+        _forgotPasswordEventHandler = new ForgotPasswordEventHandler(_authViewModel, _forgotPasswordViewModel, getContext());
 
         _fragmentForgotPasswordBinding.setForgotPasswordEventHandler(_forgotPasswordEventHandler);
     }

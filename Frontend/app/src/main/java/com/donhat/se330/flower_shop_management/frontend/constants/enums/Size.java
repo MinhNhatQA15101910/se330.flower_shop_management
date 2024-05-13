@@ -1,4 +1,4 @@
-package com.donhat.se330.flower_shop_management.frontend.constants;
+package com.donhat.se330.flower_shop_management.frontend.constants.enums;
 
 public enum Size {
     SMALL("Small"), MEDIUM("Medium"), STANDARD("Standard"), LARGE("Large"), EXTRA_LARGE("Extra Large"), JUMBO("Jumbo");
