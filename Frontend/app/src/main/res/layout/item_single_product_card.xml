@@ -17,7 +17,7 @@
         android:background="@color/white">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/imageView"
+            android:id="@+id/card_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="12dp"
@@ -27,12 +27,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/image_product"
                 android:layout_width="156dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/img_carousel_1"/>
+                android:src="@drawable/img_product_sample"/>
 <!--                android:src="@{product.imageUrl}" />-->
 
 
@@ -40,18 +40,18 @@
 
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/text_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
             android:paddingBottom="4dp"
             android:text="@{product.name}"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintStart_toStartOf="@+id/card_view"
+            app:layout_constraintTop_toBottomOf="@+id/card_view" />
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/rating_bar"
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,8 +59,8 @@
             android:rating="@{product.ratingAvg}"
             android:paddingVertical="4dp"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintStart_toStartOf="@+id/text_product_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_product_name" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -69,9 +69,9 @@
             android:text="@{product.ratingCount}"
             android:textColor="@color/darkGrey"
             android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
-            app:layout_constraintStart_toEndOf="@+id/ratingBar"
-            app:layout_constraintTop_toTopOf="@+id/ratingBar" />
+            app:layout_constraintBottom_toBottomOf="@+id/rating_bar"
+            app:layout_constraintStart_toEndOf="@+id/rating_bar"
+            app:layout_constraintTop_toTopOf="@+id/rating_bar" />
 
         <TextView
             android:id="@+id/textView2"
@@ -81,8 +81,8 @@
             android:paddingTop="4dp"
             android:text="@{product.price}"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+            app:layout_constraintStart_toStartOf="@+id/card_view"
+            app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
