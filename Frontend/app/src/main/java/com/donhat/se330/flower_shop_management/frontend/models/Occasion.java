@@ -1,16 +1,12 @@
 package com.donhat.se330.flower_shop_management.frontend.models;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 public class Occasion {
-    private final int id;
-    private final String name;
-    private final String imageUrl;
+    private int id;
+    private String name;
+    private String imageUrl;
+
+    public Occasion() {
+    }
 
     public Occasion(int id, String name, String imageUrl) {
         this.id = id;
@@ -18,41 +14,27 @@ public class Occasion {
         this.imageUrl = imageUrl;
     }
 
-    Map<String, Object> toMap() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("name", name);
-        map.put("image_url", imageUrl);
-        return map;
+    public int getId() {
+        return id;
     }
 
-    public static Occasion fromMap(Map<String, Object> map) {
-        int id = map.get("id") != null ? (int) map.get("id") : 0;
-        String name = map.get("name") != null ? (String) map.get("name") : "";
-        String imageUrl = map.get("image_url") != null ? (String) map.get("image_url") : "";
-        return new Occasion(id, name, imageUrl);
+    public void setId(int id) {
+        this.id = id;
     }
 
-    String toJson() {
-        return (new JSONObject(toMap())).toString();
+    public String getName() {
+        return name;
     }
 
-    public static Occasion fromJson(String source) {
-        Map<String, Object> map = new HashMap<>();
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        try {
-            JSONObject jsonObject = new JSONObject(source);
-            Iterator<String> keys = jsonObject.keys();
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-            while (keys.hasNext()) {
-                String key = keys.next();
-                String value = jsonObject.getString(key);
-                map.put(key, value);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return fromMap(map);
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

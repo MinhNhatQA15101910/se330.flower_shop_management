@@ -2,31 +2,27 @@ package com.donhat.se330.flower_shop_management.frontend.models;
 
 import com.donhat.se330.flower_shop_management.frontend.constants.enums.Size;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class Product {
-    private final int id;
-    private final String name;
-    private final double price;
-    private final double salePrice;
-    private final double salePercentage;
-    private final String detailDescription;
-    private final Size size;
-    private final float weight;
-    private final String color;
-    private final String material;
-    private final int stock;
-    private final int sold;
-    private final float ratingAvg;
-    private final int totalRating;
-    private final List<String> imageUrls;
+    private int id;
+    private String name;
+    private double price;
+    private double salePrice;
+    private double salePercentage;
+    private String detailDescription;
+    private Size size;
+    private float weight;
+    private String color;
+    private String material;
+    private int stock;
+    private int sold;
+    private float ratingAvg;
+    private int totalRating;
+    private List<String> imageUrls;
+
+    public Product() {
+    }
 
     public Product(int id, String name, double price, double salePrice, double salePercentage, String detailDescription, Size size, float weight, String color, String material, int stock, int sold, float ratingAvg, int totalRating, List<String> imageUrls) {
         this.id = id;
@@ -46,73 +42,123 @@ public class Product {
         this.imageUrls = imageUrls;
     }
 
-    Map<String, Object> toMap() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("name", name);
-        map.put("price", price);
-        map.put("sale_price", salePrice);
-        map.put("sale_percentage", salePercentage);
-        map.put("detail_description", detailDescription);
-        map.put("size", size.getValue());
-        map.put("weight", weight);
-        map.put("color", color);
-        map.put("material", material);
-        map.put("stock", stock);
-        map.put("sold", sold);
-        map.put("rating_avg", ratingAvg);
-        map.put("total_rating", totalRating);
-        map.put("image_urls", imageUrls);
-        return map;
+    public int getId() {
+        return id;
     }
 
-    public static Product fromMap(Map<String, Object> map) {
-        Size size = Size.STANDARD;
-        for (Size s : Size.values()) {
-            if (s.getValue().equals(map.get("size"))) {
-                size = s;
-            }
-        }
-
-        return new Product(
-                map.get("id") != null ? (int) map.get("id") : 0,
-                map.get("name") != null ? (String) map.get("name") : "",
-                map.get("price") != null ? (double) map.get("price") : 0,
-                map.get("sale_price") != null ? (double) map.get("sale_price") : 0,
-                map.get("sale_percentage") != null ? (double) map.get("sale_percentage") : 0,
-                map.get("detail_description") != null ? (String) map.get("detail_description") : "",
-                size,
-                map.get("weight") != null ? (float) map.get("weight") : 0,
-                map.get("color") != null ? (String) map.get("color") : "",
-                map.get("material") != null ? (String) map.get("material") : "",
-                map.get("stock") != null ? (int) map.get("stock") : 0,
-                map.get("sold") != null ? (int) map.get("sold") : 0,
-                map.get("rating_avg") != null ? (float) map.get("rating_avg") : 0,
-                map.get("total_rating") != null ? (int) map.get("total_rating") : 0,
-                map.get("image_urls") != null ? (List<String>) map.get("image_urls") : new ArrayList<>()
-                );
+    public void setId(int id) {
+        this.id = id;
     }
 
-    String toJson() {
-        return (new JSONObject(toMap())).toString();
+    public String getName() {
+        return name;
     }
 
-    public static Product fromJson(String source) {
-        Map<String, Object> map = new HashMap<>();
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        try {
-            JSONObject jsonObject = new JSONObject(source);
-            Iterator<String> keys = jsonObject.keys();
+    public double getPrice() {
+        return price;
+    }
 
-            while (keys.hasNext()) {
-                String key = keys.next();
-                String value = jsonObject.getString(key);
-                map.put(key, value);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-        return fromMap(map);
+    public double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
+    }
+
+    public double getSalePercentage() {
+        return salePercentage;
+    }
+
+    public void setSalePercentage(double salePercentage) {
+        this.salePercentage = salePercentage;
+    }
+
+    public String getDetailDescription() {
+        return detailDescription;
+    }
+
+    public void setDetailDescription(String detailDescription) {
+        this.detailDescription = detailDescription;
+    }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public int getSold() {
+        return sold;
+    }
+
+    public void setSold(int sold) {
+        this.sold = sold;
+    }
+
+    public float getRatingAvg() {
+        return ratingAvg;
+    }
+
+    public void setRatingAvg(float ratingAvg) {
+        this.ratingAvg = ratingAvg;
+    }
+
+    public int getTotalRating() {
+        return totalRating;
+    }
+
+    public void setTotalRating(int totalRating) {
+        this.totalRating = totalRating;
+    }
+
+    public List<String> getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 }

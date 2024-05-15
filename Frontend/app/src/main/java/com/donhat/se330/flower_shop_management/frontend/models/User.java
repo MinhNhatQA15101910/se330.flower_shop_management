@@ -1,6 +1,5 @@
 package com.donhat.se330.flower_shop_management.frontend.models;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class User {
@@ -26,17 +25,75 @@ public class User {
         this.quantities = quantities;
     }
 
-    HashMap<String, Object> toMap() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("username", username);
-        map.put("email", email);
-        map.put("password", password);
-        map.put("image_url", imageUrl);
-        map.put("role", role);
-        map.put("token", token);
-        map.put("products", products.stream().map((p) -> p.toMap()).toList());
-        map.put("quantities", quantities);
-        return map;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public List<Integer> getQuantities() {
+        return quantities;
+    }
+
+    public void setQuantities(List<Integer> quantities) {
+        this.quantities = quantities;
     }
 }
