@@ -3,6 +3,9 @@
     <style name="Base.Theme.Frontend" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/darkGreen</item>
     </style>
-
+    <style name="regular14_darkGreen">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/darkGreen</item>
+    </style>
     <style name="Theme.Frontend" parent="Base.Theme.Frontend" />
 </resources>
