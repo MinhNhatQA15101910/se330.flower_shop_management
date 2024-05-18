@@ -7,21 +7,18 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-@Data
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
-    @Valid
-
+public class LoginRequestDto {
+    @NotNull
+    @NotBlank
     @Email
-    @NotNull(message = "Email is mandatory.")
-    @NotBlank(message = "Email is mandatory.")
     private String email;
 
-    @NotNull(message = "Password is mandatory.")
-    @NotBlank(message = "Password is mandatory.")
+    @NotNull
+    @NotBlank
     @Size(min = 8, message = "Password must be at least 8 characters long.")
     private String password;
 }

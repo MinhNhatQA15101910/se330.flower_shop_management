@@ -12,9 +12,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmailDto {
-    @NotNull
-    @NotBlank(message = "Email must not be empty.")
-    @Email
+public class UserResponseDto {
+    private String token;
+    private Long id;
+    private String username;
     private String email;
+    private String password;
+    private String imageUrl;
+    private String role;
+    private String sex;
 }
