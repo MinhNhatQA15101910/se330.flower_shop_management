@@ -43,7 +43,11 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.dotsindicator)
     implementation(libs.pinview)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

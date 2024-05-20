@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ActivityProductListBinding;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.adapters.ProductAdapter;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class ProductListActivity extends AppCompatActivity {
 
     ArrayList<Product> _products = new ArrayList<>();
-    private ActivityProductListBinding _activityProductListBiding;
+    private ActivityProductListBinding _activityProductListBinding;
     private ProductListViewModel _productListViewModel;
     private ProductListEventHandler _productListEventHandler;
 
@@ -30,20 +31,22 @@ public class ProductListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        _activityProductListBiding = DataBindingUtil.setContentView(this, R.layout.activity_product_list);
+        _activityProductListBinding = DataBindingUtil.setContentView(this, R.layout.activity_product_list);
 
         _productListViewModel = new ViewModelProvider(this).get(ProductListViewModel.class);
 
-        _activityProductListBiding.setProductListViewModel(_productListViewModel);
+        _activityProductListBinding.setProductListViewModel(_productListViewModel);
 
         _productListEventHandler = new ProductListEventHandler(_productListViewModel);
 
         addProducts();
         _productAdapter = new ProductAdapter(_products);
 
-        _activityProductListBiding.productsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        _activityProductListBiding.productsRecyclerView.setHasFixedSize(true);
-        _activityProductListBiding.productsRecyclerView.setAdapter(_productAdapter);
+        _activityProductListBinding.productsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        _activityProductListBinding.productsRecyclerView.setHasFixedSize(true);
+        _activityProductListBinding.productsRecyclerView.setAdapter(_productAdapter);
+
+
     }
 
     //add some products to the list
