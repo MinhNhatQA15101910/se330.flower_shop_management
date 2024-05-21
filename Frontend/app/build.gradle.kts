@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.dotsindicator)
     implementation(libs.pinview)
     implementation(libs.glide)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

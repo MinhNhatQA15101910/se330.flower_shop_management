@@ -44,8 +44,11 @@ public class CategoryFragment extends Fragment {
 
         // Event Handler
         _categoryEventHandler = new CategoryEventHandler(_categoryViewModel, getContext());
+
         _fragmentCategoryBinding.setFragmentCategoryEventHandler(_categoryEventHandler);
+
         _fragmentCategoryBinding.comboVector.setRotation(0);
+
         _categoryViewModel.getIsComboClicked().observe(getViewLifecycleOwner(), isComboClicked -> {
             _fragmentCategoryBinding.typeComboRecyclerView.setVisibility(View.GONE);
             _fragmentCategoryBinding.occasionComboRecyclerView.setVisibility(View.GONE);

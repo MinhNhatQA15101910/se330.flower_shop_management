@@ -112,7 +112,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/white_background_btn"
+                    android:background="@drawable/vector_white_background_btn"
                     android:fontFamily="@font/inter_bold"
                     android:onClick="@{pinputEventHandler::navigateToForgotPasswordFragment}"
                     android:text="Previous"

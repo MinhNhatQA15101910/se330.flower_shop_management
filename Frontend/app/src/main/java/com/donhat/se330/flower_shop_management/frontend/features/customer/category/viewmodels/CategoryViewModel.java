@@ -1,14 +1,7 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.category.viewmodels;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.donhat.se330.flower_shop_management.frontend.features.customer.category.entities.Category;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class CategoryViewModel extends ViewModel {
 
     private MutableLiveData<Boolean> isComboClicked = new MutableLiveData<>(false);
