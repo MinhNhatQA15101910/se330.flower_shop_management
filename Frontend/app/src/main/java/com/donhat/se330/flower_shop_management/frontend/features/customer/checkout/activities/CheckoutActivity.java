@@ -1,4 +1,4 @@
-package com.donhat.se330.flower_shop_management.frontend.features.customer.cart.activities;
+package com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.activities;
 
 import android.os.Bundle;
 
@@ -9,19 +9,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
-import com.donhat.se330.flower_shop_management.frontend.databinding.ActivityCartBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.adapters.CartAdapter;
+import com.donhat.se330.flower_shop_management.frontend.databinding.ActivityCheckoutBinding;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.entities.ProductCart;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.eventhandlers.CartEventHandler;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.viewmodels.CartViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.adapters.CheckoutAdapter;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.eventhandlers.CheckoutEventHandler;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.viewmodels.CheckoutViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartActivity extends AppCompatActivity {
-    private ActivityCartBinding _activityCartBinding;
-    private CartViewModel _cartViewModel;
-    private CartEventHandler _cartEventHandler;
+public class CheckoutActivity extends AppCompatActivity {
+    private ActivityCheckoutBinding _activityCheckoutBinding;
+    private CheckoutViewModel _checkoutViewModel;
+    private CheckoutEventHandler _checkoutEventHandler;
     private List<ProductCart> productCartList = new ArrayList<>();
 
     @Override
@@ -29,27 +29,27 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Inflate the layout for this activity using DataBindingUtil
-        _activityCartBinding = DataBindingUtil.setContentView(this, R.layout.activity_cart);
+        _activityCheckoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_checkout);
 
         // View Model
-        _cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+        _checkoutViewModel = new ViewModelProvider(this).get(CheckoutViewModel.class);
 
         // Event Handler
-        _cartEventHandler = new CartEventHandler(_cartViewModel, this);
-        _activityCartBinding.setActivityCartEventHandler(_cartEventHandler);
+        _checkoutEventHandler = new CheckoutEventHandler(_checkoutViewModel, this);
+        _activityCheckoutBinding.setActivityCheckoutEventHandler(_checkoutEventHandler);
 
         // Set up RecyclerView
-        RecyclerView cartItemRecyclerView = _activityCartBinding.cartItemRecyclerView;
+        RecyclerView productCheckoutItemRecyclerView = _activityCheckoutBinding.recyclerViewCheckoutDetail;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        cartItemRecyclerView.setLayoutManager(linearLayoutManager);
-        cartItemRecyclerView.setHasFixedSize(true);
+        productCheckoutItemRecyclerView.setLayoutManager(linearLayoutManager);
+        productCheckoutItemRecyclerView.setHasFixedSize(true);
 
         // Add sample data to productCartList
         productCartList = addProductCart();
 
         // Set up the adapter
-        CartAdapter cartAdapter = new CartAdapter(productCartList, this);
-        cartItemRecyclerView.setAdapter(cartAdapter);
+        CheckoutAdapter checkoutAdapter = new CheckoutAdapter(productCartList, this);
+        productCheckoutItemRecyclerView.setAdapter(checkoutAdapter);
     }
 
     private List<ProductCart> addProductCart() {

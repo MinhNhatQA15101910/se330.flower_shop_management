@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemCartBinding;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.eventhandlers.ItemCartEventHandler;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.viewmodel.ItemCartViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.viewmodels.ItemCartViewModel;
 
 public class ItemCartFragment extends Fragment {
     private ItemCartViewModel _itemCartViewModel;

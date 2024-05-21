@@ -1,10 +1,8 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.cart.eventhandlers;
 
 import android.content.Context;
-import android.view.View;
 
-import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.viewmodel.CartViewModel;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.category.viewmodels.CategoryViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.viewmodels.CartViewModel;
 
 public class CartEventHandler {
     private final CartViewModel _cartViewModel;

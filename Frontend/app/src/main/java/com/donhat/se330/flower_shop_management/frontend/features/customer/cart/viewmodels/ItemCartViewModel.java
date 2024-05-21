@@ -1,4 +1,4 @@
-package com.donhat.se330.flower_shop_management.frontend.features.customer.cart.viewmodel;
+package com.donhat.se330.flower_shop_management.frontend.features.customer.cart.viewmodels;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

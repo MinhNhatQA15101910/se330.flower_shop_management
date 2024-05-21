@@ -3,7 +3,7 @@ package com.donhat.se330.flower_shop_management.frontend.features.customer.cart.
 import android.content.Context;
 import android.view.View;
 
-import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.viewmodel.ItemCartViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.viewmodels.ItemCartViewModel;
 
 public class ItemCartEventHandler {
     private final ItemCartViewModel _itemCartViewModel;
