@@ -37,7 +37,7 @@ public class ProductListActivity extends AppCompatActivity {
 
         _activityProductListBinding.setProductListViewModel(_productListViewModel);
 
-        _productListEventHandler = new ProductListEventHandler(_productListViewModel);
+        _productListEventHandler = new ProductListEventHandler();
 
         addProducts();
         _productAdapter = new ProductAdapter(_products);

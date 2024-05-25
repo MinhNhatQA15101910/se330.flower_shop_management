@@ -46,7 +46,7 @@
                 android:layout_width="24sp"
                 android:layout_height="24sp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_cart_outlined"
+                android:src="@drawable/vector_cart"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
