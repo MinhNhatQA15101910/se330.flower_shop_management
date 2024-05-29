@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,30 +38,84 @@ public class PinputFragment extends Fragment {
         );
 
         // View Models
+        setViewModels();
+
+        // Event handler
+        setEventHandlers();
+
+        // Observe
+        observeData();
+
+        // Listeners
+        setListeners();
+
+        return _fragmentPinputBinding.getRoot();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        _fragmentPinputBinding = null;
+    }
+
+    private void setViewModels() {
         _authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
         _pinputViewModel = new ViewModelProvider(this).get(PinputViewModel.class);
 
         _fragmentPinputBinding.setPinputViewModel(_pinputViewModel);
+    }
 
-        // Event handler
+    private void setEventHandlers() {
         _pinputEventHandler = new PinputEventHandler(_authViewModel, _pinputViewModel, getContext());
 
         _fragmentPinputBinding.setPinputEventHandler(_pinputEventHandler);
+    }
 
-        // Pin View manager
+    private void observeData() {
+        _authViewModel.getResentEmail().observe(
+                getViewLifecycleOwner(),
+                resentEmail -> _fragmentPinputBinding.emailTextView.setText(resentEmail)
+        );
+
+        _pinputViewModel.getIsVerifyLoading().observe(
+                getViewLifecycleOwner(),
+                isVerifyLoading -> {
+                    _fragmentPinputBinding.verifyBtn.setVisibility(
+                            isVerifyLoading ?
+                                    View.INVISIBLE :
+                                    View.VISIBLE
+                    );
+                    _fragmentPinputBinding.verifyLoader.setVisibility(
+                            isVerifyLoading ?
+                                    View.VISIBLE :
+                                    View.INVISIBLE
+                    );
+                });
+
+        _pinputViewModel.getRemainingSeconds().observe(
+                getViewLifecycleOwner(),
+                remainingSeconds -> {
+                    String countdownText = "enter 6 digit code that mentioned in the email - " + remainingSeconds + "s";
+                    SpannableString spannableString = new SpannableString(countdownText);
+                    spannableString.setSpan(
+                            new ForegroundColorSpan(
+                                    getResources()
+                                            .getColor(
+                                                    R.color.green,
+                                                    null
+                                            )
+                            ),
+                            49,
+                            countdownText.length(),
+                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    _fragmentPinputBinding.countdownTextView.setText(spannableString);
+                }
+        );
+    }
+
+    private void setListeners() {
         _fragmentPinputBinding.pinView.requestFocus();
 
-        // Observe
-        _authViewModel.getResentEmail().observe(getViewLifecycleOwner(), resentEmail -> {
-            _fragmentPinputBinding.emailTextView.setText(resentEmail);
-        });
-
-        _pinputViewModel.getIsVerifyLoading().observe(getViewLifecycleOwner(), isVerifyLoading -> {
-            _fragmentPinputBinding.verifyBtn.setVisibility(isVerifyLoading ? View.INVISIBLE : View.VISIBLE);
-            _fragmentPinputBinding.verifyLoader.setVisibility(isVerifyLoading ? View.VISIBLE : View.INVISIBLE);
-        });
-
-        // Events in code behind
         _fragmentPinputBinding.pinView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -77,7 +134,5 @@ public class PinputFragment extends Fragment {
                 }
             }
         });
-
-        return _fragmentPinputBinding.getRoot();
     }
 }

@@ -101,19 +101,19 @@ public class HomeFragment extends Fragment {
     }
 
     private void addProducts() {
-        _products.add(new Product("Rose", 4.5f, "100", "$10"));
-        _products.add(new Product("Lily", 4.0f, "50", "$15"));
-        _products.add(new Product("Sunflower", 4.2f, "70", "$20"));
-        _products.add(new Product("Tulip", 4.3f, "80", "$25"));
-        _products.add(new Product("Daisy", 4.1f, "60", "$30"));
+//        _products.add(new Product("Rose", 4.5f, "100", "$10"));
+//        _products.add(new Product("Lily", 4.0f, "50", "$15"));
+//        _products.add(new Product("Sunflower", 4.2f, "70", "$20"));
+//        _products.add(new Product("Tulip", 4.3f, "80", "$25"));
+//        _products.add(new Product("Daisy", 4.1f, "60", "$30"));
     }
 
     private void addCategories() {
-        _category.add(new Category("Rose"));
-        _category.add(new Category("Lily"));
-        _category.add(new Category("Sunflower"));
-        _category.add(new Category("Tulip"));
-        _category.add(new Category("Daisy"));
+//        _category.add(new Category("Rose"));
+//        _category.add(new Category("Lily"));
+//        _category.add(new Category("Sunflower"));
+//        _category.add(new Category("Tulip"));
+//        _category.add(new Category("Daisy"));
     }
 
     private void addBanners() {

@@ -502,7 +502,7 @@
                 android:id="@+id/add_to_cart_button"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
-                android:background="@drawable/vector_white_background_btn"
+                android:background="@drawable/white_background_btn"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">

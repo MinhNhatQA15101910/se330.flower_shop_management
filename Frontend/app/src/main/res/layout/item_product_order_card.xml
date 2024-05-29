@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="product"
             type="com.donhat.se330.flower_shop_management.frontend.models.Product" />
@@ -12,8 +13,8 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:paddingVertical="8dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
@@ -29,8 +30,8 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/img_product_sample"/>
-<!--                android:src="@{product.imageUrl}" />-->
+                android:src="@drawable/img_product_sample" />
+            <!--                android:src="@{product.imageUrl}" />-->
 
 
         </androidx.cardview.widget.CardView>
@@ -41,22 +42,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingHorizontal="8dp"
-            android:textAppearance="@style/bold_text"
             android:text="@{product.name}"
-            app:layout_constraintStart_toEndOf="@+id/card_view"
+            android:textAppearance="@style/bold_text"
             app:layout_constraintEnd_toStartOf="@id/rating_text"
+            app:layout_constraintStart_toEndOf="@+id/card_view"
             app:layout_constraintTop_toTopOf="@+id/card_view" />
 
         <TextView
             android:id="@+id/text_product_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="8dp"
             android:layout_marginTop="4dp"
+            android:paddingHorizontal="8dp"
+            android:text="@{Double.toString(product.price)}"
             android:textAppearance="@style/small_grey_text"
-            android:text="@{product.price}"
-            app:layout_constraintStart_toEndOf="@+id/card_view"
             app:layout_constraintEnd_toStartOf="@id/rating_text"
+            app:layout_constraintStart_toEndOf="@+id/card_view"
             app:layout_constraintTop_toBottomOf="@+id/product_name_text" />
 
         <TextView
@@ -64,11 +65,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/discount_badge"
-            android:textAppearance="@style/normal_text"
             android:text="Rating"
+            android:textAppearance="@style/normal_text"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,9 +1,7 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.search.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -45,7 +43,7 @@ public class SelectionChipAdapter extends RecyclerView.Adapter<SelectionChipAdap
 
             // Update the background and text color based on the selected state
             if (selected) {
-                holder._itemSelectionChipBinding.getRoot().setBackgroundResource(R.drawable.vector_white_background_btn);
+                holder._itemSelectionChipBinding.getRoot().setBackgroundResource(R.drawable.white_background_btn);
                 holder._itemSelectionChipBinding.itemText.setTextColor(ContextCompat.getColor(v.getContext(), R.color.green));
             } else {
                 holder._itemSelectionChipBinding.getRoot().setBackgroundResource(R.drawable.white_background_grey_btn);

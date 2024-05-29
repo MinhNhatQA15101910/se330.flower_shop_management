@@ -139,7 +139,7 @@
                 android:onClick="@{searchEventHandler::onSortBtnClicked}"
                 android:layout_width="0dp"
                 android:layout_height="32dp"
-                android:background="@drawable/vector_white_background_btn"
+                android:background="@drawable/white_background_btn"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">

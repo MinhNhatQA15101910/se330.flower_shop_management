@@ -2,11 +2,7 @@ package com.donhat.se330.flower_shop_management.frontend.features.welcome.activi
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
@@ -36,7 +32,29 @@ public class WelcomeActivity extends AppCompatActivity {
                 R.layout.activity_welcome
         );
 
-        // Carousel view
+        // Adapters
+        setAdapters();
+
+        // View model
+        setViewModels();
+
+        // Event handler
+        setEventHandlers();
+
+        // Observe
+        observeData();
+
+        // Listeners
+        setListeners();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        _activityWelcomeBinding = null;
+    }
+
+    private void setAdapters() {
         _carouselAdapter = new CarouselAdapter(
                 getSupportFragmentManager(),
                 getLifecycle()
@@ -48,23 +66,28 @@ public class WelcomeActivity extends AppCompatActivity {
         _activityWelcomeBinding.viewPager2.setAdapter(_carouselAdapter);
 
         _activityWelcomeBinding.dotsIndicator.attachTo(_activityWelcomeBinding.viewPager2);
+    }
 
-        // View model
+    private void setViewModels() {
         _welcomeViewModel = new ViewModelProvider(this).get(WelcomeViewModel.class);
+    }
 
-        // Event handler
+    private void setEventHandlers() {
         _welcomeEventHandler = new WelcomeEventHandler(this, _welcomeViewModel);
 
         _activityWelcomeBinding.setWelcomeEventHandler(_welcomeEventHandler);
+    }
 
+    private void setListeners() {
         _activityWelcomeBinding.viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 _welcomeEventHandler.onViewPager2PageChanged(position);
             }
         });
+    }
 
-        // Observe
+    private void observeData() {
         _welcomeViewModel.getFragmentIndex().observe(this, fragmentIndex -> {
             _activityWelcomeBinding.viewPager2.setCurrentItem(fragmentIndex, true);
             _activityWelcomeBinding.welcomeBtn.setText(

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="product"
             type="com.donhat.se330.flower_shop_management.frontend.models.Product" />
@@ -12,9 +13,9 @@
         android:id="@+id/main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
+        android:background="@color/white"
         android:paddingHorizontal="8dp"
-        android:background="@color/white">
+        android:paddingVertical="8dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
@@ -32,8 +33,8 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/img_product_sample"/>
-<!--                android:src="@{product.imageUrl}" />-->
+                android:src="@drawable/img_product_sample" />
+            <!--                android:src="@{product.imageUrl}" />-->
 
 
         </androidx.cardview.widget.CardView>
@@ -56,8 +57,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5"
-            android:rating="@{product.ratingAvg}"
             android:paddingVertical="4dp"
+            android:rating="@{product.ratingAvg}"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/text_product_name"
             app:layout_constraintTop_toBottomOf="@+id/text_product_name" />
@@ -66,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="4dp"
-            android:text="@{product.ratingCount}"
+            android:text="@{product.totalRating}"
             android:textColor="@color/darkGrey"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/rating_bar"
@@ -79,25 +80,26 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
             android:paddingTop="4dp"
-            android:text="@{product.price}"
+            android:text="@{Double.toString(product.price)}"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/card_view"
             app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
+
         <TextView
             android:id="@+id/text_discount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:background="@drawable/discount_badge"
             android:fontFamily="@font/inter_bold"
-            android:paddingVertical="1dp"
             android:paddingHorizontal="6dp"
-            android:layout_marginStart="4dp"
-            android:text="40%"
-            android:textSize="10sp"
+            android:paddingVertical="1dp"
+            android:text="@{Double.toString(product.salePercentage)}"
             android:textColor="@color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_product_price"
             app:layout_constraintStart_toEndOf="@+id/text_product_price"
-            app:layout_constraintTop_toTopOf="@+id/text_product_price"
-            app:layout_constraintBottom_toBottomOf="@+id/text_product_price" />
+            app:layout_constraintTop_toTopOf="@+id/text_product_price" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

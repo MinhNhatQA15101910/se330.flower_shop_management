@@ -48,11 +48,11 @@ public class SearchFragment extends Fragment {
     }
 
     private void addProducts() {
-        _products.add(new Product("Rose", 4.5f, "100", "$10"));
+        /*_products.add(new Product("Rose", 4.5f, "100", "$10"));
         _products.add(new Product("Lily", 4.0f, "50", "$15"));
         _products.add(new Product("Sunflower", 4.2f, "70", "$20"));
         _products.add(new Product("Tulip", 4.3f, "80", "$25"));
-        _products.add(new Product("Daisy", 4.1f, "60", "$30"));
+        _products.add(new Product("Daisy", 4.1f, "60", "$30"));*/
     }
 
     private void handleProductReyclerView(RecyclerView.Adapter adapter) {

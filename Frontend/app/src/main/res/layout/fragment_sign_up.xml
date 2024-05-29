@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".features.auth.fragments.SignUpFragment">
 
     <data>
 
@@ -14,8 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="0dp"
-        app:cardCornerRadius="20dp"
-        tools:context=".features.auth.fragments.SignUpFragment">
+        app:cardCornerRadius="20dp">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -178,7 +178,7 @@
                     android:layout_width="215dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/vector_white_background_btn"
+                    android:background="@drawable/white_background_btn"
                     android:drawableStart="@drawable/vector_google"
                     android:elevation="0dp"
                     android:fontFamily="@font/inter_bold"
@@ -232,7 +232,7 @@
                     android:layout_width="215dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/vector_white_background_btn"
+                    android:background="@drawable/white_background_btn"
                     android:elevation="0dp"
                     android:fontFamily="@font/inter_bold"
                     android:text="Continue as a guest"
