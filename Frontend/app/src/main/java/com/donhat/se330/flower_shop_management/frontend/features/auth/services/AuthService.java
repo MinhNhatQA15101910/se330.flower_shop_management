@@ -5,6 +5,7 @@ import com.donhat.se330.flower_shop_management.frontend.models.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 
 public interface AuthService {
@@ -14,6 +15,6 @@ public interface AuthService {
     @POST("send-email")
     Call<MsgResponse> sendVerifyEmail(@Body Object sendEmailRequestBody);
 
-    @POST("change-password")
+    @PATCH("change-password")
     Call<User> changePassword(@Body Object changePasswordRequestBody);
 }

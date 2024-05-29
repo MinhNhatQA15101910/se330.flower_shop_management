@@ -1,5 +1,7 @@
 package com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels;
 
+import android.os.CountDownTimer;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -10,8 +12,9 @@ public class PinputViewModel extends ViewModel {
     private final MutableLiveData<Boolean> isVerifyLoading = new MutableLiveData<>(false);
     private final MutableLiveData<Integer> remainingSeconds = new MutableLiveData<>(60);
 
+    private CountDownTimer countDownTimer;
     private final String actualPincode = generateRandomNumberString();
-    private boolean isNavigatingBack;
+    public static boolean isNavigatingBack = false;
 
     public MutableLiveData<String> getPincode() {
         return pincode;
@@ -29,12 +32,12 @@ public class PinputViewModel extends ViewModel {
         return actualPincode;
     }
 
-    public boolean isNavigatingBack() {
-        return isNavigatingBack;
+    public CountDownTimer getCountDownTimer() {
+        return countDownTimer;
     }
 
-    public void setNavigatingBack(boolean navigatingBack) {
-        isNavigatingBack = navigatingBack;
+    public void setCountDownTimer(CountDownTimer countDownTimer) {
+        this.countDownTimer = countDownTimer;
     }
 
     private static String generateRandomNumberString() {

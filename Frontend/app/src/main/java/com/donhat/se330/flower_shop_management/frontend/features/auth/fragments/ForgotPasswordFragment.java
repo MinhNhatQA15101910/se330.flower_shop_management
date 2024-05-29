@@ -2,6 +2,7 @@ package com.donhat.se330.flower_shop_management.frontend.features.auth.fragments
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,7 +24,7 @@ public class ForgotPasswordFragment extends Fragment {
     private ForgotPasswordEventHandler _forgotPasswordEventHandler;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         _fragmentForgotPasswordBinding = DataBindingUtil.inflate(
                 inflater,
@@ -51,7 +52,7 @@ public class ForgotPasswordFragment extends Fragment {
     }
 
     private void setViewModels() {
-        _authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
+        _authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         _forgotPasswordViewModel = new ViewModelProvider(this).get(ForgotPasswordViewModel.class);
 
         _fragmentForgotPasswordBinding.setForgotPasswordViewModel(_forgotPasswordViewModel);

@@ -12,7 +12,7 @@ import java.util.Objects;
 import retrofit2.Response;
 
 public class ErrorHandling {
-    public static void httpErrorHandler(Response<Object> response, Context context, Runnable onSuccess) {
+    public static <T> void httpErrorHandler(Response<T> response, Context context, Runnable onSuccess) {
         if (response.code() == 200) {
             onSuccess.run();
         } else if (response.code() >= 400 && response.code() < 500) {

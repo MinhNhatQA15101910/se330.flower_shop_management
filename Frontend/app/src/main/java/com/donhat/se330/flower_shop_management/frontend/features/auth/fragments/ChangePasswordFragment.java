@@ -2,6 +2,7 @@ package com.donhat.se330.flower_shop_management.frontend.features.auth.fragments
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,6 +16,7 @@ import com.donhat.se330.flower_shop_management.frontend.databinding.FragmentChan
 import com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers.ChangePasswordEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.ChangePasswordViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.PinputViewModel;
 
 public class ChangePasswordFragment extends Fragment {
     private FragmentChangePasswordBinding _fragmentChangePasswordBinding;
@@ -23,7 +25,7 @@ public class ChangePasswordFragment extends Fragment {
     private ChangePasswordEventHandler _changePasswordEventHandler;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         _fragmentChangePasswordBinding = DataBindingUtil.inflate(
                 inflater,
@@ -51,7 +53,7 @@ public class ChangePasswordFragment extends Fragment {
     }
 
     private void setViewModels() {
-        _authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
+        _authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
         _changePasswordViewModel = new ViewModelProvider(this).get(ChangePasswordViewModel.class);
 
         _fragmentChangePasswordBinding.setChangePasswordViewModel(_changePasswordViewModel);
@@ -59,7 +61,7 @@ public class ChangePasswordFragment extends Fragment {
     }
 
     private void setEventHandlers() {
-        _changePasswordEventHandler = new ChangePasswordEventHandler(_authViewModel, _changePasswordViewModel);
+        _changePasswordEventHandler = new ChangePasswordEventHandler(_authViewModel, _changePasswordViewModel, getContext());
 
         _fragmentChangePasswordBinding.setChangePasswordEventHandler(_changePasswordEventHandler);
     }

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,15 +10,14 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Frontend"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".features.customer.productlist.activities.ProductListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".features.customer.navbar.activities.CustomerNavBarActivity"
+            android:name=".features.intro.activities.IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +26,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".features.customer.productlist.activities.ProductListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".features.customer.navbar.activities.CustomerNavBarActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.auth.activities.AuthActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -34,28 +39,17 @@
             android:name=".features.welcome.activities.WelcomeActivity"
             android:exported="false" />
         <activity
-            android:name=".features.intro.activities.IntroActivity"
+            android:name=".features.customer.cart.activities.CartActivity"
             android:exported="false" />
         <activity
-            android:name=".features.customer.cart.activities.CartActivity"
-            android:exported="false">
-
-        </activity>
-        <activity
             android:name=".features.customer.productdetail.activities.ProductDetailActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".features.customer.order.activities.OrderManagementActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".features.customer.checkout.activities.CheckoutActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>

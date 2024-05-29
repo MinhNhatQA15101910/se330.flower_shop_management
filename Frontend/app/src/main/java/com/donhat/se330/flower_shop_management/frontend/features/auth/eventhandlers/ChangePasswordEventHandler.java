@@ -1,25 +1,30 @@
 package com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers;
 
+import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 
-import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.LoginFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.PinputFragment;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.servicehandlers.AuthServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.ChangePasswordViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.PinputViewModel;
 
 import java.util.Objects;
 
 public class ChangePasswordEventHandler {
     private final ChangePasswordViewModel _changePasswordViewModel;
     private final AuthViewModel _authViewModel;
+    private final AuthServiceHandler _authServiceHandler;
 
-    public ChangePasswordEventHandler(AuthViewModel authViewModel, ChangePasswordViewModel changePasswordViewModel) {
+    public ChangePasswordEventHandler(AuthViewModel authViewModel, ChangePasswordViewModel changePasswordViewModel, Context context) {
         _changePasswordViewModel = changePasswordViewModel;
         _authViewModel = authViewModel;
+        _authServiceHandler = new AuthServiceHandler(context, authViewModel);
     }
 
     public void navigateToPinputFragment(View view) {
+        PinputViewModel.isNavigatingBack = true;
         _authViewModel.getAuthFragment().setValue(new PinputFragment());
     }
 
@@ -30,7 +35,10 @@ public class ChangePasswordEventHandler {
             Handler handler = new Handler();
             handler.postDelayed(
                     () -> {
-                        _authViewModel.getAuthFragment().setValue(new LoginFragment());
+                        _authServiceHandler.changePassword(
+                                _authViewModel.getResentEmail().getValue(),
+                                _changePasswordViewModel.getPassword().getValue()
+                        );
 
                         _changePasswordViewModel.getIsUpdateLoading().setValue(false);
                     },

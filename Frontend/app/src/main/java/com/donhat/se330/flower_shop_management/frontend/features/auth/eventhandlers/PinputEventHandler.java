@@ -28,8 +28,8 @@ public class PinputEventHandler {
         _context = context;
         _authServiceHandler = new AuthServiceHandler(context, authViewModel);
 
-        new CountDownTimer(60000, 1000) {
-
+        CountDownTimer countDownTimer;
+        countDownTimer = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 _pinputViewModel.getRemainingSeconds().setValue(
@@ -50,8 +50,9 @@ public class PinputEventHandler {
                         .show();
             }
         }.start();
+        _pinputViewModel.setCountDownTimer(countDownTimer);
 
-        if (!_pinputViewModel.isNavigatingBack()) {
+        if (!PinputViewModel.isNavigatingBack) {
             _authServiceHandler.sendVerifyEmail(
                     _authViewModel.getResentEmail().getValue(),
                     _pinputViewModel.getActualPincode()
@@ -80,6 +81,10 @@ public class PinputEventHandler {
                         if (!Objects.equals(userPincode, actualPincode)) {
                             Toast.makeText(_context, "Incorrect pincode.", Toast.LENGTH_SHORT).show();
                         } else {
+                            CountDownTimer countDownTimer = _pinputViewModel.getCountDownTimer();
+                            countDownTimer.cancel();
+                            _pinputViewModel.setCountDownTimer(countDownTimer);
+
                             _authViewModel.getAuthFragment().setValue(new ChangePasswordFragment());
                         }
 
