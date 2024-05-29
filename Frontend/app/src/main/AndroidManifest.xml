@@ -19,7 +19,17 @@
             android:exported="true" >
         </activity>
         <activity
+            android:name=".features.customer.productdetail.activities.ProductDetailActivity"
+            android:exported="true" >
+
+        </activity>
+        <activity
             android:name=".features.customer.navbar.activities.CustomerNavBarActivity"
+            android:exported="true" >
+
+        </activity>
+        <activity
+            android:name=".features.customer.order.activities.OrderManagementActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
