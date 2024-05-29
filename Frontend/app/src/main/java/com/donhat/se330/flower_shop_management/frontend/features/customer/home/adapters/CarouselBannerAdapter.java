@@ -35,7 +35,7 @@ public class CarouselBannerAdapter extends RecyclerView.Adapter<CarouselBannerAd
         Banner currentBanner = _banners.get(position);
         holder._itemBannerCardBinding.setBanner(currentBanner);
 
-
+        //Glide.with(_context).load(productCart.getImgURL()).into(holder.itemCartBinding.itemImageListCart);
         // Use Glide to load the image
         Glide.with(holder._itemBannerCardBinding.getRoot())
                 .load(currentBanner.getImageUrl()) // replace with the method to get the image URL from the Banner object

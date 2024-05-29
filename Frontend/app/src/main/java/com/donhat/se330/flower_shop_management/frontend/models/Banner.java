@@ -6,8 +6,6 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 public class Banner {
 

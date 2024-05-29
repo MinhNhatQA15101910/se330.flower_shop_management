@@ -16,7 +16,7 @@
             android:id="@+id/header_constraint_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@drawable/vector_white_radius_8_top_left_top_right"
             android:paddingVertical="8dp"
             app:layout_constraintBottom_toTopOf="@+id/sort_select_constraint_layout"
             app:layout_constraintEnd_toEndOf="parent"

@@ -45,7 +45,7 @@ public class SelectionChipAdapter extends RecyclerView.Adapter<SelectionChipAdap
 
             // Update the background and text color based on the selected state
             if (selected) {
-                holder._itemSelectionChipBinding.getRoot().setBackgroundResource(R.drawable.white_background_btn);
+                holder._itemSelectionChipBinding.getRoot().setBackgroundResource(R.drawable.vector_white_background_btn);
                 holder._itemSelectionChipBinding.itemText.setTextColor(ContextCompat.getColor(v.getContext(), R.color.green));
             } else {
                 holder._itemSelectionChipBinding.getRoot().setBackgroundResource(R.drawable.white_background_grey_btn);
