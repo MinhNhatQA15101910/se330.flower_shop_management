@@ -43,6 +43,13 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.dotsindicator)
     implementation(libs.pinview)
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+    implementation(libs.jackson.databind)
+    implementation(libs.glide)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
