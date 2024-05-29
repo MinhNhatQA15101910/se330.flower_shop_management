@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".features.customer.checkout.activities.CheckoutActivity">
+
     <data>
 
         <variable
@@ -190,10 +191,10 @@
                     tools:layout_editor_absoluteY="38dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:onClick="@{activityCheckoutEventHandler::onClickShippingInfoBox}"
                         android:id="@+id/shipping_info_box"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="@{activityCheckoutEventHandler::onClickShippingInfoBox}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -471,7 +472,7 @@
                             android:id="@+id/total_price_order_detail"
                             android:layout_width="wrap_content"
                             android:layout_height="21dp"
-                            android:layout_marginRight="16dp"
+                            android:layout_marginEnd="16dp"
                             android:gravity="top"
                             android:lineSpacingExtra="4sp"
                             android:text="0 đ"
@@ -519,7 +520,7 @@
                             android:id="@+id/transport_fee_price_order_detail"
                             android:layout_width="wrap_content"
                             android:layout_height="21dp"
-                            android:layout_marginRight="16dp"
+                            android:layout_marginEnd="16dp"
                             android:gravity="top"
                             android:lineSpacingExtra="4sp"
                             android:text="0 đ"
@@ -566,7 +567,7 @@
                             android:id="@+id/voucher_apply_price_order_detail"
                             android:layout_width="wrap_content"
                             android:layout_height="21dp"
-                            android:layout_marginRight="16dp"
+                            android:layout_marginEnd="16dp"
                             android:gravity="top"
                             android:lineSpacingExtra="4sp"
                             android:text="- 0 đ"

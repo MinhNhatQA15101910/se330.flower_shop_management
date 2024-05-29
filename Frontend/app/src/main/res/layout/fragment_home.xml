@@ -6,6 +6,7 @@
     tools:context=".features.customer.home.fragments.HomeFragment">
 
     <data>
+
         <variable
             name="homeFragmentViewModel"
             type="com.donhat.se330.flower_shop_management.frontend.features.customer.home.viewmodels.HomeFragmentViewModel" />
@@ -60,12 +61,12 @@
             android:id="@+id/carousel_constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:paddingHorizontal="16dp"
             android:paddingVertical="12dp"
-            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_constraint_layout" >
+            app:layout_constraintTop_toBottomOf="@id/header_constraint_layout">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/carousel_recycler_view"
@@ -131,9 +132,9 @@
             android:id="@+id/category_constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:paddingHorizontal="16dp"
             android:paddingVertical="12dp"
-            android:background="@color/white"
             app:layout_constraintTop_toBottomOf="@id/deals_of_the_day_constraint_layout">
 
             <TextView

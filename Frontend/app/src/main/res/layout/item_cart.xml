@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".features.customer.cart.">
+
     <data>
 
         <variable
@@ -10,6 +11,7 @@
             type="com.donhat.se330.flower_shop_management.frontend.features.customer.cart.eventhandlers.ItemCartEventHandler" />
 
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -121,13 +123,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:onClick="onIncrementButtonClick"
             android:id="@+id/increase_box"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/vector_increment_button_enable"
+            android:onClick="onIncrementButtonClick"
             app:layout_constraintStart_toEndOf="@+id/product_number_box"
             app:layout_constraintTop_toBottomOf="@id/label_price_cart" />
 

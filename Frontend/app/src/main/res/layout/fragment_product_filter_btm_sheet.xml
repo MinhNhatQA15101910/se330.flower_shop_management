@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="eventHandler"
-            type="com.donhat.se330.flower_shop_management.frontend.features.customer.search.eventhandlers.FilterBtmSheetEventHandler"
-            />
+            type="com.donhat.se330.flower_shop_management.frontend.features.customer.search.eventhandlers.FilterBtmSheetEventHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,11 +25,11 @@
 
             <View
                 android:id="@+id/vector"
-                android:onClick="@{eventHandler::onCloseIconClick}"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="24dp"
                 android:background="@drawable/vector_close"
+                android:onClick="@{eventHandler::onCloseIconClick}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,9 +39,9 @@
                 android:layout_height="30dp"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="Filter"
-                android:textStyle="bold"
-                android:textSize="20sp"
                 android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,8 +52,8 @@
             android:id="@+id/priceRange"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:layout_marginTop="12dp"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -83,9 +83,9 @@
                     android:id="@+id/price_ranges_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/label_price"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label_price" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/custom_price"
@@ -265,11 +265,10 @@
                         android:id="@+id/product_type_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -277,13 +276,13 @@
                 android:id="@+id/button_bar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingVertical="12dp"
-                android:paddingHorizontal="16dp"
                 android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/product_type_constraint_layout"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/product_type_constraint_layout">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cancel_button"
@@ -292,8 +291,8 @@
                     android:layout_marginEnd="4dp"
                     android:background="@drawable/white_background_btn"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/confirm_button"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="category"
             type="com.donhat.se330.flower_shop_management.frontend.models.Category" />
@@ -11,8 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
@@ -30,20 +31,20 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/img_product_sample"/>
+                android:src="@drawable/img_product_sample" />
             <!--                android:src="@{product.imageUrl}" />-->
 
         </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@{category.name}"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/card_view"
-        app:layout_constraintStart_toStartOf="@id/card_view"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{category.name}"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/card_view"
+            app:layout_constraintTop_toBottomOf="@id/card_view"
 
-        />
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

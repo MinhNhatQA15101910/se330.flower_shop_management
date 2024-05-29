@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="eventHandler"
             type="com.donhat.se330.flower_shop_management.frontend.features.customer.search.eventhandlers.SortBtmSheetEventHandler" />
@@ -24,11 +25,11 @@
 
             <View
                 android:id="@+id/sort_vector_order"
-                android:onClick="@{eventHandler::onCloseIconClick}"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="24dp"
                 android:background="@drawable/vector_close"
+                android:onClick="@{eventHandler::onCloseIconClick}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

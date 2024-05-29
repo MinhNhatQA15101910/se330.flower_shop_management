@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="order"
             type="com.donhat.se330.flower_shop_management.frontend.models.Order" />

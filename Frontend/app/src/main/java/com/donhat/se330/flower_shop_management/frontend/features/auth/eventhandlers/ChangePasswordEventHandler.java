@@ -1,6 +1,5 @@
 package com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers;
 
-import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 
