@@ -15,9 +15,13 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/blackGrey</item>
     </style>
+    <style name="regular14_green">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/green</item>
+    </style>
     <style name="regular16_blackGrey">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">#27272A</item>
+        <item name="android:textColor"> @color/blackGrey</item>
     </style>
     <style name="regular16_white">
         <item name="android:textSize">16sp</item>
@@ -34,6 +38,16 @@
     <style name="regular18_blackGrey">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#27272A</item>
+    </style>
+
+    <style name="regular20_blackGrey">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#27272A</item>
+    </style>
+
+    <style name="regular24_darkGreen">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/darkGreen</item>
     </style>
 
     <style name="Theme.Frontend" parent="Base.Theme.Frontend" />

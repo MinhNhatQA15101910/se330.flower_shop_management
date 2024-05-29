@@ -121,7 +121,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:onClick="@{fragmentItemCartEventHandler::onIncrementButtonClick}"
+            android:onClick="onIncrementButtonClick"
             android:id="@+id/increase_box"
             android:layout_width="40dp"
             android:layout_height="40dp"

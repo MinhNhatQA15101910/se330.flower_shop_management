@@ -29,10 +29,11 @@
             android:exported="false" />
         <activity
             android:name=".features.intro.activities.IntroActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".features.customer.cart.activities.CartActivity"
             android:exported="false">
+
         </activity>
         <activity
             android:name=".features.customer.checkout.activities.CheckoutActivity"

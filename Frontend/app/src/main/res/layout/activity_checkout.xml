@@ -45,15 +45,16 @@
 
             <TextView
                 android:id="@+id/user_info_label"
-                android:layout_width="wrap_content"
-                android:layout_height="27dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/pacifico"
                 android:gravity="center_vertical"
-                android:lineSpacingExtra="5sp"
                 android:text="Checkout"
-                android:textAppearance="@style/regular18_darkGreen"
+                android:textAppearance="@style/regular24_darkGreen"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/wayback_icon_user_info"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -189,7 +190,8 @@
                     tools:layout_editor_absoluteY="38dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/transport_info_box"
+                        android:onClick="@{activityCheckoutEventHandler::onClickShippingInfoBox}"
+                        android:id="@+id/shipping_info_box"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
