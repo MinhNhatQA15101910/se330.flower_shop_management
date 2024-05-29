@@ -9,7 +9,6 @@ activity = "1.9.0"
 constraintlayout = "2.1.4"
 dotsindicator = "5.0"
 pinview = "1.4.4"
-glide = "4.16.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }

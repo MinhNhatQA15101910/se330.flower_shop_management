@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="eventHandler"
+            type="com.donhat.se330.flower_shop_management.frontend.features.customer.search.eventhandlers.FilterBtmSheetEventHandler"
+            />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/components_"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:background="@drawable/search_input"
+            app:layout_constraintBottom_toTopOf="@+id/priceRange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <View
+                android:id="@+id/vector"
+                android:onClick="@{eventHandler::onCloseIconClick}"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="24dp"
+                android:background="@drawable/vector_close"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Filter"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/priceRange"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/price_filter_constraint_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/label_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Price Ranges"
+                    android:textAppearance="@style/label_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/price_ranges_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label_price"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/custom_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/price_ranges_recycler_view">
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Or set your own price range"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/fields"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/description">
+
+                        <TextView
+                            android:id="@+id/label_price1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:text="From"
+                            android:textAppearance="@style/label_text"
+                            app:layout_constraintEnd_toStartOf="@id/label_price2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/label_price2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="To"
+                            android:textAppearance="@style/label_text"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/label_price1"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/input_field1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/search_input"
+                            app:layout_constraintEnd_toStartOf="@id/input_field2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/label_price1">
+
+                            <EditText
+                                android:id="@+id/low_price"
+                                android:layout_width="103dp"
+                                android:layout_height="36dp"
+                                android:background="@null"
+                                android:hint="Lowest price"
+                                android:textAppearance="@style/normal_text"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/vertical_divider"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <View
+                                android:id="@+id/vertical_divider"
+                                android:layout_width="2dp"
+                                android:layout_height="21dp"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/vertical_divider"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/label"
+                                app:layout_constraintStart_toEndOf="@id/low_price"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/label"
+                                android:layout_width="9dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:text="đ"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/vertical_divider"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/input_field2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/search_input"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/input_field1"
+                            app:layout_constraintTop_toBottomOf="@id/label_price2">
+
+                            <EditText
+                                android:id="@+id/high_price"
+                                android:layout_width="103dp"
+                                android:layout_height="36dp"
+                                android:background="@null"
+                                android:hint="Highest price"
+                                android:textAppearance="@style/normal_text"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/vertical_divider2"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <View
+                                android:id="@+id/vertical_divider2"
+                                android:layout_width="2dp"
+                                android:layout_height="21dp"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/vertical_divider"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/label2"
+                                app:layout_constraintStart_toEndOf="@id/high_price"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/label2"
+                                android:layout_width="9dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:gravity="center_horizontal|center_vertical"
+                                android:text="đ"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/vertical_divider2"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/product_type_constraint_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/price_filter_constraint_layout">
+
+                <TextView
+                    android:id="@+id/product_type_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Product types"
+                    android:textAppearance="@style/label_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/section_con"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/product_type_label">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/product_type_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/button_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="16dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/product_type_constraint_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cancel_button"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/white_background_btn"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/cta_reset"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="Cancel"
+                        android:textColor="@color/green"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/confirm_button"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/green_background_btn"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/cta_apply"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="Confirm"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
