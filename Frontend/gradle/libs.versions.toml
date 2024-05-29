@@ -12,7 +12,7 @@ pinview = "1.4.4"
 retrofit2 = "2.11.0"
 gson = "2.10.1"
 logging-interceptor = "3.4.1"
-toasty = "1.5.2"
+jackson-databind = "2.17.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -28,7 +28,7 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit2" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "logging-interceptor" }
-toasty = { group = "com.github.GrenderG", name = "Toasty", version.ref = "toasty" }
+jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson-databind" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

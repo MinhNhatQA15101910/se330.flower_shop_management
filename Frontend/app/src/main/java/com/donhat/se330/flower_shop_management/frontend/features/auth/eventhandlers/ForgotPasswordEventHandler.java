@@ -9,6 +9,8 @@ import com.donhat.se330.flower_shop_management.frontend.features.auth.servicehan
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.ForgotPasswordViewModel;
 
+import java.util.Objects;
+
 public class ForgotPasswordEventHandler {
     private final AuthViewModel _authViewModel;
     private final ForgotPasswordViewModel _forgotPasswordViewModel;
@@ -31,9 +33,9 @@ public class ForgotPasswordEventHandler {
             Handler handler = new Handler();
             handler.postDelayed(
                     () -> {
-                        _forgotPasswordViewModel.getIsVerifyLoading().setValue(false);
-
                         _authServiceHandler.checkEmailExists(_forgotPasswordViewModel.getEmail().getValue());
+
+                        _forgotPasswordViewModel.getIsVerifyLoading().setValue(false);
                     },
                     2000
             );
@@ -43,7 +45,7 @@ public class ForgotPasswordEventHandler {
     private boolean isValidAll() {
         // Validate email is not empty
         String email = _forgotPasswordViewModel.getEmail().getValue();
-        if (email.trim().isEmpty()) {
+        if (Objects.requireNonNull(email).trim().isEmpty()) {
             _forgotPasswordViewModel.getIsEmailEmpty().setValue(true);
             return false;
         }
