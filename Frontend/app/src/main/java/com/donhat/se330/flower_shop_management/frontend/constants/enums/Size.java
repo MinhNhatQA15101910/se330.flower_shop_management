@@ -9,7 +9,7 @@ public enum Size {
         return value;
     }
 
-    private Size(String value) {
+    Size(String value) {
         this.value = value;
     }
 }

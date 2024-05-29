@@ -9,6 +9,8 @@ import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.ChangePasswordViewModel;
 
+import java.util.Objects;
+
 public class ChangePasswordEventHandler {
     private final ChangePasswordViewModel _changePasswordViewModel;
     private final AuthViewModel _authViewModel;
@@ -29,11 +31,9 @@ public class ChangePasswordEventHandler {
             Handler handler = new Handler();
             handler.postDelayed(
                     () -> {
-                        // TODO: Update password
+                        _authViewModel.getAuthFragment().setValue(new LoginFragment());
 
                         _changePasswordViewModel.getIsUpdateLoading().setValue(false);
-
-                        _authViewModel.getAuthFragment().setValue(new LoginFragment());
                     },
                     2000
             );
@@ -45,7 +45,7 @@ public class ChangePasswordEventHandler {
         String passwordConfirmed = _changePasswordViewModel.getPasswordConfirmed().getValue();
         boolean isValidAll = true;
 
-        if (password.trim().isEmpty()) {
+        if (Objects.requireNonNull(password).trim().isEmpty()) {
             _changePasswordViewModel.getIsPasswordEmpty().setValue(true);
             isValidAll = false;
         } else {
@@ -59,7 +59,7 @@ public class ChangePasswordEventHandler {
             _changePasswordViewModel.getIsPasswordLengthValid().setValue(true);
         }
 
-        if (passwordConfirmed.trim().isEmpty()) {
+        if (Objects.requireNonNull(passwordConfirmed).trim().isEmpty()) {
             _changePasswordViewModel.getIsPasswordConfirmedEmpty().setValue(true);
             isValidAll = false;
         } else {

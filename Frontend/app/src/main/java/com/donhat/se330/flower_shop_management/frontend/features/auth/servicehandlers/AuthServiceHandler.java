@@ -11,6 +11,7 @@ import com.donhat.se330.flower_shop_management.frontend.constants.retrofit.Retro
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.PinputFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.services.AuthService;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
+import com.donhat.se330.flower_shop_management.frontend.models.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
@@ -86,6 +87,31 @@ public class AuthServiceHandler {
 
             @Override
             public void onFailure(@NonNull Call<MsgResponse> call, @NonNull Throwable throwable) {
+                Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void changePassword(String email, String newPassword) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("email", email);
+        map.put("newPassword", newPassword);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Object requestBody = objectMapper.convertValue(map, Object.class);
+
+        Call<User> call = _authService.changePassword(requestBody);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                if (response.code() == 200) {
+
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
                 Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

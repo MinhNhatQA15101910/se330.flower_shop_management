@@ -1,5 +1,7 @@
 package com.donhat.se330.flower_shop_management.frontend.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class User {
@@ -7,11 +9,15 @@ public class User {
     private String username;
     private String email;
     private String password;
+    @SerializedName("image_url")
     private String imageUrl;
     private String role;
     private String token;
     private List<Product> products;
     private List<Integer> quantities;
+
+    public User() {
+    }
 
     public User(int id, String username, String email, String password, String imageUrl, String role, String token, List<Product> products, List<Integer> quantities) {
         this.id = id;
