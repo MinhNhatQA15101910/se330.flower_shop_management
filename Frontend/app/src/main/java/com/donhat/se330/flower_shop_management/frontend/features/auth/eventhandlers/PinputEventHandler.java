@@ -74,9 +74,16 @@ public class PinputEventHandler {
             Handler handler = new Handler();
             handler.postDelayed(
                     () -> {
-                        _pinputViewModel.getIsVerifyLoading().setValue(false);
+                        String userPincode = _pinputViewModel.getPincode().getValue();
+                        String actualPincode = _pinputViewModel.getActualPincode();
 
-                        _authViewModel.getAuthFragment().setValue(new ChangePasswordFragment());
+                        if (!Objects.equals(userPincode, actualPincode)) {
+                            Toast.makeText(_context, "Incorrect pincode.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            _authViewModel.getAuthFragment().setValue(new ChangePasswordFragment());
+                        }
+
+                        _pinputViewModel.getIsVerifyLoading().setValue(false);
                     },
                     2000
             );

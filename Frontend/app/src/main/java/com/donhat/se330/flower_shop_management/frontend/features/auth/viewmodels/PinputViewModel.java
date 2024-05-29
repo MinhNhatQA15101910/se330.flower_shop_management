@@ -10,8 +10,8 @@ public class PinputViewModel extends ViewModel {
     private final MutableLiveData<Boolean> isVerifyLoading = new MutableLiveData<>(false);
     private final MutableLiveData<Integer> remainingSeconds = new MutableLiveData<>(60);
 
-    public final String actualPincode = generateRandomNumberString();
-    public boolean isNavigatingBack;
+    private final String actualPincode = generateRandomNumberString();
+    private boolean isNavigatingBack;
 
     public MutableLiveData<String> getPincode() {
         return pincode;
