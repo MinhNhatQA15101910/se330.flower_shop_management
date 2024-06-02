@@ -1,5 +1,6 @@
 package com.se330.flower_shop_management.backend.entity;
 
+import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,9 +38,6 @@ public class User implements UserDetails {
 
     @Column(name = "role", nullable = false)
     private String role = "user";
-
-    @Column(name = "sex")
-    private String sex;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

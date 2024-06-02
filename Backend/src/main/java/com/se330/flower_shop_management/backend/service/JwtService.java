@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -13,13 +14,21 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
+    @Value("${secret.secret_key}")
+    private String SECRET_KEY;
+
     public boolean isValid(String token, User user) {
         String userEmail = extractUserEmail(token);
-        return (userEmail.equals(user.getEmail())) && !isTokenExpired(token);
+        Long userId = extractUserId(token);
+        return (userId.equals((user.getId()))) && (userEmail.equals(user.getEmail())) && !isTokenExpired(token);
     }
 
     public String extractUserEmail(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    public Long extractUserId(String token) {
+        return extractAllClaims(token).get("id", Long.class);
     }
 
     private boolean isTokenExpired(String token) {
@@ -47,6 +56,7 @@ public class JwtService {
     public String generateToken(User user) {
         return Jwts
                 .builder()
+                .claim("id", user.getId())
                 .subject(user.getEmail())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000))
@@ -55,8 +65,7 @@ public class JwtService {
     }
 
     private SecretKey getSigningKey() {
-        String SECRET_KEY = "4bb6d1dfbafb64a681139d1586b6f1160d18159afd57c8c79136d7490630407c";
-        byte[] keyBytes = Decoders.BASE64URL.decode(SECRET_KEY);
+        byte[] keyBytes = Decoders.BASE64URL.decode("4bb6d1dfbafb64a681139d1586b6f1160d18159afd57c8c79136d7490630407c");
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Arrays;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -27,34 +29,61 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Lazy
     private UserService userService;
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response,@NonNull FilterChain filterChain) throws ServletException, IOException {
-        String authHeader = request.getHeader("Authorization");
+    private static final List<String> EXCLUDED_PATHS = Arrays.asList(
+            "/login", "/signup", "/email-exists", "/send-email", "/change-password"
+    );
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
+    @Override
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
+        try {
+            String path = request.getRequestURI();
+            if (EXCLUDED_PATHS.stream().anyMatch(path::startsWith)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            String token = request.getHeader("x-auth-token");
+
+            if (token == null || token.isEmpty()) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("{\"msg\": \"No auth token, access denied.\"}");
+                return;
+            }
+
+            Long userId;
+            try {
+                userId = jwtService.extractUserId(token); // assuming this method throws an exception if invalid
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("{\"msg\": \"Token verification failed, authorization denied.\"}");
+                return;
+            }
+
+            if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                User user = userService.loadUserById(userId);
+
+                if (user != null) {
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                            user, null, user.getAuthorities()
+                    );
+
+                    authToken.setDetails(
+                            new WebAuthenticationDetailsSource().buildDetails(request)
+                    );
+
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                    request.setAttribute("user", user);
+                    request.setAttribute("token", token);
+                }
+            }
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("{\"error\": \"" + e.getMessage() + "\"}");
             return;
         }
 
-        String token = authHeader.substring(7);
-        String userEmail = jwtService.extractUserEmail(token);
-
-        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
-            User user = userService.loadUserByEmail(userEmail);
-
-            if (jwtService.isValid(token, user)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        user, null, user.getAuthorities()
-                );
-
-                authToken.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request)
-                );
-
-                SecurityContextHolder.getContext().setAuthentication(authToken);
-            }
-        }
         filterChain.doFilter(request, response);
+        SecurityContextHolder.getContext().setAuthentication(null); // Clear context after request is processed
     }
+
 }

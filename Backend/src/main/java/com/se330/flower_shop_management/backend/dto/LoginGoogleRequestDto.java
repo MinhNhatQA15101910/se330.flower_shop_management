@@ -1,5 +1,6 @@
 package com.se330.flower_shop_management.backend.dto;
 
+import com.google.gson.annotations.SerializedName;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -29,5 +30,6 @@ public class LoginGoogleRequestDto {
     @Size(min = 6, message = "Password must be at least 6 characters long.")
     private String password;
 
-    private String image_url;
+    @SerializedName("total_pages")
+    private String imageUrl;
 }

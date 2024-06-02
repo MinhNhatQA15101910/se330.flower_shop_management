@@ -2,8 +2,12 @@ package com.se330.flower_shop_management.backend.service;
 
 import com.se330.flower_shop_management.backend.dto.*;
 import com.se330.flower_shop_management.backend.entity.User;
+import com.se330.flower_shop_management.backend.entity.Cart;
+import com.se330.flower_shop_management.backend.entity.Product;
 import com.se330.flower_shop_management.backend.exception.UserEmailExistsException;
 import com.se330.flower_shop_management.backend.exception.UserEmailNotExistsException;
+import com.se330.flower_shop_management.backend.exception.UserNotFoundException;
+import com.se330.flower_shop_management.backend.repository.CartRepository;
 import com.se330.flower_shop_management.backend.repository.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -17,7 +21,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -26,6 +31,8 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CartRepository cartRepository;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -66,7 +73,6 @@ public class UserService {
         userResponseDto.setPassword(user.getPassword());
         userResponseDto.setImageUrl(user.getImageUrl());
         userResponseDto.setRole(user.getRole());
-        userResponseDto.setSex(user.getSex());
 
         return userResponseDto;
     }
@@ -88,7 +94,6 @@ public class UserService {
         userResponseDto.setPassword(user.getPassword());
         userResponseDto.setImageUrl(user.getImageUrl());
         userResponseDto.setRole(user.getRole());
-        userResponseDto.setSex(user.getSex());
 
         return userResponseDto;
     }
@@ -132,11 +137,46 @@ public class UserService {
         return user;
     }
 
+
+    public Map<String, Object> getUserData(String token) {
+        Long userId = jwtService.extractUserId(token);
+
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException("User not found");
+        }
+        User user = userOptional.get();
+
+        List<Cart> carts = cartRepository.findByUserId(userId);
+        List<Product> products = carts.stream().map(Cart::getProduct).collect(Collectors.toList());
+        List<Integer> quantities = carts.stream().map(Cart::getQuantity).collect(Collectors.toList());
+
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("token", token);
+        response.put("id", user.getId());
+        response.put("username", user.getUsername());
+        response.put("email", user.getEmail());
+        response.put("password", user.getPassword());
+        response.put("image_url", user.getImageUrl());
+        response.put("role", user.getRole());
+        response.put("products", products);
+        response.put("quantities", quantities);
+
+        return response;
+    }
+
     public User loadUserByEmail(String email) {
         if (userRepository.findByEmail(email).isEmpty()) {
             throw new UserEmailNotExistsException("User with this email does not exist!");
         }
         return userRepository.findByEmail(email).get();
+    }
+
+    public User loadUserById(Long id) {
+        if (userRepository.findById(id).isEmpty()) {
+            throw new UserNotFoundException("User does not exist!");
+        }
+        return userRepository.findById(id).get();
     }
 
     private String hideEmailCharacters(String email) {
@@ -150,4 +190,5 @@ public class UserService {
         }
         return hiddenEmail.toString();
     }
+
 }

@@ -32,7 +32,6 @@ public class SecurityConfig {
                         req -> req
                                 .requestMatchers("/login/**", "/signup/**", "/email-exists/**", "/send-email/**", "/change-password/**")
                                 .permitAll()
-                                .requestMatchers("/admin_only/**").hasAuthority("ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 )

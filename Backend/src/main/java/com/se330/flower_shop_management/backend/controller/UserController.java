@@ -3,6 +3,7 @@ package com.se330.flower_shop_management.backend.controller;
 import com.se330.flower_shop_management.backend.dto.*;
 import com.se330.flower_shop_management.backend.entity.User;
 import com.se330.flower_shop_management.backend.exception.UserEmailExistsException;
+import com.se330.flower_shop_management.backend.exception.UserNotFoundException;
 import com.se330.flower_shop_management.backend.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -35,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public HttpEntity<UserResponseDto>  login(@Validated @RequestBody LoginRequestDto loginRequestDto) {
+    public HttpEntity<UserResponseDto> login(@Validated @RequestBody LoginRequestDto loginRequestDto) {
         try {
             UserResponseDto userWithToken = userService.login(loginRequestDto);
             return ResponseEntity.ok(userWithToken);
@@ -45,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping("/login/google")
-    public HttpEntity<UserResponseDto> loginGoogle (@Validated @RequestBody LoginGoogleRequestDto loginGoogleRequestDto) {
+    public HttpEntity<UserResponseDto> loginGoogle(@Validated @RequestBody LoginGoogleRequestDto loginGoogleRequestDto) {
         try {
             UserResponseDto userWithToken = userService.loginGoogle(loginGoogleRequestDto);
             return ResponseEntity.ok(userWithToken);
@@ -79,6 +81,16 @@ public class UserController {
             return userService.changePassword(changePasswordDto);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<Map<String, Object>> getUser(@RequestHeader("x-auth-token") String token) {
+        try {
+            Map<String, Object> userData = userService.getUserData(token);
+            return ResponseEntity.ok(userData);
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
         }
     }
 
