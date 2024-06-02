@@ -10,6 +10,8 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.ChangePasswordFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.ForgotPasswordFragment;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.LoginFragment;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.PinputFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.servicehandlers.AuthServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.PinputViewModel;
@@ -39,6 +41,7 @@ public class PinputEventHandler {
 
             @Override
             public void onFinish() {
+                _authViewModel.setPreviousFragment(new LoginFragment());
                 _authViewModel.getAuthFragment().setValue(new ForgotPasswordFragment());
 
                 AlertDialog.Builder dlgAlert = new AlertDialog.Builder(_context);
@@ -60,8 +63,9 @@ public class PinputEventHandler {
         }
     }
 
-    public void navigateToForgotPasswordFragment(View view) {
-        _authViewModel.getAuthFragment().setValue(new ForgotPasswordFragment());
+    public void navigateToPreviousFragment(View view) {
+        _authViewModel.setPreviousFragment(new LoginFragment());
+        _authViewModel.getAuthFragment().setValue(_authViewModel.getPreviousFragment());
     }
 
     public void verifyPincode(View view) {
@@ -85,7 +89,14 @@ public class PinputEventHandler {
                             countDownTimer.cancel();
                             _pinputViewModel.setCountDownTimer(countDownTimer);
 
-                            _authViewModel.getAuthFragment().setValue(new ChangePasswordFragment());
+                            if (PinputViewModel.isSigningIn) {
+                                Toast.makeText(_context, "Sign up successfully.", Toast.LENGTH_SHORT).show();
+
+                                _authViewModel.getAuthFragment().setValue(new LoginFragment());
+                            } else {
+                                _authViewModel.setPreviousFragment(new PinputFragment());
+                                _authViewModel.getAuthFragment().setValue(new ChangePasswordFragment());
+                            }
                         }
 
                         _pinputViewModel.getIsVerifyLoading().setValue(false);

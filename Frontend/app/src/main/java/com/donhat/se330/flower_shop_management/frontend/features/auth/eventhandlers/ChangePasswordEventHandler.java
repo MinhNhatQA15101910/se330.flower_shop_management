@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.view.View;
 
-import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.PinputFragment;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.ForgotPasswordFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.servicehandlers.AuthServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.ChangePasswordViewModel;
@@ -23,9 +23,10 @@ public class ChangePasswordEventHandler {
         _authServiceHandler = new AuthServiceHandler(context, authViewModel);
     }
 
-    public void navigateToPinputFragment(View view) {
+    public void navigateToPreviousFragment(View view) {
         PinputViewModel.isNavigatingBack = true;
-        _authViewModel.getAuthFragment().setValue(new PinputFragment());
+        _authViewModel.setPreviousFragment(new ForgotPasswordFragment());
+        _authViewModel.getAuthFragment().setValue(_authViewModel.getPreviousFragment());
     }
 
     public void changePassword(View view) {

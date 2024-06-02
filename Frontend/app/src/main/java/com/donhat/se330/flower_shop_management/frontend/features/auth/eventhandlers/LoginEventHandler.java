@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.ForgotPasswordFragment;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.LoginFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.SignUpFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 
@@ -21,6 +22,7 @@ public class LoginEventHandler {
     }
 
     public void navigateToForgotPasswordFragment(View view) {
+        _authViewModel.setPreviousFragment(new LoginFragment());
         _authViewModel.getAuthFragment().setValue(new ForgotPasswordFragment());
     }
 }

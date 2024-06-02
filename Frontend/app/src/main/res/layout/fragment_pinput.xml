@@ -114,7 +114,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/white_background_btn"
                     android:fontFamily="@font/inter_bold"
-                    android:onClick="@{pinputEventHandler::navigateToForgotPasswordFragment}"
+                    android:onClick="@{pinputEventHandler::navigateToPreviousFragment}"
                     android:text="Previous"
                     android:textAllCaps="false"
                     android:textColor="@color/darkGreen" />
