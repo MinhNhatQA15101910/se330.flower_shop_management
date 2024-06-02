@@ -17,4 +17,10 @@ public interface AuthService {
 
     @PATCH("change-password")
     Call<User> changePassword(@Body Object changePasswordRequestBody);
+
+    @POST("signup")
+    Call<User> signUpUser(@Body Object signUpRequestBody);
+
+    @POST("login")
+    Call<User> loginUser(@Body Object loginRequestBody);
 }

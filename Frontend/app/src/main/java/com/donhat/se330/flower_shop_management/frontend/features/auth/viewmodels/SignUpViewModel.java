@@ -3,6 +3,8 @@ package com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodel
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.donhat.se330.flower_shop_management.frontend.models.User;
+
 public class SignUpViewModel extends ViewModel {
     private final MutableLiveData<String> email = new MutableLiveData<>("");
     private final MutableLiveData<String> username = new MutableLiveData<>("");
@@ -19,6 +21,8 @@ public class SignUpViewModel extends ViewModel {
     private final MutableLiveData<Boolean> isPasswordMatch = new MutableLiveData<>(true);
 
     private final MutableLiveData<Boolean> isSignUpLoading = new MutableLiveData<>(false);
+
+    public static User signUpUser = new User();
 
     public MutableLiveData<String> getEmail() {
         return email;

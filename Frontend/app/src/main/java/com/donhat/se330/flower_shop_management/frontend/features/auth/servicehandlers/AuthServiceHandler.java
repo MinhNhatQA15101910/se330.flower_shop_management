@@ -1,6 +1,8 @@
 package com.donhat.se330.flower_shop_management.frontend.features.auth.servicehandlers;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.
 import com.donhat.se330.flower_shop_management.frontend.features.auth.services.AuthService;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.PinputViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.navbar.activities.CustomerNavBarActivity;
 import com.donhat.se330.flower_shop_management.frontend.models.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -144,6 +147,70 @@ public class AuthServiceHandler {
                     Toast.makeText(_context, "Change password successfully.", Toast.LENGTH_SHORT).show();
 
                     _authViewModel.getAuthFragment().setValue(new LoginFragment());
+                });
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
+                Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void signUpUser(String username, String email, String password) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", username);
+        map.put("email", email);
+        map.put("password", password);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Object requestBody = objectMapper.convertValue(map, Object.class);
+
+        Call<User> call = _authService.signUpUser(requestBody);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                ErrorHandling.httpErrorHandler(response, _context, () -> {
+                    GlobalVariables.setUser(response.body());
+
+                    Toast.makeText(_context, "Sign up successfully.", Toast.LENGTH_SHORT).show();
+
+                    _authViewModel.getAuthFragment().setValue(new LoginFragment());
+                });
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
+                Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void loginUser(String email, String password) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("email", email);
+        map.put("password", password);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Object requestBody = objectMapper.convertValue(map, Object.class);
+
+        Call<User> call = _authService.loginUser(requestBody);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                ErrorHandling.httpErrorHandler(response, _context, () -> {
+                    GlobalVariables.setUser(response.body());
+
+                    SharedPreferences prefs = _context.getSharedPreferences("TOKEN", Context.MODE_PRIVATE);
+                    prefs.edit()
+                            .putString("x-auth-token", GlobalVariables.getUser().getToken())
+                            .apply();
+
+                    Toast.makeText(_context, "Login successfully.", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(_context, CustomerNavBarActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    _context.startActivity(intent);
                 });
             }
 

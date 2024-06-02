@@ -15,6 +15,7 @@ import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.
 import com.donhat.se330.flower_shop_management.frontend.features.auth.servicehandlers.AuthServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.PinputViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.SignUpViewModel;
 
 import java.util.Objects;
 
@@ -90,9 +91,11 @@ public class PinputEventHandler {
                             _pinputViewModel.setCountDownTimer(countDownTimer);
 
                             if (PinputViewModel.isSigningIn) {
-                                Toast.makeText(_context, "Sign up successfully.", Toast.LENGTH_SHORT).show();
-
-                                _authViewModel.getAuthFragment().setValue(new LoginFragment());
+                                _authServiceHandler.signUpUser(
+                                        SignUpViewModel.signUpUser.getUsername(),
+                                        SignUpViewModel.signUpUser.getEmail(),
+                                        SignUpViewModel.signUpUser.getPassword()
+                                );
                             } else {
                                 _authViewModel.setPreviousFragment(new PinputFragment());
                                 _authViewModel.getAuthFragment().setValue(new ChangePasswordFragment());

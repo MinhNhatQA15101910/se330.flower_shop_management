@@ -8,7 +8,11 @@ import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.
 import com.donhat.se330.flower_shop_management.frontend.features.auth.servicehandlers.AuthServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.SignUpViewModel;
+import com.donhat.se330.flower_shop_management.frontend.models.Product;
+import com.donhat.se330.flower_shop_management.frontend.models.User;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SignUpEventHandler {
@@ -33,6 +37,18 @@ public class SignUpEventHandler {
             Handler handler = new Handler();
             handler.postDelayed(
                     () -> {
+                        SignUpViewModel.signUpUser = new User(
+                                0,
+                                _signUpViewModel.getUsername().getValue(),
+                                _signUpViewModel.getEmail().getValue(),
+                                _signUpViewModel.getPassword().getValue(),
+                                "",
+                                "",
+                                "",
+                                new ArrayList<>(),
+                                new ArrayList<>()
+                        );
+
                         _authServiceHandler.checkEmailExistsToSignUp(
                                 _signUpViewModel.getEmail().getValue()
                         );

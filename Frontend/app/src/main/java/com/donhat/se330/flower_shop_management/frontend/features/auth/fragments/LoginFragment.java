@@ -15,10 +15,12 @@ import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.FragmentLoginBinding;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers.LoginEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.LoginViewModel;
 
 public class LoginFragment extends Fragment {
     private FragmentLoginBinding _fragmentLoginBinding;
     private AuthViewModel _authViewModel;
+    private LoginViewModel _loginViewModel;
     private LoginEventHandler _loginEventHandler;
 
     @Override
@@ -37,6 +39,9 @@ public class LoginFragment extends Fragment {
         // Event handler
         setEventHandlers();
 
+        // Observe
+        observeData();
+
         return _fragmentLoginBinding.getRoot();
     }
 
@@ -48,11 +53,61 @@ public class LoginFragment extends Fragment {
 
     private void setViewModels() {
         _authViewModel = new ViewModelProvider(requireActivity()).get(AuthViewModel.class);
+        _loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
+        _fragmentLoginBinding.setLoginViewModel(_loginViewModel);
     }
 
     private void setEventHandlers() {
-        _loginEventHandler = new LoginEventHandler(getContext(), _authViewModel);
+        _loginEventHandler = new LoginEventHandler(getContext(), _authViewModel, _loginViewModel);
 
         _fragmentLoginBinding.setLoginEventHandler(_loginEventHandler);
+    }
+
+    private void observeData() {
+        _loginViewModel.getIsEmailEmpty().observe(getViewLifecycleOwner(), isEmailEmpty -> {
+            if (isEmailEmpty) {
+                _fragmentLoginBinding.emailLayout.setError("Email cannot be empty.");
+            } else {
+                _fragmentLoginBinding.emailLayout.setErrorEnabled(false);
+            }
+        });
+
+        _loginViewModel.getIsEmailValid().observe(getViewLifecycleOwner(), isEmailValid -> {
+            if (!isEmailValid) {
+                _fragmentLoginBinding.emailLayout.setError("Invalid email.");
+            } else {
+                _fragmentLoginBinding.emailLayout.setErrorEnabled(false);
+            }
+        });
+
+        _loginViewModel.getIsPasswordEmpty().observe(getViewLifecycleOwner(), isPasswordEmpty -> {
+            if (isPasswordEmpty) {
+                _fragmentLoginBinding.passwordLayout.setError("Password cannot be empty.");
+            } else {
+                _fragmentLoginBinding.passwordLayout.setErrorEnabled(false);
+            }
+        });
+
+        _loginViewModel.getIsPasswordLengthValid().observe(getViewLifecycleOwner(), isPasswordLengthValid -> {
+            if (!isPasswordLengthValid) {
+                _fragmentLoginBinding.passwordLayout.setError("Password must be at least 8 characters long.");
+            } else {
+                _fragmentLoginBinding.passwordLayout.setErrorEnabled(false);
+            }
+        });
+
+        _loginViewModel.getIsLoginLoading().observe(getViewLifecycleOwner(), isLoginLoading -> {
+            _fragmentLoginBinding.loginBtn.setVisibility(
+                    isLoginLoading ?
+                            View.INVISIBLE :
+                            View.VISIBLE
+            );
+            _fragmentLoginBinding.loginLoader.setVisibility(
+                    isLoginLoading ?
+                            View.VISIBLE :
+                            View.INVISIBLE
+            );
+        });
     }
 }

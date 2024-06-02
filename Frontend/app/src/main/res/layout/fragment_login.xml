@@ -9,6 +9,10 @@
         <variable
             name="loginEventHandler"
             type="com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers.LoginEventHandler" />
+
+        <variable
+            name="loginViewModel"
+            type="com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.LoginViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -40,22 +44,30 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/email_edit_text"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/email_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="36dp"
-                    android:autofillHints=""
-                    android:background="@drawable/custom_edittext"
-                    android:fontFamily="@font/inter"
+                    android:layout_marginTop="16dp"
                     android:hint="Email address"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/hintTextColor"
-                    android:textSize="16sp"
+                    app:hintEnabled="false"
+                    app:hintTextColor="@color/hintTextColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/login_text_view" />
+                    app:layout_constraintTop_toBottomOf="@id/login_text_view">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/custom_edittext"
+                        android:fontFamily="@font/inter"
+                        android:hint="Email address"
+                        android:inputType="textEmailAddress"
+                        android:text="@={loginViewModel.email}"
+                        android:textColorHint="@color/hintTextColor"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/password_layout"
@@ -67,7 +79,7 @@
                     app:hintTextColor="@color/hintTextColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/email_edit_text"
+                    app:layout_constraintTop_toBottomOf="@id/email_layout"
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -78,6 +90,7 @@
                         android:fontFamily="@font/inter"
                         android:hint="Password"
                         android:inputType="textPassword"
+                        android:text="@={loginViewModel.password}"
                         android:textColorHint="@color/hintTextColor"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -118,6 +131,7 @@
                     android:background="@drawable/green_background_btn"
                     android:elevation="0dp"
                     android:fontFamily="@font/inter_bold"
+                    android:onClick="@{loginEventHandler::login}"
                     android:text="Log in"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
@@ -125,6 +139,19 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/forgot_password_layout" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/login_loader"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:indeterminate="true"
+                    app:indicatorColor="@color/white"
+                    app:indicatorSize="40dp"
+                    app:layout_constraintBottom_toBottomOf="@id/login_btn"
+                    app:layout_constraintEnd_toEndOf="@id/login_btn"
+                    app:layout_constraintStart_toStartOf="@id/login_btn"
+                    app:layout_constraintTop_toTopOf="@id/login_btn"
+                    app:trackColor="@color/green" />
 
                 <LinearLayout
                     android:id="@+id/continue_with_layout"
