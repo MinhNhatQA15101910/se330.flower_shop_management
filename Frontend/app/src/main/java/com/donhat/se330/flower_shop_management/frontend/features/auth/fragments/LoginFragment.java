@@ -122,5 +122,18 @@ public class LoginFragment extends Fragment {
                             View.INVISIBLE
             );
         });
+
+        _loginViewModel.getIsContinueAsAGuessLoading().observe(getViewLifecycleOwner(), isContinueAsAGuessLoading -> {
+            _fragmentLoginBinding.continueAsAGuestBtn.setVisibility(
+                    isContinueAsAGuessLoading ?
+                            View.INVISIBLE :
+                            View.VISIBLE
+            );
+            _fragmentLoginBinding.continueAsAGuessLoader.setVisibility(
+                    isContinueAsAGuessLoading ?
+                            View.VISIBLE :
+                            View.INVISIBLE
+            );
+        });
     }
 }

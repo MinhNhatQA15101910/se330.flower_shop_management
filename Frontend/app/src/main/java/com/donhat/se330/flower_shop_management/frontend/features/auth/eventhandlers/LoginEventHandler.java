@@ -3,6 +3,7 @@ package com.donhat.se330.flower_shop_management.frontend.features.auth.eventhand
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.
 import com.donhat.se330.flower_shop_management.frontend.features.auth.servicehandlers.AuthServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.LoginViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.navbar.activities.CustomerNavBarActivity;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.Identity;
 import com.google.android.gms.auth.api.identity.SignInClient;
@@ -129,6 +131,22 @@ public class LoginEventHandler {
                         Toast.makeText(_context, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(e -> Toast.makeText(_context, e.getMessage(), Toast.LENGTH_SHORT).show());
+    }
+
+    public void continueAsAGuess(View view) {
+        _loginViewModel.getIsContinueAsAGuessLoading().setValue(true);
+
+        Handler handler = new Handler();
+        handler.postDelayed(
+                () -> {
+                    Intent intent = new Intent(_context, CustomerNavBarActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    _context.startActivity(intent);
+
+                    _loginViewModel.getIsContinueAsAGuessLoading().setValue(false);
+                },
+                2000
+        );
     }
 
     private boolean isValidAll() {

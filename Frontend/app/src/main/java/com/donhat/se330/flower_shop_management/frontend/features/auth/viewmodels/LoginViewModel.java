@@ -14,6 +14,7 @@ public class LoginViewModel extends ViewModel {
 
     private final MutableLiveData<Boolean> isLoginLoading = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> isLoginWithGoogleLoading = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isContinueAsAGuessLoading = new MutableLiveData<>(false);
 
     public MutableLiveData<String> getEmail() {
         return email;
@@ -45,5 +46,9 @@ public class LoginViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> getIsLoginWithGoogleLoading() {
         return isLoginWithGoogleLoading;
+    }
+
+    public MutableLiveData<Boolean> getIsContinueAsAGuessLoading() {
+        return isContinueAsAGuessLoading;
     }
 }
