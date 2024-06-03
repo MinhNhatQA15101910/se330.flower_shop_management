@@ -217,6 +217,7 @@
                     android:elevation="0dp"
                     android:fontFamily="@font/inter_bold"
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:text="Sign up with Google"
                     android:textAllCaps="false"
                     android:textColor="@color/green"

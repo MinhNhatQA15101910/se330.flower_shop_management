@@ -195,13 +195,28 @@
                     android:drawableStart="@drawable/vector_google"
                     android:elevation="0dp"
                     android:fontFamily="@font/inter_bold"
+                    android:onClick="@{loginEventHandler::loginWithGoogle}"
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:text="Log in with Google"
                     android:textAllCaps="false"
                     android:textColor="@color/green"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/continue_with_layout" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/login_with_google_loader"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:indeterminate="true"
+                    app:indicatorColor="@color/white"
+                    app:indicatorSize="40dp"
+                    app:layout_constraintBottom_toBottomOf="@id/login_with_google_btn"
+                    app:layout_constraintEnd_toEndOf="@id/login_with_google_btn"
+                    app:layout_constraintStart_toStartOf="@id/login_with_google_btn"
+                    app:layout_constraintTop_toTopOf="@id/login_with_google_btn"
+                    app:trackColor="@color/green" />
 
                 <LinearLayout
                     android:id="@+id/or_layout"

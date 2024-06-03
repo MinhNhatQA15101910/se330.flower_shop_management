@@ -109,5 +109,18 @@ public class LoginFragment extends Fragment {
                             View.INVISIBLE
             );
         });
+
+        _loginViewModel.getIsLoginWithGoogleLoading().observe(getViewLifecycleOwner(), isLoginWithGoogleLoading -> {
+            _fragmentLoginBinding.loginWithGoogleBtn.setVisibility(
+                    isLoginWithGoogleLoading ?
+                            View.INVISIBLE :
+                            View.VISIBLE
+            );
+            _fragmentLoginBinding.loginWithGoogleLoader.setVisibility(
+                    isLoginWithGoogleLoading ?
+                            View.VISIBLE :
+                            View.INVISIBLE
+            );
+        });
     }
 }

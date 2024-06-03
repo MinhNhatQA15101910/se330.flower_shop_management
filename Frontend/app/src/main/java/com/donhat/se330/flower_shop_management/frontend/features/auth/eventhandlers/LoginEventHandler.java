@@ -1,8 +1,16 @@
 package com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.ForgotPasswordFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.LoginFragment;
@@ -10,10 +18,12 @@ import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.
 import com.donhat.se330.flower_shop_management.frontend.features.auth.servicehandlers.AuthServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.LoginViewModel;
-import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.SignUpViewModel;
-import com.donhat.se330.flower_shop_management.frontend.models.User;
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.identity.Identity;
+import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.android.gms.auth.api.identity.SignInCredential;
+import com.google.android.gms.common.api.ApiException;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class LoginEventHandler {
@@ -22,11 +32,59 @@ public class LoginEventHandler {
     private final LoginViewModel _loginViewModel;
     private final AuthServiceHandler _authServiceHandler;
 
+    private static SignInClient _oneTapClient;
+    private static BeginSignInRequest _signInRequest;
+    private static ActivityResultLauncher<IntentSenderRequest> _intentSenderLauncher;
+
     public LoginEventHandler(Context context, AuthViewModel authViewModel, LoginViewModel loginViewModel) {
         _context = context;
         _authViewModel = authViewModel;
         _loginViewModel = loginViewModel;
         _authServiceHandler = new AuthServiceHandler(context, authViewModel);
+
+        initialGoogleSignIn();
+    }
+
+    public static void initialIntentSenderLauncher(Context context) {
+        _intentSenderLauncher = ((AppCompatActivity) context).registerForActivityResult(
+                new ActivityResultContracts.StartIntentSenderForResult(),
+                activityResult -> {
+                    if (activityResult.getResultCode() == Activity.RESULT_OK) {
+                        try {
+                            SignInCredential credential = _oneTapClient.getSignInCredentialFromIntent(activityResult.getData());
+                            String idToken = credential.getGoogleIdToken();
+                            String username = credential.getId();
+                            String password = credential.getPassword();
+                            if (idToken != null) {
+                                Toast.makeText(context, "Got ID Token.", Toast.LENGTH_SHORT).show();
+                            } else if (password != null) {
+                                Toast.makeText(context, "Got password.", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (ApiException e) {
+                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void initialGoogleSignIn() {
+        _oneTapClient = Identity.getSignInClient(_context.getApplicationContext());
+        _signInRequest = BeginSignInRequest.builder()
+                .setPasswordRequestOptions(
+                        BeginSignInRequest.PasswordRequestOptions.builder()
+                                .setSupported(true)
+                                .build()
+                )
+                .setGoogleIdTokenRequestOptions(
+                        BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                                .setSupported(true)
+                                .setServerClientId("9195930042-vbos423j7nn794gk22b70o5m6qnm6fn4.apps.googleusercontent.com")
+                                .setFilterByAuthorizedAccounts(false)
+                                .build()
+                )
+                .setAutoSelectEnabled(true)
+                .build();
     }
 
     public void navigateToSignUpFragment(View view) {
@@ -55,6 +113,27 @@ public class LoginEventHandler {
                     2000
             );
         }
+    }
+
+    public void loginWithGoogle(View view) {
+        _oneTapClient.beginSignIn(_signInRequest)
+                .addOnSuccessListener(beginSignInResult -> {
+                    try {
+                        _intentSenderLauncher
+                                .launch(
+                                        new IntentSenderRequest.Builder(
+                                                beginSignInResult.getPendingIntent().getIntentSender()
+                                        )
+                                                .setFillInIntent(null)
+                                                .setFlags(0, 0)
+                                                .build()
+                                );
+                    } catch (ActivityNotFoundException e) {
+                        Toast.makeText(_context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(e -> {
+                    Toast.makeText(_context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
     private boolean isValidAll() {

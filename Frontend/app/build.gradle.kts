@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.jackson.databind)
     implementation(libs.glide)
+    implementation(libs.play.services.auth)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
