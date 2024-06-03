@@ -12,6 +12,7 @@ import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.ForgotPasswordFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.LoginFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.SignUpFragment;
@@ -29,8 +30,8 @@ import java.util.Objects;
 public class LoginEventHandler {
     private final Context _context;
     private final AuthViewModel _authViewModel;
-    private final LoginViewModel _loginViewModel;
-    private final AuthServiceHandler _authServiceHandler;
+    private static LoginViewModel _loginViewModel;
+    private static AuthServiceHandler _authServiceHandler;
 
     private static SignInClient _oneTapClient;
     private static BeginSignInRequest _signInRequest;
@@ -52,15 +53,9 @@ public class LoginEventHandler {
                     if (activityResult.getResultCode() == Activity.RESULT_OK) {
                         try {
                             SignInCredential credential = _oneTapClient.getSignInCredentialFromIntent(activityResult.getData());
-                            String idToken = credential.getGoogleIdToken();
-                            String username = credential.getId();
-                            String password = credential.getPassword();
-                            if (idToken != null) {
-                                Toast.makeText(context, "Got ID Token.", Toast.LENGTH_SHORT).show();
-                            } else if (password != null) {
-                                Toast.makeText(context, "Got password.", Toast.LENGTH_SHORT).show();
-                            }
+                            _authServiceHandler.loginWithGoogle(credential);
 
+                            _loginViewModel.getIsLoginWithGoogleLoading().setValue(false);
                         } catch (ApiException e) {
                             Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -79,7 +74,7 @@ public class LoginEventHandler {
                 .setGoogleIdTokenRequestOptions(
                         BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                                 .setSupported(true)
-                                .setServerClientId("9195930042-vbos423j7nn794gk22b70o5m6qnm6fn4.apps.googleusercontent.com")
+                                .setServerClientId(_context.getString(R.string.default_web_client_id))
                                 .setFilterByAuthorizedAccounts(false)
                                 .build()
                 )
@@ -116,6 +111,8 @@ public class LoginEventHandler {
     }
 
     public void loginWithGoogle(View view) {
+        _loginViewModel.getIsLoginWithGoogleLoading().setValue(true);
+
         _oneTapClient.beginSignIn(_signInRequest)
                 .addOnSuccessListener(beginSignInResult -> {
                     try {
@@ -131,9 +128,7 @@ public class LoginEventHandler {
                     } catch (ActivityNotFoundException e) {
                         Toast.makeText(_context, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }).addOnFailureListener(e -> {
-                    Toast.makeText(_context, e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+                }).addOnFailureListener(e -> Toast.makeText(_context, e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     private boolean isValidAll() {

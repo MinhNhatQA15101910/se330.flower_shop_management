@@ -21,6 +21,7 @@ import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels
 import com.donhat.se330.flower_shop_management.frontend.features.customer.navbar.activities.CustomerNavBarActivity;
 import com.donhat.se330.flower_shop_management.frontend.models.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.gms.auth.api.identity.SignInCredential;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -195,6 +196,43 @@ public class AuthServiceHandler {
         Object requestBody = objectMapper.convertValue(map, Object.class);
 
         Call<User> call = _authService.loginUser(requestBody);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                ErrorHandling.httpErrorHandler(response, _context, () -> {
+                    GlobalVariables.setUser(response.body());
+
+                    SharedPreferences prefs = _context.getSharedPreferences("TOKEN", Context.MODE_PRIVATE);
+                    prefs.edit()
+                            .putString("x-auth-token", GlobalVariables.getUser().getToken())
+                            .apply();
+
+                    Toast.makeText(_context, "Login successfully.", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(_context, CustomerNavBarActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    _context.startActivity(intent);
+                });
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
+                Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void loginWithGoogle(SignInCredential credential) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("email", credential.getId());
+        map.put("password", credential.getGoogleIdToken());
+        map.put("username", credential.getDisplayName());
+        map.put("imageUrl", credential.getProfilePictureUri() != null ? credential.getProfilePictureUri().toString() : "");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        Object requestBody = objectMapper.convertValue(map, Object.class);
+
+        Call<User> call = _authService.loginWithGoogle(requestBody);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {

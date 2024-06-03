@@ -23,4 +23,7 @@ public interface AuthService {
 
     @POST("login")
     Call<User> loginUser(@Body Object loginRequestBody);
+
+    @POST("login/google")
+    Call<User> loginWithGoogle(@Body Object loginWithGoogleRequestBody);
 }
