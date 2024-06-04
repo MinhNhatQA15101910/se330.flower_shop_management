@@ -141,5 +141,31 @@ public class SignUpFragment extends Fragment {
                             View.INVISIBLE
             );
         });
+
+        _signUpViewModel.getIsSignUpWithGoogleLoading().observe(getViewLifecycleOwner(), isSignUpWithGoogleLoading -> {
+            _fragmentSignUpBinding.signUpWithGoogleBtn.setVisibility(
+                    isSignUpWithGoogleLoading ?
+                            View.INVISIBLE :
+                            View.VISIBLE
+            );
+            _fragmentSignUpBinding.signUpWithGoogleLoader.setVisibility(
+                    isSignUpWithGoogleLoading ?
+                            View.VISIBLE :
+                            View.INVISIBLE
+            );
+        });
+
+        _signUpViewModel.getIsContinueAsAGuessLoading().observe(getViewLifecycleOwner(), isContinueAsAGuessLoading -> {
+            _fragmentSignUpBinding.continueAsAGuestBtn.setVisibility(
+                    isContinueAsAGuessLoading ?
+                            View.INVISIBLE :
+                            View.VISIBLE
+            );
+            _fragmentSignUpBinding.continueAsAGuessLoader.setVisibility(
+                    isContinueAsAGuessLoading ?
+                            View.VISIBLE :
+                            View.INVISIBLE
+            );
+        });
     }
 }

@@ -21,6 +21,8 @@ public class SignUpViewModel extends ViewModel {
     private final MutableLiveData<Boolean> isPasswordMatch = new MutableLiveData<>(true);
 
     private final MutableLiveData<Boolean> isSignUpLoading = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isSignUpWithGoogleLoading = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isContinueAsAGuessLoading = new MutableLiveData<>(false);
 
     public static User signUpUser = new User();
 
@@ -74,5 +76,13 @@ public class SignUpViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> getIsSignUpLoading() {
         return isSignUpLoading;
+    }
+
+    public MutableLiveData<Boolean> getIsSignUpWithGoogleLoading() {
+        return isSignUpWithGoogleLoading;
+    }
+
+    public MutableLiveData<Boolean> getIsContinueAsAGuessLoading() {
+        return isContinueAsAGuessLoading;
     }
 }

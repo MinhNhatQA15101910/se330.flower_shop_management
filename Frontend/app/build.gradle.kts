@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.jackson.databind)
     implementation(libs.glide)
     implementation(libs.play.services.auth)
+    implementation(libs.motion.toast)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

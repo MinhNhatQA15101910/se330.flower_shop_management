@@ -1,13 +1,15 @@
 package com.donhat.se330.flower_shop_management.frontend.features.auth.servicehandlers;
 
+import static com.donhat.se330.flower_shop_management.frontend.constants.utils.Utils.displayErrorToast;
+import static com.donhat.se330.flower_shop_management.frontend.constants.utils.Utils.displaySuccessToast;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.donhat.se330.flower_shop_management.frontend.constants.ErrorHandling;
+import com.donhat.se330.flower_shop_management.frontend.constants.utils.ErrorHandling;
 import com.donhat.se330.flower_shop_management.frontend.constants.GlobalVariables;
 import com.donhat.se330.flower_shop_management.frontend.constants.responses.MsgResponse;
 import com.donhat.se330.flower_shop_management.frontend.constants.retrofit.RetrofitClient;
@@ -58,18 +60,18 @@ public class AuthServiceHandler {
                         PinputViewModel.isNavigatingBack = false;
                         PinputViewModel.isSigningIn = false;
 
-                        _authViewModel.setPreviousFragment(new ForgotPasswordFragment());
                         _authViewModel.getResentEmail().setValue(email);
                         _authViewModel.getAuthFragment().setValue(new PinputFragment());
+                        _authViewModel.setPreviousFragment(new ForgotPasswordFragment());
                     } else {
-                        Toast.makeText(_context, "Email not exist.", Toast.LENGTH_SHORT).show();
+                        displayErrorToast(_context, "Email not exist");
                     }
                 });
             }
 
             @Override
             public void onFailure(@NonNull Call<Boolean> call, @NonNull Throwable throwable) {
-                Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                displayErrorToast(_context, throwable.getMessage());
             }
         });
     }
@@ -88,21 +90,21 @@ public class AuthServiceHandler {
                 ErrorHandling.httpErrorHandler(response, _context, () -> {
                     boolean isEmailExist = Boolean.TRUE.equals(response.body());
                     if (isEmailExist) {
-                        Toast.makeText(_context, "User with this email already exist.", Toast.LENGTH_SHORT).show();
+                        displayErrorToast(_context, "User with this email already exist");
                     } else {
                         PinputViewModel.isNavigatingBack = false;
                         PinputViewModel.isSigningIn = true;
 
-                        _authViewModel.setPreviousFragment(new SignUpFragment());
                         _authViewModel.getResentEmail().setValue(email);
                         _authViewModel.getAuthFragment().setValue(new PinputFragment());
+                        _authViewModel.setPreviousFragment(new SignUpFragment());
                     }
                 });
             }
 
             @Override
             public void onFailure(@NonNull Call<Boolean> call, @NonNull Throwable throwable) {
-                Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                displayErrorToast(_context, throwable.getMessage());
             }
         });
     }
@@ -125,7 +127,7 @@ public class AuthServiceHandler {
 
             @Override
             public void onFailure(@NonNull Call<MsgResponse> call, @NonNull Throwable throwable) {
-                Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                displayErrorToast(_context, throwable.getMessage());
             }
         });
     }
@@ -145,7 +147,7 @@ public class AuthServiceHandler {
                 ErrorHandling.httpErrorHandler(response, _context, () -> {
                     GlobalVariables.setUser(response.body());
 
-                    Toast.makeText(_context, "Change password successfully.", Toast.LENGTH_SHORT).show();
+                    displaySuccessToast(_context, "Change password successfully");
 
                     _authViewModel.getAuthFragment().setValue(new LoginFragment());
                 });
@@ -153,7 +155,7 @@ public class AuthServiceHandler {
 
             @Override
             public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
-                Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                displayErrorToast(_context, throwable.getMessage());
             }
         });
     }
@@ -174,7 +176,7 @@ public class AuthServiceHandler {
                 ErrorHandling.httpErrorHandler(response, _context, () -> {
                     GlobalVariables.setUser(response.body());
 
-                    Toast.makeText(_context, "Sign up successfully.", Toast.LENGTH_SHORT).show();
+                    displaySuccessToast(_context, "Sign up successfully");
 
                     _authViewModel.getAuthFragment().setValue(new LoginFragment());
                 });
@@ -182,7 +184,7 @@ public class AuthServiceHandler {
 
             @Override
             public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
-                Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                displayErrorToast(_context, throwable.getMessage());
             }
         });
     }
@@ -207,7 +209,7 @@ public class AuthServiceHandler {
                             .putString("x-auth-token", GlobalVariables.getUser().getToken())
                             .apply();
 
-                    Toast.makeText(_context, "Login successfully.", Toast.LENGTH_SHORT).show();
+                    displaySuccessToast(_context, "Login successfully");
 
                     Intent intent = new Intent(_context, CustomerNavBarActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -217,7 +219,7 @@ public class AuthServiceHandler {
 
             @Override
             public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
-                Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                displayErrorToast(_context, throwable.getMessage());
             }
         });
     }
@@ -244,7 +246,7 @@ public class AuthServiceHandler {
                             .putString("x-auth-token", GlobalVariables.getUser().getToken())
                             .apply();
 
-                    Toast.makeText(_context, "Login successfully.", Toast.LENGTH_SHORT).show();
+                    displaySuccessToast(_context, "Login successfully");
 
                     Intent intent = new Intent(_context, CustomerNavBarActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -254,7 +256,7 @@ public class AuthServiceHandler {
 
             @Override
             public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
-                Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                displayErrorToast(_context, throwable.getMessage());
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers;
 
+import static com.donhat.se330.flower_shop_management.frontend.constants.utils.Utils.displayErrorToast;
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -56,12 +58,12 @@ public class LoginEventHandler {
                         try {
                             SignInCredential credential = _oneTapClient.getSignInCredentialFromIntent(activityResult.getData());
                             _authServiceHandler.loginWithGoogle(credential);
-
-                            _loginViewModel.getIsLoginWithGoogleLoading().setValue(false);
                         } catch (ApiException e) {
-                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            displayErrorToast(context, e.getMessage());
                         }
                     }
+
+                    _loginViewModel.getIsLoginWithGoogleLoading().setValue(false);
                 });
     }
 
@@ -89,8 +91,8 @@ public class LoginEventHandler {
     }
 
     public void navigateToForgotPasswordFragment(View view) {
-        _authViewModel.setPreviousFragment(new LoginFragment());
         _authViewModel.getAuthFragment().setValue(new ForgotPasswordFragment());
+        _authViewModel.setPreviousFragment(new LoginFragment());
     }
 
     public void login(View view) {
@@ -128,9 +130,9 @@ public class LoginEventHandler {
                                                 .build()
                                 );
                     } catch (ActivityNotFoundException e) {
-                        Toast.makeText(_context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        displayErrorToast(_context, e.getMessage());
                     }
-                }).addOnFailureListener(e -> Toast.makeText(_context, e.getMessage(), Toast.LENGTH_SHORT).show());
+                }).addOnFailureListener(e -> displayErrorToast(_context, e.getMessage()));
     }
 
     public void continueAsAGuess(View view) {

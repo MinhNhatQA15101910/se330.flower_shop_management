@@ -25,8 +25,8 @@ public class ChangePasswordEventHandler {
 
     public void navigateToPreviousFragment(View view) {
         PinputViewModel.isNavigatingBack = true;
-        _authViewModel.setPreviousFragment(new ForgotPasswordFragment());
         _authViewModel.getAuthFragment().setValue(_authViewModel.getPreviousFragment());
+        _authViewModel.setPreviousFragment(new ForgotPasswordFragment());
     }
 
     public void changePassword(View view) {
