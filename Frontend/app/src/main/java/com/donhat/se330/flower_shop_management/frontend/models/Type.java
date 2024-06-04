@@ -2,16 +2,15 @@ package com.donhat.se330.flower_shop_management.frontend.models;
 
 public class Type {
     private int id;
+    private int category_id;
     private String name;
-    private String imageUrl;
+    private String image_url;
 
-    public Type() {
-    }
-
-    public Type(int id, String name, String imageUrl) {
+    public Type(int id, int category_id, String name, String image_url) {
         this.id = id;
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.image_url = image_url;
+        this.category_id = category_id;
     }
 
     public int getId() {
@@ -22,6 +21,14 @@ public class Type {
         this.id = id;
     }
 
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
     public String getName() {
         return name;
     }
@@ -30,11 +37,11 @@ public class Type {
         this.name = name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 }
