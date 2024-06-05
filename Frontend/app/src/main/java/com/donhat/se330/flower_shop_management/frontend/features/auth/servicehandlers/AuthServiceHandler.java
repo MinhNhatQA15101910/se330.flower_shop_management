@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 
+import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.constants.utils.ErrorHandling;
 import com.donhat.se330.flower_shop_management.frontend.constants.GlobalVariables;
 import com.donhat.se330.flower_shop_management.frontend.constants.responses.MsgResponse;
@@ -27,6 +28,9 @@ import com.google.android.gms.auth.api.identity.SignInCredential;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,12 +39,17 @@ import retrofit2.Response;
 public class AuthServiceHandler {
     private final Context _context;
     private final AuthService _authService;
-    private final AuthViewModel _authViewModel;
+    private AuthViewModel _authViewModel;
 
     public AuthServiceHandler(Context context, AuthViewModel authViewModel) {
         _authService = RetrofitClient.getRetrofitInstance().create(AuthService.class);
         _context = context;
         _authViewModel = authViewModel;
+    }
+
+    public AuthServiceHandler(Context context) {
+        _authService = RetrofitClient.getRetrofitInstance().create(AuthService.class);
+        _context = context;
     }
 
     public void checkEmailExistsToChangePassword(String email) {
@@ -145,7 +154,7 @@ public class AuthServiceHandler {
             @Override
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
                 ErrorHandling.httpErrorHandler(response, _context, () -> {
-                    GlobalVariables.setUser(response.body());
+                    GlobalVariables.getUser().setValue(response.body());
 
                     displaySuccessToast(_context, "Change password successfully");
 
@@ -174,7 +183,7 @@ public class AuthServiceHandler {
             @Override
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
                 ErrorHandling.httpErrorHandler(response, _context, () -> {
-                    GlobalVariables.setUser(response.body());
+                    GlobalVariables.getUser().setValue(response.body());
 
                     displaySuccessToast(_context, "Sign up successfully");
 
@@ -202,11 +211,11 @@ public class AuthServiceHandler {
             @Override
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
                 ErrorHandling.httpErrorHandler(response, _context, () -> {
-                    GlobalVariables.setUser(response.body());
+                    GlobalVariables.getUser().setValue(response.body());
 
-                    SharedPreferences prefs = _context.getSharedPreferences("TOKEN", Context.MODE_PRIVATE);
+                    SharedPreferences prefs = _context.getSharedPreferences(_context.getString(R.string.token_prefs_name), Context.MODE_PRIVATE);
                     prefs.edit()
-                            .putString("x-auth-token", GlobalVariables.getUser().getToken())
+                            .putString("x-auth-token", Objects.requireNonNull(GlobalVariables.getUser().getValue()).getToken())
                             .apply();
 
                     displaySuccessToast(_context, "Login successfully");
@@ -239,11 +248,11 @@ public class AuthServiceHandler {
             @Override
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
                 ErrorHandling.httpErrorHandler(response, _context, () -> {
-                    GlobalVariables.setUser(response.body());
+                    GlobalVariables.getUser().setValue(response.body());
 
-                    SharedPreferences prefs = _context.getSharedPreferences("TOKEN", Context.MODE_PRIVATE);
+                    SharedPreferences prefs = _context.getSharedPreferences(_context.getString(R.string.token_prefs_name), Context.MODE_PRIVATE);
                     prefs.edit()
-                            .putString("x-auth-token", GlobalVariables.getUser().getToken())
+                            .putString("x-auth-token", Objects.requireNonNull(GlobalVariables.getUser().getValue()).getToken())
                             .apply();
 
                     displaySuccessToast(_context, "Login successfully");
@@ -259,5 +268,61 @@ public class AuthServiceHandler {
                 displayErrorToast(_context, throwable.getMessage());
             }
         });
+    }
+
+    public CompletableFuture<Void> getUserData() {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+
+        CompletableFuture.runAsync(() -> {
+            SharedPreferences prefs = _context.getSharedPreferences(
+                    _context.getString(R.string.token_prefs_name),
+                    Context.MODE_PRIVATE
+            );
+            String token = prefs.getString("x-auth-token", "");
+
+            if (token.isEmpty()) {
+                prefs.edit().putString("x-auth-token", "").apply();
+                future.complete(null);
+                return;
+            }
+
+            Call<Boolean> validateTokenCall = _authService.tokenIsValid(token);
+            validateTokenCall.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
+                    ErrorHandling.httpErrorHandler(response, _context, () -> {
+                        boolean isValidToken = Boolean.TRUE.equals(response.body());
+                        if (isValidToken) {
+                            Call<User> getUserCall = _authService.getUserData(token);
+                            getUserCall.enqueue(new Callback<User>() {
+                                @Override
+                                public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                                    User user = response.body();
+                                    GlobalVariables.getUser().setValue(user);
+                                    future.complete(null);
+                                }
+
+                                @Override
+                                public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
+                                    displayErrorToast(_context, throwable.getMessage());
+                                    future.completeExceptionally(throwable);
+                                }
+                            });
+                        } else {
+                            displayErrorToast(_context, "Invalid token.");
+                            future.completeExceptionally(new Exception("Invalid token."));
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Boolean> call, @NonNull Throwable throwable) {
+                    displayErrorToast(_context, throwable.getMessage());
+                    future.completeExceptionally(throwable);
+                }
+            });
+        });
+
+        return future;
     }
 }

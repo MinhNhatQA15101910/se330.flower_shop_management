@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FlowerFly</string>
     <string name="default_web_client_id">9195930042-vbos423j7nn794gk22b70o5m6qnm6fn4.apps.googleusercontent.com</string>
+    <string name="token_prefs_name">AUTH</string>
 </resources>

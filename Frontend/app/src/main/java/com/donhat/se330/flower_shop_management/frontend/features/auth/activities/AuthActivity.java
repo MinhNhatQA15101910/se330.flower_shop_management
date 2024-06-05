@@ -9,10 +9,15 @@ import androidx.lifecycle.HasDefaultViewModelProviderFactory;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
+import com.donhat.se330.flower_shop_management.frontend.constants.GlobalVariables;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ActivityAuthBinding;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers.LoginEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers.SignUpEventHandler;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.servicehandlers.AuthServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
+import com.donhat.se330.flower_shop_management.frontend.models.User;
+
+import java.util.concurrent.CompletableFuture;
 
 public class AuthActivity extends AppCompatActivity implements HasDefaultViewModelProviderFactory {
     private ActivityAuthBinding _activityAuthBinding;
