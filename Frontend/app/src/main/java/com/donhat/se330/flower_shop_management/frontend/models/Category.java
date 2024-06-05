@@ -9,6 +9,9 @@ public class Category {
     private String imageUrl;
 
     public Category() {
+        id = 0;
+        name = "";
+        imageUrl = "";
     }
 
     public Category(int id, String name, String imageUrl) {

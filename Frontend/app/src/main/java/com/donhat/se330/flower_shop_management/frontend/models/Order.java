@@ -1,30 +1,59 @@
 package com.donhat.se330.flower_shop_management.frontend.models;
 
 import com.donhat.se330.flower_shop_management.frontend.constants.enums.OrderStatus;
+import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Order {
     private int id;
+    @SerializedName("user_id")
     private int userId;
+    @SerializedName("product_price")
     private double productPrice;
+    @SerializedName("shipping_price")
     private double shippingPrice;
     private OrderStatus status;
+    @SerializedName("estimated_receive_date")
     private Date estimatedReceiveDate;
+    @SerializedName("order_date")
     private Date orderDate;
+    @SerializedName("in_delivery_date")
     private Date inDeliveryDate;
+    @SerializedName("receive_date")
     private Date receiveDate;
     private String province;
     private String district;
     private String ward;
+    @SerializedName("detail_address")
     private String detailAddress;
+    @SerializedName("receiver_name")
     private String receiverName;
+    @SerializedName("receiver_phone_number")
     private String receiverPhoneNumber;
     private List<Product> products;
     private List<Integer> quantities;
 
     public Order() {
+        id = 0;
+        userId = 0;
+        productPrice = 0;
+        shippingPrice = 0;
+        status = OrderStatus.PENDING;
+        estimatedReceiveDate = new Date();
+        orderDate = new Date();
+        inDeliveryDate = new Date();
+        receiveDate = new Date();
+        province = "";
+        district = "";
+        ward = "";
+        detailAddress = "";
+        receiverName = "";
+        receiverPhoneNumber = "";
+        products = new ArrayList<>();
+        quantities = new ArrayList<>();
     }
 
     public Order(int id, int userId, double productPrice, double shippingPrice, OrderStatus status, Date estimatedReceiveDate, Date orderDate, Date inDeliveryDate, Date receiveDate, String province, String district, String ward, String detailAddress, String receiverName, String receiverPhoneNumber, List<Product> products, List<Integer> quantities) {
