@@ -1,7 +1,10 @@
-package com.donhat.se330.flower_shop_management.frontend.constants;
+package com.donhat.se330.flower_shop_management.frontend.constants.utils;
+
+import static com.donhat.se330.flower_shop_management.frontend.constants.utils.Utils.displayErrorToast;
+import static com.donhat.se330.flower_shop_management.frontend.constants.utils.Utils.displayInfoToast;
+import static com.donhat.se330.flower_shop_management.frontend.constants.utils.Utils.displayWarningToast;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import com.donhat.se330.flower_shop_management.frontend.constants.responses.ErrorResponse;
 import com.donhat.se330.flower_shop_management.frontend.constants.responses.MsgResponse;
@@ -18,24 +21,23 @@ public class ErrorHandling {
         } else if (response.code() >= 400 && response.code() < 500) {
             try {
                 MsgResponse msgResponse = new Gson().fromJson(Objects.requireNonNull(response.errorBody()).string(), MsgResponse.class);
-                Toast.makeText(context, msgResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                displayWarningToast(context, msgResponse.getMsg());
             } catch (Exception e) {
-                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                displayErrorToast(context, e.getMessage());
             }
         } else if (response.code() >= 500 && response.code() < 600) {
             try {
                 ErrorResponse errorResponse = new Gson().fromJson(Objects.requireNonNull(response.errorBody()).string(), ErrorResponse.class);
-                Toast.makeText(context, errorResponse.getError(), Toast.LENGTH_SHORT).show();
+                displayErrorToast(context, errorResponse.getError());
             } catch (Exception e) {
-                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                displayErrorToast(context, e.getMessage());
             }
         } else {
             try {
-                assert response.errorBody() != null;
-                String responseObj = response.errorBody().toString();
-                Toast.makeText(context, responseObj, Toast.LENGTH_SHORT).show();
+                String responseObj = Objects.requireNonNull(response.errorBody()).toString();
+                displayInfoToast(context, responseObj);
             } catch (Exception e) {
-                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                displayErrorToast(context, e.getMessage());
             }
         }
     }

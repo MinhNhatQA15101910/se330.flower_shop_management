@@ -1,11 +1,17 @@
 package com.donhat.se330.flower_shop_management.frontend.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Category {
     private int id;
     private String name;
+    @SerializedName("image_url")
     private String imageUrl;
 
     public Category() {
+        id = 0;
+        name = "";
+        imageUrl = "";
     }
 
     public Category(int id, String name, String imageUrl) {

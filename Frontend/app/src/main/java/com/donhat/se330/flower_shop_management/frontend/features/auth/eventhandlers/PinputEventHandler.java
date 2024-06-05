@@ -1,18 +1,23 @@
 package com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers;
 
+import static com.donhat.se330.flower_shop_management.frontend.constants.utils.Utils.displayErrorToast;
+import static com.donhat.se330.flower_shop_management.frontend.constants.utils.Utils.displayInfoToast;
+
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.ChangePasswordFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.ForgotPasswordFragment;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.LoginFragment;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.PinputFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.servicehandlers.AuthServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.PinputViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.SignUpViewModel;
 
 import java.util.Objects;
 
@@ -40,10 +45,11 @@ public class PinputEventHandler {
             @Override
             public void onFinish() {
                 _authViewModel.getAuthFragment().setValue(new ForgotPasswordFragment());
+                _authViewModel.setPreviousFragment(new LoginFragment());
 
                 AlertDialog.Builder dlgAlert = new AlertDialog.Builder(_context);
                 dlgAlert.setTitle("Email verify timeout")
-                        .setMessage("You must enter your verify code before the time is over.")
+                        .setMessage("You must enter your verify code before the time is over")
                         .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
                         .setCancelable(true)
                         .create()
@@ -60,8 +66,13 @@ public class PinputEventHandler {
         }
     }
 
-    public void navigateToForgotPasswordFragment(View view) {
-        _authViewModel.getAuthFragment().setValue(new ForgotPasswordFragment());
+    public void navigateToPreviousFragment(View view) {
+        CountDownTimer countDownTimer = _pinputViewModel.getCountDownTimer();
+        countDownTimer.cancel();
+        _pinputViewModel.setCountDownTimer(countDownTimer);
+
+        _authViewModel.getAuthFragment().setValue(_authViewModel.getPreviousFragment());
+        _authViewModel.setPreviousFragment(new LoginFragment());
     }
 
     public void verifyPincode(View view) {
@@ -79,13 +90,22 @@ public class PinputEventHandler {
                         String actualPincode = _pinputViewModel.getActualPincode();
 
                         if (!Objects.equals(userPincode, actualPincode)) {
-                            Toast.makeText(_context, "Incorrect pincode.", Toast.LENGTH_SHORT).show();
+                            displayErrorToast(_context, "Incorrect pincode");
                         } else {
                             CountDownTimer countDownTimer = _pinputViewModel.getCountDownTimer();
                             countDownTimer.cancel();
                             _pinputViewModel.setCountDownTimer(countDownTimer);
 
-                            _authViewModel.getAuthFragment().setValue(new ChangePasswordFragment());
+                            if (PinputViewModel.isSigningIn) {
+                                _authServiceHandler.signUpUser(
+                                        SignUpViewModel.signUpUser.getUsername(),
+                                        SignUpViewModel.signUpUser.getEmail(),
+                                        SignUpViewModel.signUpUser.getPassword()
+                                );
+                            } else {
+                                _authViewModel.getAuthFragment().setValue(new ChangePasswordFragment());
+                                _authViewModel.setPreviousFragment(new PinputFragment());
+                            }
                         }
 
                         _pinputViewModel.getIsVerifyLoading().setValue(false);
@@ -95,11 +115,18 @@ public class PinputEventHandler {
         }
     }
 
+    public void resendEmail(View view) {
+        _authServiceHandler.sendVerifyEmail(
+                _authViewModel.getResentEmail().getValue(),
+                _pinputViewModel.getActualPincode()
+        );
+    }
+
     private boolean isValidAll() {
         String pincode = _pinputViewModel.getPincode().getValue();
 
         if (Objects.requireNonNull(pincode).length() < 6) {
-            Toast.makeText(_context, "Please complete the pincode.", Toast.LENGTH_SHORT).show();
+            displayInfoToast(_context, "Please complete the pincode");
             return false;
         }
 

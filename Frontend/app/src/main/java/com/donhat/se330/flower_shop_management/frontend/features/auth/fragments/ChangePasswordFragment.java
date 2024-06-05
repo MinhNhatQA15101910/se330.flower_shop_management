@@ -16,7 +16,6 @@ import com.donhat.se330.flower_shop_management.frontend.databinding.FragmentChan
 import com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers.ChangePasswordEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.ChangePasswordViewModel;
-import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.PinputViewModel;
 
 public class ChangePasswordFragment extends Fragment {
     private FragmentChangePasswordBinding _fragmentChangePasswordBinding;
