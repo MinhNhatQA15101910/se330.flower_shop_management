@@ -1,16 +1,23 @@
 package com.donhat.se330.flower_shop_management.frontend.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Type {
     private int id;
-    private int category_id;
     private String name;
-    private String image_url;
+    @SerializedName("image_url")
+    private String imageUrl;
 
-    public Type(int id, int category_id, String name, String image_url) {
+    public Type() {
+        id = 0;
+        name = "";
+        imageUrl = "";
+    }
+
+    public Type(int id, String name, String imageUrl) {
         this.id = id;
         this.name = name;
-        this.image_url = image_url;
-        this.category_id = category_id;
+        this.imageUrl = imageUrl;
     }
 
     public int getId() {
@@ -21,14 +28,6 @@ public class Type {
         this.id = id;
     }
 
-    public int getCategory_id() {
-        return category_id;
-    }
-
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
-    }
-
     public String getName() {
         return name;
     }
@@ -37,11 +36,11 @@ public class Type {
         this.name = name;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

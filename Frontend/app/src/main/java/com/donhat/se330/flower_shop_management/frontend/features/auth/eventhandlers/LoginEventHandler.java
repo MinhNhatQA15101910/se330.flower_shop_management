@@ -1,19 +1,89 @@
 package com.donhat.se330.flower_shop_management.frontend.features.auth.eventhandlers;
 
-import android.content.Context;
-import android.view.View;
+import static com.donhat.se330.flower_shop_management.frontend.constants.utils.Utils.displayErrorToast;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.IntentSenderRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.ForgotPasswordFragment;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.LoginFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.SignUpFragment;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.servicehandlers.AuthServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.AuthViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.auth.viewmodels.LoginViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.navbar.activities.CustomerNavBarActivity;
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.identity.Identity;
+import com.google.android.gms.auth.api.identity.SignInClient;
+import com.google.android.gms.auth.api.identity.SignInCredential;
+import com.google.android.gms.common.api.ApiException;
+
+import java.util.Objects;
 
 public class LoginEventHandler {
     private final Context _context;
     private final AuthViewModel _authViewModel;
+    private static LoginViewModel _loginViewModel;
+    private static AuthServiceHandler _authServiceHandler;
 
-    public LoginEventHandler(Context context, AuthViewModel authViewModel) {
+    private static SignInClient _oneTapClient;
+    private static BeginSignInRequest _signInRequest;
+    private static ActivityResultLauncher<IntentSenderRequest> _intentSenderLauncher;
+
+    public LoginEventHandler(Context context, AuthViewModel authViewModel, LoginViewModel loginViewModel) {
         _context = context;
         _authViewModel = authViewModel;
+        _loginViewModel = loginViewModel;
+        _authServiceHandler = new AuthServiceHandler(context, authViewModel);
+
+        initialGoogleSignIn();
+    }
+
+    public static void initialIntentSenderLauncher(Context context) {
+        _intentSenderLauncher = ((AppCompatActivity) context).registerForActivityResult(
+                new ActivityResultContracts.StartIntentSenderForResult(),
+                activityResult -> {
+                    if (activityResult.getResultCode() == Activity.RESULT_OK) {
+                        try {
+                            SignInCredential credential = _oneTapClient.getSignInCredentialFromIntent(activityResult.getData());
+                            _authServiceHandler.loginWithGoogle(credential);
+                        } catch (ApiException e) {
+                            displayErrorToast(context, e.getMessage());
+                        }
+                    }
+
+                    _loginViewModel.getIsLoginWithGoogleLoading().setValue(false);
+                });
+    }
+
+    private void initialGoogleSignIn() {
+        _oneTapClient = Identity.getSignInClient(_context.getApplicationContext());
+        _signInRequest = BeginSignInRequest.builder()
+                .setPasswordRequestOptions(
+                        BeginSignInRequest.PasswordRequestOptions.builder()
+                                .setSupported(true)
+                                .build()
+                )
+                .setGoogleIdTokenRequestOptions(
+                        BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                                .setSupported(true)
+                                .setServerClientId(_context.getString(R.string.default_web_client_id))
+                                .setFilterByAuthorizedAccounts(false)
+                                .build()
+                )
+                .setAutoSelectEnabled(true)
+                .build();
     }
 
     public void navigateToSignUpFragment(View view) {
@@ -22,5 +92,104 @@ public class LoginEventHandler {
 
     public void navigateToForgotPasswordFragment(View view) {
         _authViewModel.getAuthFragment().setValue(new ForgotPasswordFragment());
+        _authViewModel.setPreviousFragment(new LoginFragment());
+    }
+
+    public void login(View view) {
+        if (isValidAll()) {
+            _loginViewModel.getIsLoginLoading().setValue(true);
+
+            Handler handler = new Handler();
+            handler.postDelayed(
+                    () -> {
+                        _authServiceHandler.loginUser(
+                                Objects.requireNonNull(_loginViewModel.getEmail().getValue()).trim(),
+                                Objects.requireNonNull(_loginViewModel.getPassword().getValue()).trim()
+                        );
+
+                        _loginViewModel.getIsLoginLoading().setValue(false);
+                    },
+                    2000
+            );
+        }
+    }
+
+    public void loginWithGoogle(View view) {
+        _loginViewModel.getIsLoginWithGoogleLoading().setValue(true);
+
+        _oneTapClient.beginSignIn(_signInRequest)
+                .addOnSuccessListener(beginSignInResult -> {
+                    try {
+                        _intentSenderLauncher
+                                .launch(
+                                        new IntentSenderRequest.Builder(
+                                                beginSignInResult.getPendingIntent().getIntentSender()
+                                        )
+                                                .setFillInIntent(null)
+                                                .setFlags(0, 0)
+                                                .build()
+                                );
+                    } catch (ActivityNotFoundException e) {
+                        displayErrorToast(_context, e.getMessage());
+                    }
+                }).addOnFailureListener(e -> displayErrorToast(_context, e.getMessage()));
+    }
+
+    public void continueAsAGuess(View view) {
+        _loginViewModel.getIsContinueAsAGuessLoading().setValue(true);
+
+        Handler handler = new Handler();
+        handler.postDelayed(
+                () -> {
+                    Intent intent = new Intent(_context, CustomerNavBarActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    _context.startActivity(intent);
+
+                    _loginViewModel.getIsContinueAsAGuessLoading().setValue(false);
+                },
+                2000
+        );
+    }
+
+    private boolean isValidAll() {
+        String email = Objects.requireNonNull(_loginViewModel.getEmail().getValue()).trim();
+        String password = Objects.requireNonNull(_loginViewModel.getPassword().getValue()).trim();
+        boolean isValidAll = true;
+
+        // Validate email is not empty
+        if (Objects.requireNonNull(email).trim().isEmpty()) {
+            _loginViewModel.getIsPasswordEmpty().setValue(true);
+            isValidAll = false;
+        } else {
+            _loginViewModel.getIsPasswordEmpty().setValue(false);
+        }
+
+        // Validate email is valid
+        String emailPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+        if (!email.matches(emailPattern)) {
+            _loginViewModel.getIsEmailValid().setValue(false);
+            isValidAll = false;
+        } else {
+            _loginViewModel.getIsEmailValid().setValue(true);
+        }
+
+        // Validate password is not empty
+        if (Objects.requireNonNull(password).trim().isEmpty()) {
+            _loginViewModel.getIsPasswordEmpty().setValue(true);
+            isValidAll = false;
+        } else {
+            _loginViewModel.getIsPasswordEmpty().setValue(false);
+        }
+
+        // Validate password length is valid
+        if (password.trim().length() < 8) {
+            _loginViewModel.getIsPasswordLengthValid().setValue(false);
+            isValidAll = false;
+        } else {
+            _loginViewModel.getIsPasswordLengthValid().setValue(true);
+        }
+
+        return isValidAll;
     }
 }
