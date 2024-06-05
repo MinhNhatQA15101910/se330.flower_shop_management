@@ -8,16 +8,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemCartBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.entities.ProductCart;
+import com.donhat.se330.flower_shop_management.frontend.models.Cart;
+import com.donhat.se330.flower_shop_management.frontend.models.Product;
 
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
     private final Context _context;
-    private final List<ProductCart> productCartList;
+    private final List<Cart> productCartList;
 
-    public CartAdapter(List<ProductCart> productCartList, Context context) {
+    public CartAdapter(List<Cart> productCartList, Context context) {
         this.productCartList = productCartList;
         this._context=context;
     }
@@ -32,15 +34,57 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
-        ProductCart productCart = productCartList.get(position);
-        if(productCart==null){
+        Cart productCart = productCartList.get(position);
+        if (productCart == null) {
             return;
         }
+        Product product = new Product();
+        Glide.with(_context).load(product.getImageUrls()).into(holder.itemCartBinding.itemImageListCart);
+        holder.itemCartBinding.labelProductCart.setText(product.getName());
+        holder.itemCartBinding.labelPriceCart.setText(String.valueOf(product.getPrice()));
+        holder.itemCartBinding.inputValue.setText(String.valueOf(productCart.getQuantity()));
 
-        Glide.with(_context).load(productCart.getImgURL()).into(holder.itemCartBinding.itemImageListCart);
-        holder.itemCartBinding.labelProductCart.setText(productCart.getProductName());
-        holder.itemCartBinding.labelPriceCart.setText(String.valueOf(productCart.getPrice()));
+        int stock = product.getStock();
+
+        updateButtonStates(holder, productCart.getQuantity(), stock);
+
+        holder.itemCartBinding.increaseBox.setOnClickListener(v -> {
+            int currentQuantity = Integer.parseInt(holder.itemCartBinding.inputValue.getText().toString());
+
+            if (currentQuantity < stock) {
+                int newQuantity = currentQuantity + 1;
+                holder.itemCartBinding.inputValue.setText(String.valueOf(newQuantity));
+                updateButtonStates(holder, newQuantity, stock);
+                productCart.setQuantity(newQuantity);
+            }
+        });
+
+        holder.itemCartBinding.decreaseBox.setOnClickListener(v -> {
+            int currentQuantity = Integer.parseInt(holder.itemCartBinding.inputValue.getText().toString());
+
+            if (currentQuantity > 1) {
+                int newQuantity = currentQuantity - 1;
+                holder.itemCartBinding.inputValue.setText(String.valueOf(newQuantity));
+                updateButtonStates(holder, newQuantity, stock);
+                productCart.setQuantity(newQuantity);
+            }
+        });
     }
+
+    private void updateButtonStates(@NonNull CartViewHolder holder, int quantity, int stock) {
+        if (quantity >= stock) {
+            holder.itemCartBinding.increaseBox.setBackgroundResource(R.drawable.vector_increment_button_disable);
+        } else {
+            holder.itemCartBinding.increaseBox.setBackgroundResource(R.drawable.vector_increment_button_enable);
+        }
+
+        if (quantity <= 1) {
+            holder.itemCartBinding.decreaseBox.setBackgroundResource(R.drawable.vector_decrement_button_disable);
+        } else {
+            holder.itemCartBinding.decreaseBox.setBackgroundResource(R.drawable.vector_decrement_button_enable);
+        }
+    }
+
 
     @Override
     public int getItemCount() {

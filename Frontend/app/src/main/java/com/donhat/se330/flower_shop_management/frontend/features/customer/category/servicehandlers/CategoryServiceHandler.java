@@ -31,7 +31,7 @@ public class CategoryServiceHandler {
     }
 
     public void getCategoryList() {
-        Call<List<Category>> call = _categoryService.getCategoryList("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE3NDA2NTEzfQ.uGceZISil9sCdcY9OxNr0N7eqKT4In19CwX2k1vHI1c");
+        Call<List<Category>> call = _categoryService.getCategoryList("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE3NTA0NjI2fQ.GHA1UZ_KxE0u3XfYExYX6UICojuuxr6GIjJQlmxyx3U");
         call.enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
@@ -51,7 +51,7 @@ public class CategoryServiceHandler {
     }
 
     public void getTypeList() {
-        Call<List<Type>> call = _categoryService.getTypeList("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE3NDA2NTEzfQ.uGceZISil9sCdcY9OxNr0N7eqKT4In19CwX2k1vHI1c");
+        Call<List<Type>> call = _categoryService.getTypeList("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE3NTA0NjI2fQ.GHA1UZ_KxE0u3XfYExYX6UICojuuxr6GIjJQlmxyx3U");
         call.enqueue(new Callback<List<Type>>() {
             @Override
             public void onResponse(@NonNull Call<List<Type>> call, @NonNull Response<List<Type>> response) {
@@ -71,7 +71,7 @@ public class CategoryServiceHandler {
     }
 
     public void getOccasionList() {
-        Call<List<Occasion>> call = _categoryService.getOccasionList("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE3NDA2NTEzfQ.uGceZISil9sCdcY9OxNr0N7eqKT4In19CwX2k1vHI1c");
+        Call<List<Occasion>> call = _categoryService.getOccasionList("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE3NTA0NjI2fQ.GHA1UZ_KxE0u3XfYExYX6UICojuuxr6GIjJQlmxyx3U");
         call.enqueue(new Callback<List<Occasion>>() {
             @Override
             public void onResponse(@NonNull Call<List<Occasion>> call, @NonNull Response<List<Occasion>> response) {
