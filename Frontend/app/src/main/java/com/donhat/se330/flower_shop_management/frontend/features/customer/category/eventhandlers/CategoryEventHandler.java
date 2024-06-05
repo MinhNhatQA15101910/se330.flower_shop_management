@@ -3,15 +3,22 @@ package com.donhat.se330.flower_shop_management.frontend.features.customer.categ
 import android.content.Context;
 import android.view.View;
 
+import com.donhat.se330.flower_shop_management.frontend.features.customer.category.servicehandlers.CategoryServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.category.viewmodels.CategoryViewModel;
 
 public class CategoryEventHandler {
     private final CategoryViewModel _categoryViewModel;
-    private final Context _context;
+    private final CategoryServiceHandler _categoryServiceHandler;
 
     public CategoryEventHandler(CategoryViewModel categoryViewModel, Context context) {
         _categoryViewModel = categoryViewModel;
-        _context = context;
+        _categoryServiceHandler = new CategoryServiceHandler(context, _categoryViewModel);
+    }
+
+    public void onInitial() {
+        _categoryServiceHandler.getCategoryList();
+        _categoryServiceHandler.getTypeList();
+        _categoryServiceHandler.getOccasionList();
     }
 
     public void onComboClick(View view) {

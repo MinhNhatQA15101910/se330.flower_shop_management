@@ -9,17 +9,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemCategoryBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.category.entities.Category;
+import com.donhat.se330.flower_shop_management.frontend.models.Type;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.CategoryViewHolder> {
     private final Context _context;
-    private final List<Category> categoryList;
+    private final List<Type> typeList;
 
-    public CategoryAdapter(List<Category> categoryList, Context context) {
-        this.categoryList = categoryList;
-        this._context=context;
+    public TypeAdapter(List<Type> typeList, Context context) {
+        _context = context;
+        this.typeList = typeList;
     }
 
     @NonNull
@@ -32,20 +32,20 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
-        Category category = categoryList.get(position);
-        if(category==null){
+        Type type = typeList.get(position);
+        if(type==null){
             return;
 
         }
 
-        Glide.with(_context).load(category.getImgPath()).into(holder.itemCategoryBinding.itemImageCategory);
-        holder.itemCategoryBinding.labelCategory.setText(category.getName());
+        Glide.with(_context).load(type.getImage_url()).into(holder.itemCategoryBinding.itemImageCategory);
+        holder.itemCategoryBinding.labelCategory.setText(type.getName());
     }
 
     @Override
     public int getItemCount() {
-        if (categoryList != null) {
-            return categoryList.size();
+        if (typeList != null) {
+            return typeList.size();
         }
         return 0;
     }

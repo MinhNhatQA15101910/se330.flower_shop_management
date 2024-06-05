@@ -27,11 +27,6 @@
         <activity
             android:name=".features.intro.activities.IntroActivity"
             android:exported="true">
-
-        </activity>
-        <activity
-            android:name=".features.customer.productlist.activities.ProductListActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,10 +34,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".features.customer.productlist.activities.ProductListActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.customer.navbar.activities.CustomerNavBarActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".features.auth.activities.AuthActivity"
             android:exported="false"
