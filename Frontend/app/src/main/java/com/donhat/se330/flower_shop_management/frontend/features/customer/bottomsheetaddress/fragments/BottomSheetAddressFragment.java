@@ -30,11 +30,23 @@ public class BottomSheetAddressFragment extends BottomSheetDialogFragment {
         _fragmentBottomSheetAddressBinding.setFragmentBottomSheetAddressViewModel(_bottomSheetAddressViewModel);
         _fragmentBottomSheetAddressBinding.setFragmentBottomSheetAddressEventHandler(_bottomSheetAddressEventHandler);
 
-        _bottomSheetAddressViewModel.getSelectedProvince().observe(getViewLifecycleOwner(), _fragmentBottomSheetAddressBinding.selectedProvince::setText);
+        _bottomSheetAddressViewModel.getSelectedProvince().observe(getViewLifecycleOwner(), selectedProvince -> {
+            if(selectedProvince!=null){
+                _fragmentBottomSheetAddressBinding.selectedProvince.setText(selectedProvince);
+            }
+        });
 
-        _bottomSheetAddressViewModel.getSelectedDistrict().observe(getViewLifecycleOwner(), _fragmentBottomSheetAddressBinding.selectedDistrict::setText);
+        _bottomSheetAddressViewModel.getSelectedDistrict().observe(getViewLifecycleOwner(), selectedDistrict -> {
+            if(selectedDistrict!=null){
+                _fragmentBottomSheetAddressBinding.selectedDistrict.setText(selectedDistrict);
+            }
+        });
 
-        _bottomSheetAddressViewModel.getSelectedWard().observe(getViewLifecycleOwner(), _fragmentBottomSheetAddressBinding.selectedWard::setText);
+        _bottomSheetAddressViewModel.getSelectedWard().observe(getViewLifecycleOwner(), selectedWard -> {
+            if(selectedWard!=null){
+                _fragmentBottomSheetAddressBinding.selectedWard.setText(selectedWard);
+            }
+        });
 
         return _fragmentBottomSheetAddressBinding.getRoot();
     }
