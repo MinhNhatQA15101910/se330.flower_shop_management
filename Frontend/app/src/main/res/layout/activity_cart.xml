@@ -71,6 +71,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/check_out_button"
+                android:onClick="@{activityCartEventHandler::navigateToCheckout}"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="16dp"
@@ -105,7 +106,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/wayback_icon_order_detail"
+                android:id="@+id/navigate_back"
+                android:onClick="@{activityCartEventHandler::onNavigateBack}"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -113,8 +115,9 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <View
-                    android:layout_width="10dp"
-                    android:layout_height="12dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/vector_left_arrow"
                     android:layout_marginHorizontal="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +128,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:fontFamily="@font/pacifico"
                 android:gravity="center_vertical"
                 android:text="Cart"
@@ -133,7 +135,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/wayback_icon_order_detail"
+                app:layout_constraintStart_toEndOf="@+id/navigate_back"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,7 +38,7 @@ public class OccasionAdapter extends RecyclerView.Adapter<OccasionAdapter.Catego
 
         }
 
-        Glide.with(_context).load(occasion.getImage_url()).into(holder.itemCategoryBinding.itemImageCategory);
+        Glide.with(_context).load(occasion.getImageUrl()).into(holder.itemCategoryBinding.itemImageCategory);
         holder.itemCategoryBinding.labelCategory.setText(occasion.getName());
     }
 

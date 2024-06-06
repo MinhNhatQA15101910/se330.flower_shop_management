@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -15,168 +16,220 @@
             type="com.donhat.se330.flower_shop_management.frontend.features.customer.navbar.viewmodels.CustomerNavBarViewModel" />
 
     </data>
-
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:layout_height="match_parent">
 
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:context=".MainActivity">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/first_bar"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragment_container"
+                <TextView
+                    android:layout_marginStart="16dp"
+                    android:id="@+id/title_lable"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pacifico"
+                    android:gravity="center_vertical"
+                    android:text="Flowerfly"
+                    android:textAppearance="@style/regular24_darkGreen"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cart_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RelativeLayout
+                    android:onClick="@{customerNavBarEventHandler::navigateToCartActivity}"
+                    android:id="@+id/cart_layout"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/vector_cart"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/first_bar"
+                app:layout_constraintVertical_bias="0.0">
 
-        <LinearLayout
-            android:id="@+id/bottomBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/darkGreen"
-            android:baselineAligned="false"
-            android:elevation="10dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingStart="20dp"
-            android:paddingTop="15dp"
-            android:paddingEnd="20dp"
-            android:paddingBottom="15dp"
-            android:weightSum="4">
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fragment_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
 
             <LinearLayout
-                android:id="@+id/homeLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@drawable/round_white_100"
+                android:id="@+id/bottomBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@color/darkGreen"
+                android:baselineAligned="false"
+                android:elevation="10dp"
                 android:gravity="center"
-                android:onClick="@{customerNavBarEventHandler::navigateToHomeFragment}"
                 android:orientation="horizontal"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp">
+                android:paddingStart="20dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="15dp"
+                android:weightSum="4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-                <ImageView
-                    android:id="@+id/homeImage"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="Home image"
-                    android:src="@drawable/vector_home_selected" />
-
-                <TextView
-                    android:id="@+id/homeTxt"
+                <LinearLayout
+                    android:id="@+id/homeLayout"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Home"
-                    android:textColor="@color/darkGreen"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/round_white_100"
+                    android:gravity="center"
+                    android:onClick="@{customerNavBarEventHandler::navigateToHomeFragment}"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp">
 
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/homeImage"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="Home image"
+                        android:src="@drawable/vector_home_selected" />
+
+                    <TextView
+                        android:id="@+id/homeTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Home"
+                        android:textColor="@color/darkGreen"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
 
-            <LinearLayout
-                android:id="@+id/categoryLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:onClick="@{customerNavBarEventHandler::navigateToCategoryFragment}"
-                android:orientation="horizontal"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp">
-
-                <ImageView
-                    android:id="@+id/categoryImage"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="Category image"
-                    android:src="@drawable/vector_category" />
-
-                <TextView
-                    android:id="@+id/categoryTxt"
+                <LinearLayout
+                    android:id="@+id/categoryLayout"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Category"
-                    android:textColor="@color/darkGreen"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:onClick="@{customerNavBarEventHandler::navigateToCategoryFragment}"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp">
 
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/categoryImage"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="Category image"
+                        android:src="@drawable/vector_category" />
 
-            <LinearLayout
-                android:id="@+id/searchLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:onClick="@{customerNavBarEventHandler::navigateToSearchFragment}"
-                android:orientation="horizontal"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp">
+                    <TextView
+                        android:id="@+id/categoryTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Category"
+                        android:textColor="@color/darkGreen"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/searchImage"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="Search image"
-                    android:src="@drawable/vector_search" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/searchTxt"
+                <LinearLayout
+                    android:id="@+id/searchLayout"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Search"
-                    android:textColor="@color/darkGreen"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:onClick="@{customerNavBarEventHandler::navigateToSearchFragment}"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp">
 
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/searchImage"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="Search image"
+                        android:src="@drawable/vector_search" />
 
-            <LinearLayout
-                android:id="@+id/profileLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:gravity="center"
-                android:onClick="@{customerNavBarEventHandler::navigateToProfileFragment}"
-                android:orientation="horizontal"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp">
+                    <TextView
+                        android:id="@+id/searchTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Search"
+                        android:textColor="@color/darkGreen"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/profileImage"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="Profile image"
-                    android:src="@drawable/vector_profile" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/profileTxt"
+                <LinearLayout
+                    android:id="@+id/profileLayout"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Profile"
-                    android:textColor="@color/darkGreen"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:onClick="@{customerNavBarEventHandler::navigateToProfileFragment}"
+                    android:orientation="horizontal"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp">
 
+                    <ImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="Profile image"
+                        android:src="@drawable/vector_profile" />
+
+                    <TextView
+                        android:id="@+id/profileTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Profile"
+                        android:textColor="@color/darkGreen"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

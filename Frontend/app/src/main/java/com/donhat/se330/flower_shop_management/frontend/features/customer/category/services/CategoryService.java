@@ -9,12 +9,22 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Query;
 
 public interface CategoryService {
     @GET("/customer/categories")
     Call<List<Category>> getCategoryList(@Header("x-auth-token") String token);
+
     @GET("/customer/types")
-    Call<List<Type>> getTypeList(@Header("x-auth-token") String token);
+    Call<List<Type>> getComboTypeList(@Header("x-auth-token") String token, @Query("category_id") int categoryId);
+    @GET("/customer/types")
+    Call<List<Type>> getFlowerTypeList(@Header("x-auth-token") String token, @Query("category_id") int categoryId);
+    @GET("/customer/types")
+    Call<List<Type>> getCakeTypeList(@Header("x-auth-token") String token, @Query("category_id") int categoryId);
     @GET("/customer/occasions")
-    Call<List<Occasion>> getOccasionList(@Header("x-auth-token") String token);
+    Call<List<Occasion>> getComboOccasionList(@Header("x-auth-token") String token, @Query("category_id") int categoryId);
+    @GET("/customer/occasions")
+    Call<List<Occasion>> getFlowerOccasionList(@Header("x-auth-token") String token, @Query("category_id") int categoryId);
+    @GET("/customer/occasions")
+    Call<List<Occasion>> getCakeOccasionList(@Header("x-auth-token") String token, @Query("category_id") int categoryId);
 }

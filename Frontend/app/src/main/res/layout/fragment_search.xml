@@ -18,43 +18,6 @@
 
         android:paddingHorizontal="16dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/header_constraint_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingVertical="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/pacifico"
-                android:text="Search"
-                android:textColor="@color/darkGreen"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <ImageView
-                android:layout_width="24sp"
-                android:layout_height="24sp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/vector_cart"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-
-                app:tint="@color/darkGreen" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <!-- Add a search bar here -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/search_bar_constraint_layout"
@@ -64,7 +27,7 @@
             android:paddingHorizontal="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header_constraint_layout">
+            app:layout_constraintTop_toTopOf="parent">
 
             <View
                 android:id="@+id/search_icon"

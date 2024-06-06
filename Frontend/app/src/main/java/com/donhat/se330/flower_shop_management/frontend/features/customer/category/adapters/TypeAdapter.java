@@ -38,7 +38,7 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.CategoryViewHo
 
         }
 
-        Glide.with(_context).load(type.getImage_url()).into(holder.itemCategoryBinding.itemImageCategory);
+        Glide.with(_context).load(type.getImageUrl()).into(holder.itemCategoryBinding.itemImageCategory);
         holder.itemCategoryBinding.labelCategory.setText(type.getName());
     }
 

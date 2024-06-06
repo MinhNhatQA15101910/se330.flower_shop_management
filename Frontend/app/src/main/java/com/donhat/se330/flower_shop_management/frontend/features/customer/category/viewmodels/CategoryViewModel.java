@@ -15,6 +15,12 @@ public class CategoryViewModel extends ViewModel {
     private final MutableLiveData<List<Category>> categoryList = new MutableLiveData<>();
     private final MutableLiveData<List<Type>> typeList = new MutableLiveData<>();
     private final MutableLiveData<List<Occasion>> occasionList = new MutableLiveData<>();
+    private final MutableLiveData<List<Type>> typeComboList = new MutableLiveData<>();
+    private final MutableLiveData<List<Occasion>> occasionComboList = new MutableLiveData<>();
+    private final MutableLiveData<List<Type>> typeFlowerList = new MutableLiveData<>();
+    private final MutableLiveData<List<Occasion>> occasionFlowerList = new MutableLiveData<>();
+    private final MutableLiveData<List<Type>> typeCakeList = new MutableLiveData<>();
+    private final MutableLiveData<List<Occasion>> occasionCakeList = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isComboClicked = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> isFlowerClicked = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> isCakeClicked = new MutableLiveData<>(false);
@@ -71,5 +77,29 @@ public class CategoryViewModel extends ViewModel {
 
     public MutableLiveData<List<Occasion>> getOccasionList() {
         return occasionList;
+    }
+
+    public MutableLiveData<List<Type>> getTypeComboList() {
+        return typeComboList;
+    }
+
+    public MutableLiveData<List<Occasion>> getOccasionComboList() {
+        return occasionComboList;
+    }
+
+    public MutableLiveData<List<Type>> getTypeFlowerList() {
+        return typeFlowerList;
+    }
+
+    public MutableLiveData<List<Occasion>> getOccasionFlowerList() {
+        return occasionFlowerList;
+    }
+
+    public MutableLiveData<List<Type>> getTypeCakeList() {
+        return typeCakeList;
+    }
+
+    public MutableLiveData<List<Occasion>> getOccasionCakeList() {
+        return occasionCakeList;
     }
 }

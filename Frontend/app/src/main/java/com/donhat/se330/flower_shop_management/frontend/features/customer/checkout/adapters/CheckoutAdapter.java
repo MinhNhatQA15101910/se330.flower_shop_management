@@ -10,17 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemProductCheckoutBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.entities.ProductCart;
+import com.donhat.se330.flower_shop_management.frontend.models.Product;
+import com.donhat.se330.flower_shop_management.frontend.models.User;
 
 import java.util.List;
 
 public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.CheckoutViewHolder> {
     private final Context _context;
-    private final List<ProductCart> productCartList;
+    private final User user;
 
-    public CheckoutAdapter(List<ProductCart> productCartList, Context context) {
-        this.productCartList = productCartList;
-        this._context=context;
+    public CheckoutAdapter(User user, Context context) {
+        this.user = user;
+        this._context = context;
     }
 
     @NonNull
@@ -34,25 +35,27 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.Checko
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CheckoutViewHolder holder, int position) {
-        ProductCart productCart = productCartList.get(position);
-        if(productCart==null){
+        List<Product> productList = user.getProducts();
+        if (productList == null || position >= productList.size()) {
             return;
         }
 
-        Glide.with(_context).load(productCart.getImgURL()).into(holder.itemProductCheckoutBinding.itemImageProduct);
-        holder.itemProductCheckoutBinding.labelProductName.setText(productCart.getProductName());
-        holder.itemProductCheckoutBinding.labelQuantityPrice.setText(productCart.getQuantity() +" x "+ productCart.getPrice());
+        Product product = productList.get(position);
+        int quantity = user.getQuantities().get(position);
+        Glide.with(_context).load(product.getImageUrls()).into(holder.itemProductCheckoutBinding.itemImageProduct);
+        holder.itemProductCheckoutBinding.labelProductName.setText(product.getName());
+        holder.itemProductCheckoutBinding.labelQuantityPrice.setText(quantity + " x " + product.getPrice());
     }
 
     @Override
     public int getItemCount() {
-        if (productCartList != null) {
-            return productCartList.size();
-        }
-        return 0;
+        List<Product> productList = user.getProducts();
+        return productList != null ? productList.size() : 0;
     }
+
     public static class CheckoutViewHolder extends RecyclerView.ViewHolder {
         private final ItemProductCheckoutBinding itemProductCheckoutBinding;
+
         public CheckoutViewHolder(@NonNull ItemProductCheckoutBinding itemProductCheckoutBinding) {
             super(itemProductCheckoutBinding.getRoot());
             this.itemProductCheckoutBinding = itemProductCheckoutBinding;

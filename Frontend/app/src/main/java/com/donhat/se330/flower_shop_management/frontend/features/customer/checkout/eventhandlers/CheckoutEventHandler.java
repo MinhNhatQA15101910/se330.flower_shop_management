@@ -1,5 +1,6 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.eventhandlers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
@@ -12,9 +13,12 @@ public class CheckoutEventHandler {
     private final CheckoutViewModel _checkoutViewModel;
     private final Context _context;
 
-    public CheckoutEventHandler(CheckoutViewModel checkoutViewModel, Context context) {
+    private final Activity _activity;
+
+    public CheckoutEventHandler(CheckoutViewModel checkoutViewModel, Context context, Activity activity) {
         _checkoutViewModel = checkoutViewModel;
         _context = context;
+        _activity = activity;
     }
 
     public void onClickShippingInfoBox(View view) {
@@ -22,5 +26,8 @@ public class CheckoutEventHandler {
 
         BottomSheetAddressFragment bottomSheetAddressFragment = new BottomSheetAddressFragment();
         bottomSheetAddressFragment.show(activity.getSupportFragmentManager(), bottomSheetAddressFragment.getTag());
+    }
+    public void onNavigateBack(View view) {
+        _activity.finish();
     }
 }
