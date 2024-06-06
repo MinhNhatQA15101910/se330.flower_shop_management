@@ -42,9 +42,9 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.Checko
 
         Product product = productList.get(position);
         int quantity = user.getQuantities().get(position);
-        Glide.with(_context).load(product.getImageUrls()).into(holder.itemProductCheckoutBinding.itemImageProduct);
+        Glide.with(_context).load(product.getImageUrls().get(0)).into(holder.itemProductCheckoutBinding.itemImageProduct);
         holder.itemProductCheckoutBinding.labelProductName.setText(product.getName());
-        holder.itemProductCheckoutBinding.labelQuantityPrice.setText(quantity + " x " + product.getPrice());
+        holder.itemProductCheckoutBinding.labelQuantityPrice.setText(quantity + " x $" + product.getPrice());
     }
 
     @Override

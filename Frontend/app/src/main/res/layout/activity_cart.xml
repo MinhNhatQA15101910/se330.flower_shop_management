@@ -39,7 +39,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/cart_text_1"
+                android:id="@+id/suptotal_price_text"
                 android:layout_width="0dp"
                 android:layout_height="27dp"
                 android:layout_marginEnd="32dp"

@@ -1,5 +1,6 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.cart.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemCartBinding;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.servicehandlers.CartServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.models.Product;
 import com.donhat.se330.flower_shop_management.frontend.models.User;
 
@@ -18,11 +20,13 @@ import java.util.List;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
     private final Context _context;
     private final User user;
+    private final CartServiceHandler _cartServiceHandler;
     private OnProductDeleteListener deleteListener;
 
-    public CartAdapter(User user, Context context) {
+    public CartAdapter(User user, Context context ) {
         this.user = user;
         this._context = context;
+        this._cartServiceHandler = new CartServiceHandler(_context);
     }
 
     public void setOnProductDeleteListener(OnProductDeleteListener listener) {
@@ -37,6 +41,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         return new CartViewHolder(_itemCartBinding);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         List<Product> productList = user.getProducts();
@@ -45,9 +50,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         }
         Product product = productList.get(position);
         int quantity = user.getQuantities().get(position);
-        Glide.with(_context).load(product.getImageUrls()).into(holder.itemCartBinding.itemImageListCart);
+
+        List<String> imageUrls = product.getImageUrls();
+        String firstUrl = null;
+        if (imageUrls != null && !imageUrls.isEmpty()) {
+            firstUrl = imageUrls.get(0);
+        }
+
+        // Load image using Glide
+        Glide.with(_context)
+                .load(firstUrl)
+                .into(holder.itemCartBinding.itemImageListCart);
+
         holder.itemCartBinding.labelProductCart.setText(product.getName());
-        holder.itemCartBinding.labelPriceCart.setText(String.valueOf(product.getPrice()));
+        holder.itemCartBinding.labelPriceCart.setText("$"+ product.getPrice());
         holder.itemCartBinding.inputValue.setText(String.valueOf(quantity));
 
         int stock = product.getStock();
@@ -61,6 +77,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 int newQuantity = currentQuantity + 1;
                 holder.itemCartBinding.inputValue.setText(String.valueOf(newQuantity));
                 updateButtonStates(holder, newQuantity, stock);
+                _cartServiceHandler.addToCart(product.getId());
             }
         });
 
@@ -71,12 +88,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 int newQuantity = currentQuantity - 1;
                 holder.itemCartBinding.inputValue.setText(String.valueOf(newQuantity));
                 updateButtonStates(holder, newQuantity, stock);
+                _cartServiceHandler.removeFromCart(product.getId());
             }
         });
 
         holder.itemCartBinding.deleteProduct.setOnClickListener(v -> {
             if (deleteListener != null) {
                 deleteListener.onProductDelete(position);
+                _cartServiceHandler.deleteFromCart(product.getId());
             }
         });
     }
