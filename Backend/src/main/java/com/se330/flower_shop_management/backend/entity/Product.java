@@ -61,7 +61,4 @@ public class Product {
 
     @Column(name = "is_available")
     private Boolean isAvailable;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<ProductImage> images;
 }

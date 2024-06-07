@@ -1,5 +1,6 @@
 package com.se330.flower_shop_management.backend.entity;
 
+import com.se330.flower_shop_management.backend.entity.IDS.ProductImageId;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,20 +9,18 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "product_images")
+@IdClass(ProductImageId.class)
 public class ProductImage {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "image_id", nullable = false)
-    private Long id;
+    @Column(name = "product_id")
+    private Long productId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
-
+    @Id
     @Column(name = "image_url")
     private String imageUrl;
 }

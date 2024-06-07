@@ -11,12 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Arrays;
 
@@ -29,9 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Lazy
     private UserService userService;
 
-    private static final List<String> EXCLUDED_PATHS = Arrays.asList(
-            "/login", "/signup", "/email-exists", "/send-email", "/change-password"
-    );
+    private static final List<String> EXCLUDED_PATHS = Arrays.asList("/login", "/signup", "/email-exists", "/send-email", "/change-password");
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
@@ -42,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
-            String token = request.getHeader("x-auth-token");
+            String token = getJwtFromRequest(request);
 
             if (token == null || token.isEmpty()) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -61,15 +62,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 User user = userService.loadUserById(userId);
+                String userRole = jwtService.extractUserRole(token);
 
-                if (user != null) {
-                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                            user, null, user.getAuthorities()
-                    );
+                if (user != null && userRole != null) {
+                    SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole);
+                    user.setAuthorities(Collections.singletonList(authority));
 
-                    authToken.setDetails(
-                            new WebAuthenticationDetailsSource().buildDetails(request)
-                    );
+                    UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                     request.setAttribute("user", user);
@@ -86,4 +87,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(null); // Clear context after request is processed
     }
 
+    private String getJwtFromRequest(HttpServletRequest request) {
+        return request.getHeader("x-auth-token");
+    }
 }

@@ -1,5 +1,6 @@
 package com.se330.flower_shop_management.backend.entity;
 
+import com.se330.flower_shop_management.backend.entity.IDS.CartId;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

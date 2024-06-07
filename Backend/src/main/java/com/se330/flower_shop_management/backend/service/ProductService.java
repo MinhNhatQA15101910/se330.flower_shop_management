@@ -39,4 +39,8 @@ public class ProductService {
 
         return response;
     }
+
+    public List<Product> getAllProd() {
+        return productRepository.findAll();
+    }
 }

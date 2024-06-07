@@ -1,4 +1,4 @@
-package com.se330.flower_shop_management.backend.entity;
+package com.se330.flower_shop_management.backend.entity.IDS;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

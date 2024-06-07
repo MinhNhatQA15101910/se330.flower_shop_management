@@ -1,6 +1,7 @@
 package com.se330.flower_shop_management.backend.config;
 
 import com.se330.flower_shop_management.backend.filter.JwtAuthenticationFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -32,6 +35,7 @@ public class SecurityConfig {
                         req -> req
                                 .requestMatchers("/login/**", "/signup/**", "/email-exists/**", "/send-email/**", "/change-password/**")
                                 .permitAll()
+                                .requestMatchers("/admin/**").hasRole("admin")
                                 .anyRequest()
                                 .authenticated()
                 )
