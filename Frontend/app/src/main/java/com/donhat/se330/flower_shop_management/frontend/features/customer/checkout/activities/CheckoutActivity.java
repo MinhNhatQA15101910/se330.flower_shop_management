@@ -1,5 +1,6 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +21,8 @@ import java.util.Locale;
 
 public class CheckoutActivity extends AppCompatActivity {
     private ActivityCheckoutBinding _activityCheckoutBinding;
-    private CheckoutViewModel _checkoutViewModel;
-    private CheckoutEventHandler _checkoutEventHandler;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +31,10 @@ public class CheckoutActivity extends AppCompatActivity {
         _activityCheckoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_checkout);
 
         // View Model
-        _checkoutViewModel = new ViewModelProvider(this).get(CheckoutViewModel.class);
+        CheckoutViewModel _checkoutViewModel = new ViewModelProvider(this).get(CheckoutViewModel.class);
 
         // Event Handler
-        _checkoutEventHandler = new CheckoutEventHandler(_checkoutViewModel, this,this);
+        CheckoutEventHandler _checkoutEventHandler = new CheckoutEventHandler(_checkoutViewModel, this, this);
         _activityCheckoutBinding.setActivityCheckoutEventHandler(_checkoutEventHandler);
 
         GlobalVariables.getUser().observe(this, user -> {
@@ -56,8 +56,17 @@ public class CheckoutActivity extends AppCompatActivity {
                 String formattedSubtotalPrice = String.format(Locale.US, "%.2f", subtotalPrice);
                 _activityCheckoutBinding.totalPriceOrderDetail.setText("$" + formattedSubtotalPrice);
                 _activityCheckoutBinding.finalPriceOrderDetail.setText("$" + formattedSubtotalPrice);
-                _activityCheckoutBinding.changeOrderStatusText.setText("Checkout $ " + formattedSubtotalPrice);
+                _activityCheckoutBinding.changeOrderStatusText.setText("Checkout $" + formattedSubtotalPrice);
             }
+        });
+
+        GlobalVariables.getShippingInfo().observe(this, shippingInfo -> {
+            _activityCheckoutBinding.labelShipOrderDetail.setText(shippingInfo.getStreet()+checkEmpty(shippingInfo.getStreet(),", ")
+                    +shippingInfo.getWardName()+checkEmpty(shippingInfo.getWardName(),", ")
+                    +shippingInfo.getDistrictName()+checkEmpty(shippingInfo.getDistrictName(),", ")
+                    +shippingInfo.getProvinceName());
+            _activityCheckoutBinding.labelShipDescriptionOrderDetail.setText(shippingInfo.getFullName()+checkEmpty(shippingInfo.getFullName()," • ")
+                    +shippingInfo.getPhoneNumber());
         });
     }
 
@@ -65,5 +74,11 @@ public class CheckoutActivity extends AppCompatActivity {
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+    String checkEmpty(String string, String symbol){
+        if(string==null || string.isEmpty()){
+            return "";
+        }
+        else return symbol;
     }
 }

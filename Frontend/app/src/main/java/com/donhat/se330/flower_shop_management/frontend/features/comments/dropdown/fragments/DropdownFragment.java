@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.features.comments.dropdown.adapters.DropdownAdapter;
 import com.donhat.se330.flower_shop_management.frontend.features.comments.dropdown.callbacks.SelectionCallback;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
@@ -58,6 +61,28 @@ public class DropdownFragment extends BottomSheetDialogFragment {
         });
 
         return fragmentDropdownListBinding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        BottomSheetDialog bottomSheetDialog = (BottomSheetDialog) getDialog();
+        if (bottomSheetDialog != null) {
+            View bottomSheet = bottomSheetDialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+            BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(bottomSheet);
+
+            bottomSheet.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    bottomSheet.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    behavior.setPeekHeight(bottomSheet.getHeight());
+                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            });
+
+            // Disable dragging behavior
+            behavior.setDraggable(false);
+        }
     }
 
     public void setProvinceSelectionCallback(SelectionCallback callback) {

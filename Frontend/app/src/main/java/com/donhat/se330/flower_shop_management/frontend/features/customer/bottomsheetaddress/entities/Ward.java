@@ -1,27 +1,31 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.bottomsheetaddress.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Ward {
-    public String ward_id;
-    public String ward_name;
+    @SerializedName("ward_id")
+    public String wardId;
+    @SerializedName("ward_name")
+    public String wardName;
 
-    public Ward(String ward_id, String ward_name) {
-        this.ward_id = ward_id;
-        this.ward_name = ward_name;
+    public Ward(String wardId, String wardName) {
+        this.wardId = wardId;
+        this.wardName = wardName;
     }
 
-    public String getWard_id() {
-        return ward_id;
+    public String getWardId() {
+        return wardId;
     }
 
-    public void setWard_id(String ward_id) {
-        this.ward_id = ward_id;
+    public void setWardId(String wardId) {
+        this.wardId = wardId;
     }
 
-    public String getWard_name() {
-        return ward_name;
+    public String getWardName() {
+        return wardName;
     }
 
-    public void setWard_name(String ward_name) {
-        this.ward_name = ward_name;
+    public void setWardName(String wardName) {
+        this.wardName = wardName;
     }
 }

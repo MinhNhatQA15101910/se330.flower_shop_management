@@ -12,6 +12,7 @@ import com.donhat.se330.flower_shop_management.frontend.features.customer.bottom
 import com.donhat.se330.flower_shop_management.frontend.features.customer.bottomsheetaddress.entities.Province;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.bottomsheetaddress.entities.ProvinceListResponse;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.bottomsheetaddress.entities.Ward;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.bottomsheetaddress.entities.WardListResponse;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.bottomsheetaddress.services.BottomSheetAddressService;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.bottomsheetaddress.viewmodels.BottomSheetAddressViewModel;
 
@@ -56,45 +57,56 @@ public class BottomSheetAddressServiceHandler {
 
     public void getDistricts(String provinceName) {
         List<Province> provinceList=_bottomSheetAddressViewModel.getProvinceList().getValue();
-        assert provinceList != null;
-        for (Province province : provinceList) {
-            if(Objects.equals(province.provinceName, provinceName)){
-                _bottomSheetAddressService.getDistricts(province.provinceId).enqueue(new Callback<DistrictListResponse>() {
-                    @Override
-                    public void onResponse(@NonNull Call<DistrictListResponse> call, @NonNull Response<DistrictListResponse> response) {
-                        ErrorHandling.httpErrorHandler(response, _context, () -> {
-                            DistrictListResponse districtListResponse = response.body();
-                            if (districtListResponse != null) {
-                                List<District> districtList = districtListResponse.getResults();
-                                _bottomSheetAddressViewModel.getDistrictList().setValue(districtList);
-                            }
-                        });
-                    }
+        if(provinceList != null){
+            for (Province province : provinceList) {
+                if(Objects.equals(province.provinceName, provinceName)){
+                    _bottomSheetAddressService.getDistricts(province.provinceId).enqueue(new Callback<DistrictListResponse>() {
+                        @Override
+                        public void onResponse(@NonNull Call<DistrictListResponse> call, @NonNull Response<DistrictListResponse> response) {
+                            ErrorHandling.httpErrorHandler(response, _context, () -> {
+                                DistrictListResponse districtListResponse = response.body();
+                                if (districtListResponse != null) {
+                                    List<District> districtList = districtListResponse.getResults();
+                                    _bottomSheetAddressViewModel.getDistrictList().setValue(districtList);
+                                }
+                            });
+                        }
 
-                    @Override
-                    public void onFailure(@NonNull Call<DistrictListResponse> call, @NonNull Throwable throwable) {
-                        Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                        @Override
+                        public void onFailure(@NonNull Call<DistrictListResponse> call, @NonNull Throwable throwable) {
+                            Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         }
-    }
-    public void getWards(String districtId) {
-        _bottomSheetAddressService.getWards(districtId).enqueue(new Callback<List<Ward>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<Ward>> call, @NonNull Response<List<Ward>> response) {
-                ErrorHandling.httpErrorHandler(response, _context, () -> {
-                    List<Ward> wardList = response.body();
-                    if (wardList != null) {
-                        _bottomSheetAddressViewModel.getWardList().setValue(wardList);
-                    }
-                });
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<List<Ward>> call, @NonNull Throwable throwable) {
-                Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+    public void getWards(String districtName) {
+        List<District> districtList=_bottomSheetAddressViewModel.getDistrictList().getValue();
+        if(districtList != null){
+            for (District district : districtList) {
+                if(Objects.equals(district.districtName, districtName)){
+                    _bottomSheetAddressService.getWards(district.districtId).enqueue(new Callback<WardListResponse>() {
+                        @Override
+                        public void onResponse(@NonNull Call<WardListResponse> call, @NonNull Response<WardListResponse> response) {
+                            ErrorHandling.httpErrorHandler(response, _context, () -> {
+                                WardListResponse wardListResponse = response.body();
+                                if (wardListResponse != null) {
+                                    List<Ward> wardList = wardListResponse.getResults();
+                                    _bottomSheetAddressViewModel.getWardList().setValue(wardList);
+                                }
+                            });
+                        }
+                        @Override
+                        public void onFailure(@NonNull Call<WardListResponse> call, @NonNull Throwable throwable) {
+                            Toast.makeText(_context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
-        });
+        }
+
+
     }
 }

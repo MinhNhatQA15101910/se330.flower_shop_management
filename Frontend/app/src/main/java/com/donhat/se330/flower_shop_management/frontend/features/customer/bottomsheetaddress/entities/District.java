@@ -3,7 +3,9 @@ package com.donhat.se330.flower_shop_management.frontend.features.customer.botto
 import com.google.gson.annotations.SerializedName;
 
 public class District {
+    @SerializedName("district_id")
     public String districtId;
+    @SerializedName("district_name")
     public String districtName;
 
     public District(String districtId, String districtName) {

@@ -21,6 +21,9 @@ public class BottomSheetAddressViewModel extends ViewModel {
 
     private final MutableLiveData<String> currProvinceId = new MutableLiveData<>();
     private final MutableLiveData<String> currDistrictId = new MutableLiveData<>();
+    private final MutableLiveData<String> streetNumber = new MutableLiveData<>();
+    private final MutableLiveData<String> fullName = new MutableLiveData<>();
+    private final MutableLiveData<String> phoneNumber = new MutableLiveData<>();
     public MutableLiveData<String> getCurrentDropDown() {
         return currentDropDown;
     }
@@ -55,5 +58,17 @@ public class BottomSheetAddressViewModel extends ViewModel {
 
     public MutableLiveData<String> getCurrDistrictId() {
         return currDistrictId;
+    }
+
+    public MutableLiveData<String> getStreetNumber() {
+        return streetNumber;
+    }
+
+    public MutableLiveData<String> getFullName() {
+        return fullName;
+    }
+
+    public MutableLiveData<String> getPhoneNumber() {
+        return phoneNumber;
     }
 }
