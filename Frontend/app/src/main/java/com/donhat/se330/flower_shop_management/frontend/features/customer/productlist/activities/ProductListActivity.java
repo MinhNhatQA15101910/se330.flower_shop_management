@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ActivityProductListBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.adapters.ProductAdapter;
+import com.donhat.se330.flower_shop_management.frontend.features.components.adapters.ItemProductCardAdapter;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.eventhandlers.ProductListEventHandler;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.servicehandlers.ProductListServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.viewmodels.ProductListViewModel;
 import com.donhat.se330.flower_shop_management.frontend.models.Product;
 
@@ -20,15 +19,8 @@ import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity {
 
-    List<Product> dealsOfDayList;
-
     private ActivityProductListBinding _activityProductListBinding;
     private ProductListViewModel _productListViewModel;
-    private ProductListEventHandler _productListEventHandler;
-    private ProductAdapter _productAdapter;
-    private ProductListServiceHandler _productListServiceHandler;
-
-    private RecyclerView _productsListRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,26 +32,23 @@ public class ProductListActivity extends AppCompatActivity {
 
         _activityProductListBinding.setProductListViewModel(_productListViewModel);
 
-        _productListEventHandler = new ProductListEventHandler(this, _productListViewModel);
+        ProductListEventHandler _productListEventHandler = new ProductListEventHandler(this, _productListViewModel);
 
         _activityProductListBinding.setProductListEventHandler(_productListEventHandler);
 
+        _productListEventHandler.onInitial();
 
         getAllDoDProducts();
-
-
     }
 
     void getAllDoDProducts() {
-        _productListViewModel.setListDoDProducts(_productListEventHandler.getProduct());
-        dealsOfDayList = _productListViewModel.getListDoDProducts().getValue();
-        displayDealOfDayRecyclerView();
+        _productListViewModel.getListDoDProducts().observe(this, this::displayDealOfDayRecyclerView);
     }
 
-    void displayDealOfDayRecyclerView() {
-        _productsListRecyclerView = _activityProductListBinding.productsRecyclerView;
+    void displayDealOfDayRecyclerView(List<Product> productsList) {
+        RecyclerView _productsListRecyclerView = _activityProductListBinding.productsRecyclerView;
 
-        _productAdapter = new ProductAdapter(dealsOfDayList);
+        ItemProductCardAdapter _productAdapter = new ItemProductCardAdapter(productsList);
 
         _productsListRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         _productsListRecyclerView.setHasFixedSize(true);

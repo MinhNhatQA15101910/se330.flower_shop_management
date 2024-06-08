@@ -5,8 +5,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.donhat.se330.flower_shop_management.frontend.constants.ErrorHandling;
 import com.donhat.se330.flower_shop_management.frontend.constants.retrofit.RetrofitClient;
+import com.donhat.se330.flower_shop_management.frontend.constants.utils.ErrorHandling;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.category.services.CategoryService;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.category.viewmodels.CategoryViewModel;
 import com.donhat.se330.flower_shop_management.frontend.models.Category;

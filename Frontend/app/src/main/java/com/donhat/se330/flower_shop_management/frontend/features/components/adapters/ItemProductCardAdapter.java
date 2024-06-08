@@ -1,4 +1,4 @@
-package com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.adapters;
+package com.donhat.se330.flower_shop_management.frontend.features.components.adapters;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -10,14 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemSingleProductCardBinding;
+import com.donhat.se330.flower_shop_management.frontend.features.components.eventhandlers.ItemProductCardEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.models.Product;
 
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+public class ItemProductCardAdapter extends RecyclerView.Adapter<ItemProductCardAdapter.ProductViewHolder> {
     private List<Product> _products;
+    private ItemProductCardEventHandler _itemProductCardEventHandler;
 
-    public ProductAdapter(List<Product> products) {
+    public ItemProductCardAdapter(List<Product> products) {
         _products = products;
     }
 
@@ -31,6 +33,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                         parent,
                         false
                 );
+        _itemProductCardEventHandler = new ItemProductCardEventHandler(parent.getContext());
+        itemSingleProductCardBinding.setProductEventHandler(_itemProductCardEventHandler);
         return new ProductViewHolder(itemSingleProductCardBinding);
     }
 
@@ -39,10 +43,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Product currentProduct = _products.get(position);
 
         holder._itemSingleProductCardBinding.setProduct(currentProduct);
-        //load image from url
-        Glide.with(holder._itemSingleProductCardBinding.getRoot().getContext())
-                .load(currentProduct.getImageUrls().get(0))
-                .into(holder._itemSingleProductCardBinding.imageProduct);
+        _itemProductCardEventHandler.setProduct(currentProduct);
+        //load image from url if available
+        if (currentProduct.getImageUrls() != null && !currentProduct.getImageUrls().isEmpty()) {
+            Glide.with(holder._itemSingleProductCardBinding.getRoot().getContext())
+                    .load(currentProduct.getImageUrls().get(0))
+                    .into(holder._itemSingleProductCardBinding.imageProduct);
+        }
     }
 
 
@@ -51,11 +58,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         if (_products != null)
             return _products.size();
         return 0;
-    }
-
-    public void updateData(List<Product> newProducts) {
-        this._products = newProducts;
-        notifyDataSetChanged();
     }
 
     public static class ProductViewHolder extends RecyclerView.ViewHolder {

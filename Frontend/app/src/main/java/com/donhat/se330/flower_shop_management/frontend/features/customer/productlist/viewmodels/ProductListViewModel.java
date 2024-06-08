@@ -8,13 +8,13 @@ import com.donhat.se330.flower_shop_management.frontend.models.Product;
 import java.util.List;
 
 public class ProductListViewModel extends ViewModel {
-    private MutableLiveData<List<Product>> listDoDProducts;
+    private MutableLiveData<List<Product>> dodProductList = new MutableLiveData<>();
 
     public MutableLiveData<List<Product>> getListDoDProducts() {
-        return listDoDProducts;
+        return dodProductList;
     }
 
-    public void setListDoDProducts(List<Product> listDoDProducts) {
-        this.listDoDProducts.setValue(listDoDProducts);
+    public void setListDoDProducts(MutableLiveData<List<Product>> listDoDProducts) {
+        this.dodProductList = listDoDProducts;
     }
 }

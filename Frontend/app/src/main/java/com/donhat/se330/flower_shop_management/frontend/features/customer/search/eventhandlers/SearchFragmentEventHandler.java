@@ -1,23 +1,28 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.search.eventhandlers;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.donhat.se330.flower_shop_management.frontend.features.customer.search.fragments.FilterBtmSheetFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.search.fragments.SortBtmSheetFragment;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.search.servicehandlers.SearchServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.search.viewmodels.SearchFragmentViewModel;
 
-public class SearchEventHandler {
+public class SearchFragmentEventHandler {
     Context context;
     SearchFragmentViewModel searchFragmentViewModel;
+    SearchServiceHandler searchServiceHandler;
 
-    public SearchEventHandler(Context context, SearchFragmentViewModel searchFragmentViewModel) {
+    public SearchFragmentEventHandler(Context context, SearchFragmentViewModel searchFragmentViewModel) {
         this.context = context;
         this.searchFragmentViewModel = searchFragmentViewModel;
+        this.searchServiceHandler = new SearchServiceHandler(context, searchFragmentViewModel);
+    }
+
+    public void onInitial() {
+        searchFragmentViewModel.setProductsList(searchServiceHandler.getAllProducts());
     }
 
     public void onFilterBtnClicked(View view) {

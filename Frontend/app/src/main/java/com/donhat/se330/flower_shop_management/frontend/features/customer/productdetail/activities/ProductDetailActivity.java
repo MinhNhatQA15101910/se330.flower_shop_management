@@ -1,50 +1,93 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.productdetail.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ActivityProductDetailBinding;
+import com.donhat.se330.flower_shop_management.frontend.features.components.adapters.ItemProductCardAdapter;
+import com.donhat.se330.flower_shop_management.frontend.features.components.adapters.ProductImageAdapter;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.productdetail.eventhandlers.ProductDetailEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.productdetail.viewmodels.ProductDetailViewModel;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.adapters.ProductAdapter;
 import com.donhat.se330.flower_shop_management.frontend.models.Product;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
-    ArrayList<Product> _products = new ArrayList<>();
-    private ActivityProductDetailBinding _activityProductDetailBinding;
-    private ProductDetailViewModel _productDetailViewModel;
-
-    private ProductAdapter _productAdapter;
+    ActivityProductDetailBinding _activityProductDetailBinding;
+    ProductDetailViewModel _productDetailViewModel;
+    private Product _product;
+    private List<String> _imagesUrl = new ArrayList<>();
+    private List<Product> _suggestProducts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        int productId = (int) getIntent().getSerializableExtra("product");
+
         _activityProductDetailBinding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail);
 
         _productDetailViewModel = new ViewModelProvider(this).get(ProductDetailViewModel.class);
 
+        ProductDetailEventHandler _productDetailEventHandler = new ProductDetailEventHandler(this, _productDetailViewModel);
+
         _activityProductDetailBinding.setProductDetailViewModel(_productDetailViewModel);
 
-        addProducts();
-        _productAdapter = new ProductAdapter(_products);
+        _activityProductDetailBinding.setProductDetailEventHandler(_productDetailEventHandler);
 
+        _productDetailViewModel.setProductId(productId);
 
+        _productDetailEventHandler.onInitial();
+        _product = _productDetailViewModel.getProduct().getValue();
+
+        displayProductDetail();
+        _productDetailViewModel.getSuggestProducts().observe(this, products -> {
+            _suggestProducts = products;
+            displaySuggestProductList();
+        });
     }
 
-    //add some products to the list
-    private void addProducts() {
-       /* _products.add(new Product("Rose", 4.5f, "100", "$10"));
-        _products.add(new Product("Lily", 4.0f, "50", "$15"));
-        _products.add(new Product("Sunflower", 4.2f, "70", "$20"));
-        _products.add(new Product("Tulip", 4.3f, "80", "$25"));
-        _products.add(new Product("Daisy", 4.1f, "60", "$30"));*/
+    @SuppressLint("DefaultLocale")
+    void displayProductDetail() {
+
+        _productDetailViewModel.getProduct().observe(this, product -> {
+            _product = product;
+            _activityProductDetailBinding.setProduct(_product);
+            displayProductImageList();
+        });
     }
+
+    void displayProductImageList() {
+        _imagesUrl = _product.getImageUrls();
+        ProductImageAdapter adapter = new ProductImageAdapter(_imagesUrl);
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+
+        RecyclerView recyclerView = _activityProductDetailBinding.productImagesRecyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        snapHelper.attachToRecyclerView(recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+    }
+
+    void displaySuggestProductList() {
+        RecyclerView _suggestRecyclerView = _activityProductDetailBinding.suggestionsRecyclerView;
+        ItemProductCardAdapter adapter = new ItemProductCardAdapter(_suggestProducts);
+
+        _suggestRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        _suggestRecyclerView.setHasFixedSize(true);
+        //_suggestRecyclerView.setNestedScrollingEnabled(false);
+        _suggestRecyclerView.setAdapter(adapter);
+    }
+
 }

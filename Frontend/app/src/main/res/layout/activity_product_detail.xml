@@ -6,8 +6,15 @@
     <data>
 
         <variable
+            name="productDetailEventHandler"
+            type="com.donhat.se330.flower_shop_management.frontend.features.customer.productdetail.eventhandlers.ProductDetailEventHandler" />
+        <variable
             name="productDetailViewModel"
             type="com.donhat.se330.flower_shop_management.frontend.features.customer.productdetail.viewmodels.ProductDetailViewModel" />
+
+        <variable
+            name="product"
+            type="com.donhat.se330.flower_shop_management.frontend.models.Product" />
     </data>
 
 
@@ -92,6 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="12dp"
+                        android:visibility="gone"
                         android:background="@drawable/grey_badge"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="6dp"
@@ -99,6 +107,7 @@
                         app:layout_constraintEnd_toEndOf="parent">
 
                         <TextView
+                            android:id="@+id/image_indicator_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="14/10"
@@ -126,7 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingVertical="4dp"
-                        android:text="Product Name"
+                        android:text="@{product.name}"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -138,15 +147,16 @@
                         android:layout_height="wrap_content"
                         android:numStars="5"
                         android:paddingVertical="4dp"
-                        android:rating="3.5"
+                        android:rating="@{product.ratingAvg}"
                         app:layout_constraintStart_toStartOf="@+id/text_product_name"
                         app:layout_constraintTop_toBottomOf="@+id/text_product_name" />
 
                     <TextView
+                        android:id="@+id/text_total_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingStart="4dp"
-                        android:text="69"
+                        android:paddingStart="6dp"
+                        android:text='@{String.format("(%d)", product.totalRating)}'
                         android:textColor="@color/darkGrey"
                         android:textSize="10sp"
                         app:layout_constraintBottom_toBottomOf="@+id/rating_bar"
@@ -159,7 +169,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_bold"
                         android:paddingVertical="4dp"
-                        android:text="Product Price"
+                        android:text='@{String.format("$%.2f", product.salePrice)}'
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
@@ -171,7 +181,7 @@
                         android:layout_marginVertical="4dp"
                         android:background="@drawable/discount_badge"
                         android:fontFamily="@font/inter_bold"
-                        android:text="40%"
+                        android:text='@{String.format("%.0f%%", product.salePercentage)}'
                         android:textColor="@color/white"
                         android:textSize="10sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -181,8 +191,9 @@
                         android:id="@+id/text_discount_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="6dp"
                         android:background="@drawable/strikethrough"
-                        android:text="Product Price"
+                        android:text='@{String.format("$%.2f", product.price)}'
                         android:textColor="@color/darkGrey"
                         android:textSize="14sp"
 
@@ -192,122 +203,13 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/shipping_info_constraint_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp"
-                    app:layout_constraintTop_toBottomOf="@id/product_detail_constraint_layout">
-
-                    <TextView
-                        android:id="@+id/text_shipping_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Shipping Info"
-
-                        android:textAppearance="@style/label_green_text"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/shipping_info_content_constraint_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/grey_border_container"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="12dp"
-                        app:layout_constraintTop_toBottomOf="@id/text_shipping_info">
-
-                        <TextView
-                            android:id="@+id/text_view1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Shipping address"
-                            android:textAppearance="@style/normal_text"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/location_text_view"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:text="Shipping address bla bla ..."
-                            android:textAppearance="@style/normal_text"
-                            android:textStyle="bold"
-                            app:layout_constraintEnd_toStartOf="@id/shipping_icon"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/text_view1" />
-
-                        <View
-                            android:id="@+id/shipping_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:background="@drawable/vector_right_arrow"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/delivery_time_constraint_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp"
-                    app:layout_constraintTop_toBottomOf="@id/shipping_info_constraint_layout">
-
-                    <TextView
-                        android:id="@+id/delivery_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Delivery Time"
-                        android:textAppearance="@style/label_green_text"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/date_picker_constraint_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/grey_border_container"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="12dp"
-                        app:layout_constraintTop_toBottomOf="@id/delivery_label">
-
-                        <TextView
-                            android:id="@+id/text_view3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Delivery date"
-                            android:textAppearance="@style/normal_text"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />>
-
-                        <View
-                            android:id="@+id/calendar_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:background="@drawable/vector_calendar"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/product_description_constraint_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="12dp"
-                    app:layout_constraintTop_toBottomOf="@id/delivery_time_constraint_layout">
+                    app:layout_constraintTop_toBottomOf="@id/product_detail_constraint_layout">
 
                     <TextView
                         android:id="@+id/text_product_description"
@@ -339,7 +241,7 @@
                             android:id="@+id/product_size_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="30x30x30cm"
+                            android:text="@{product.size}"
                             android:textAppearance="@style/bold_text"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -367,7 +269,7 @@
                             android:id="@+id/product_weight_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="12kg"
+                            android:text="@{Float.toString(product.weight)}"
                             android:textAppearance="@style/bold_text"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -395,7 +297,7 @@
                             android:id="@+id/product_color_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rainbow Prismatic"
+                            android:text="@{product.color}"
                             android:textAppearance="@style/bold_text"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -423,7 +325,7 @@
                             android:id="@+id/product_material_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vibranium"
+                            android:text="@{product.material}"
                             android:textAppearance="@style/bold_text"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -441,8 +343,10 @@
                             android:id="@+id/full_description_text"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:text="Description bla bla..."
+                            android:ellipsize="end"
                             android:textAppearance="@style/normal_text"
+                            android:maxLines="4"
+                            android:text="@{product.detailDescription}"
                             app:layout_constraintBottom_toTopOf="@+id/view_more_text"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -467,10 +371,11 @@
                     android:background="@color/white"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/product_description_constraint_layout">
 
                     <TextView
-                        android:id="@+id/suggesstion_label"
+                        android:id="@+id/suggestion_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Products you may like"
@@ -481,9 +386,10 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/suggestions_recycler_view"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:paddingVertical="8dp"
-                        app:layout_constraintTop_toBottomOf="@id/suggesstion_label" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/suggestion_label" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

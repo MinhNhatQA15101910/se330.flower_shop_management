@@ -1,25 +1,24 @@
-package com.donhat.se330.flower_shop_management.frontend.features.customer.home.adapters;
+package com.donhat.se330.flower_shop_management.frontend.features.components.adapters;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemBannerCardBinding;
 import com.donhat.se330.flower_shop_management.frontend.models.Banner;
-import java.util.ArrayList;
 
-public class CarouselBannerAdapter extends RecyclerView.Adapter<CarouselBannerAdapter.CarouselViewHolder> {
+import java.util.List;
 
-    private ArrayList<Banner> _banners;
+public class ItemBannerAdapter extends RecyclerView.Adapter<ItemBannerAdapter.CarouselViewHolder> {
 
-    public CarouselBannerAdapter(ArrayList<Banner> banners) {
+    private List<Banner> _banners;
+
+    public ItemBannerAdapter(List<Banner> banners) {
         _banners = banners;
     }
 

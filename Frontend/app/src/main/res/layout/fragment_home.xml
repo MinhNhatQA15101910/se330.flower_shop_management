@@ -10,6 +10,10 @@
         <variable
             name="homeFragmentViewModel"
             type="com.donhat.se330.flower_shop_management.frontend.features.customer.home.viewmodels.HomeFragmentViewModel" />
+
+        <variable
+            name="homeFragmentEventHandler"
+            type="com.donhat.se330.flower_shop_management.frontend.features.customer.home.eventhandlers.HomeFragmentEventHandlers" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,7 +60,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/carousel_constraint_layout"
             android:layout_width="match_parent"
@@ -64,29 +67,14 @@
             android:background="@color/white"
             android:paddingHorizontal="16dp"
             android:paddingVertical="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_constraint_layout">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/carousel_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/carousel_constraint_layout" />
 
-            <!--<com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-                android:id="@+id/dots_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:dotsSize="12dp"
-                android:layout_marginVertical="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/carousel_constraint_layout"
-                app:layout_constraintTop_toBottomOf="@id/carousel_recycler_view" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -112,6 +100,7 @@
 
             <TextView
                 android:id="@+id/deals_of_the_day_text_view_2"
+                android:onClick="@{homeFragmentEventHandler::onClickViewMore}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
@@ -181,6 +170,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
+                android:paddingHorizontal="8dp"
                 android:text="Recommended products"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -193,6 +183,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
+                android:paddingHorizontal="8dp"
                 android:text="View more >"
                 android:textColor="@color/green"
                 android:textSize="16sp"
@@ -202,8 +193,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recommend_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center_horizontal"
+                android:numColumns="2"
+                android:stretchMode="columnWidth"
                 app:layout_constraintTop_toBottomOf="@id/recommend_text_view" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

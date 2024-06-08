@@ -285,7 +285,7 @@
                     android:elevation="0dp"
                     android:fontFamily="@font/inter_bold"
                     android:onClick="@{signUpEventHandler::continueAsAGuess}"
-                    android:text="Continue as a guest"
+                    android:text="Continue as guest"
                     android:textAllCaps="false"
                     android:textColor="@color/green"
                     android:textSize="16sp"

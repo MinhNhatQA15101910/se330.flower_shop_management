@@ -16,13 +16,6 @@
         android:theme="@style/Theme.Frontend"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <service
-            android:name=".features.customer.productlist.services.MyIntentService"
-            android:exported="false"></service>
-        <service
-            android:name=".features.customer.productlist.viewmodels.MyService"
-            android:enabled="true"
-            android:exported="true" />
 
         <activity
             android:name=".features.intro.activities.IntroActivity"
@@ -35,10 +28,15 @@
         </activity>
         <activity
             android:name=".features.customer.productlist.activities.ProductListActivity"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".features.customer.navbar.activities.CustomerNavBarActivity"
-            android:exported="false" />
+            android:exported="true">
+
+
+        </activity>
         <activity
             android:name=".features.auth.activities.AuthActivity"
             android:exported="false"

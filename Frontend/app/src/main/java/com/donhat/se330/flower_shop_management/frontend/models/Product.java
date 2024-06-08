@@ -1,6 +1,5 @@
 package com.donhat.se330.flower_shop_management.frontend.models;
 
-import com.donhat.se330.flower_shop_management.frontend.constants.enums.Size;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class Product {
     private double salePercentage;
     @SerializedName("detail_description")
     private String detailDescription;
-    private Size size;
+    private String size;
     private float weight;
     private String color;
     private String material;
@@ -36,7 +35,7 @@ public class Product {
         salePrice = 0;
         salePercentage = 0;
         detailDescription = "";
-        size = Size.STANDARD;
+        size = "";
         weight = 0;
         color = "";
         material = "";
@@ -47,7 +46,7 @@ public class Product {
         imageUrls = new ArrayList<>();
     }
 
-    public Product(int id, String name, double price, double salePrice, double salePercentage, String detailDescription, Size size, float weight, String color, String material, int stock, int sold, float ratingAvg, int totalRating, List<String> imageUrls) {
+    public Product(int id, String name, double price, double salePrice, double salePercentage, String detailDescription, String size, float weight, String color, String material, int stock, int sold, float ratingAvg, int totalRating, List<String> imageUrls) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -113,11 +112,11 @@ public class Product {
         this.detailDescription = detailDescription;
     }
 
-    public Size getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(Size size) {
+    public void setSize(String size) {
         this.size = size;
     }
 

@@ -76,11 +76,11 @@ public class CategoryFragment extends Fragment {
                 List<Type> typeFlowerList = new ArrayList<>();
                 List<Type> typeCakeList = new ArrayList<>();
                 for (Type type : typeList) {
-                    if (type.getCategory_id() == 1) {
+                    if (type.getId() == 1) {
                         typeComboList.add(type);
-                    } else if (type.getCategory_id() == 2) {
+                    } else if (type.getId() == 2) {
                         typeFlowerList.add(type);
-                    } else if (type.getCategory_id() == 3) {
+                    } else if (type.getId() == 3) {
                         typeCakeList.add(type);
                     }
                 }
@@ -117,11 +117,11 @@ public class CategoryFragment extends Fragment {
                 List<Occasion> occasionFlowerList = new ArrayList<>();
                 List<Occasion> occasionCakeList = new ArrayList<>();
                 for (Occasion occasion : occasionList) {
-                    if (occasion.getCategory_id() == 1) {
+                    if (occasion.getId() == 1) {
                         occasionComboList.add(occasion);
-                    } else if (occasion.getCategory_id() == 2) {
+                    } else if (occasion.getId() == 2) {
                         occasionFlowerList.add(occasion);
-                    } else if (occasion.getCategory_id() == 3) {
+                    } else if (occasion.getId() == 3) {
                         occasionCakeList.add(occasion);
                     }
                 }

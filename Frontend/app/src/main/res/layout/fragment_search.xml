@@ -7,8 +7,11 @@
     <data>
 
         <variable
-            name="searchEventHandler"
-            type="com.donhat.se330.flower_shop_management.frontend.features.customer.search.eventhandlers.SearchEventHandler" />
+            name="searchFragmentViewModel"
+            type="com.donhat.se330.flower_shop_management.frontend.features.customer.search.viewmodels.SearchFragmentViewModel" />
+        <variable
+            name="searchFragmentEventHandler"
+            type="com.donhat.se330.flower_shop_management.frontend.features.customer.search.eventhandlers.SearchFragmentEventHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,41 +58,16 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!-- Add a search bar here -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/search_bar_constraint_layout"
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/search_input"
-            android:paddingHorizontal="16dp"
+            android:queryHint="Enter keyword to search for product"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header_constraint_layout">
-
-            <View
-                android:id="@+id/search_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/vector_search"
-                android:backgroundTint="@color/darkGrey"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/search_edit_text"
-                android:layout_width="0dp"
-                android:layout_height="36dp"
-                android:background="@null"
-                android:hint="Enter the product keyword to search"
-                android:inputType="text"
-                android:textAppearance="@style/placeholder"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/search_icon"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@+id/header_constraint_layout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sort_filter_constraint_layout"
@@ -97,14 +75,14 @@
             android:layout_height="56dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_bar_constraint_layout">
+            app:layout_constraintTop_toBottomOf="@id/search_bar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/filter_button"
                 android:layout_width="0dp"
                 android:layout_height="32dp"
                 android:background="@drawable/white_background_grey_btn"
-                android:onClick="@{searchEventHandler::onFilterBtnClicked}"
+                android:onClick="@{searchFragmentEventHandler::onFilterBtnClicked}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -139,7 +117,7 @@
                 android:layout_width="0dp"
                 android:layout_height="32dp"
                 android:background="@drawable/white_background_btn"
-                android:onClick="@{searchEventHandler::onSortBtnClicked}"
+                android:onClick="@{searchFragmentEventHandler::onSortBtnClicked}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -178,9 +156,9 @@
             android:id="@+id/search_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sort_filter_constraint_layout" />
 
 
