@@ -27,7 +27,6 @@ public class ProductDetailActivity extends AppCompatActivity {
     ActivityProductDetailBinding _activityProductDetailBinding;
     ProductDetailViewModel _productDetailViewModel;
     private Product _product;
-    private List<String> _imagesUrl = new ArrayList<>();
     private List<Product> _suggestProducts = new ArrayList<>();
 
     @Override
@@ -40,7 +39,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         _productDetailViewModel = new ViewModelProvider(this).get(ProductDetailViewModel.class);
 
-        ProductDetailEventHandler _productDetailEventHandler = new ProductDetailEventHandler(this, _productDetailViewModel);
+        ProductDetailEventHandler _productDetailEventHandler = new ProductDetailEventHandler(_productDetailViewModel, this, this);
 
         _activityProductDetailBinding.setProductDetailViewModel(_productDetailViewModel);
 
@@ -69,7 +68,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     void displayProductImageList() {
-        _imagesUrl = _product.getImageUrls();
+        List<String> _imagesUrl = _product.getImageUrls();
         ProductImageAdapter adapter = new ProductImageAdapter(_imagesUrl);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
 
@@ -90,4 +89,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         _suggestRecyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 }

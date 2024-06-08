@@ -4,667 +4,665 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".features.customer.profile.fragments.ProfileFragment">
 
+    <data>
+        <variable
+            name="profileFragmentEventHandler"
+            type="com.donhat.se330.flower_shop_management.frontend.features.customer.profile.eventhandlers.ProfileEventHandler" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/defaultColor"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/first_bar"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <View
+                android:id="@+id/view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="120dp"
+                android:background="@drawable/img_profile_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <View
-                    android:id="@+id/view"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:background="@drawable/img_profile_background"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/account_avatar_item"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="75dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/account_avatar_item"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:layout_marginTop="75dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="50dp"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="50dp">
+
+                    <ImageView
+                        android:id="@+id/account_avartar"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img_account" />
+                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/title_username"
+                android:layout_width="match_parent"
+                android:layout_height="27dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_horizontal|top"
+                android:lineSpacingExtra="5sp"
+                android:text="User name"
+                android:textAppearance="@style/regular18_blackGrey"
+                android:textStyle="bold"
+                android:translationY="-2.61sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/account_avatar_item" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/voucher_box_account_main"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/vector_white_radius_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_username">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/voucher_mini_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+                        android:id="@+id/voucher_image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/img_promotion_code"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/label_voucher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="16dp"
+                        android:gravity="center_vertical"
+                        android:lineSpacingExtra="4sp"
+                        android:text="Mã giảm giá"
+                        android:textAppearance="@style/regular18_blackGrey"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/voucher_image"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/thinline"
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="32dp"
+                    android:background="@color/grey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/number_voucher"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/number_voucher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:gravity="top"
+                    android:lineSpacingExtra="4sp"
+                    android:text="00"
+                    android:textAppearance="@style/regular18_blackGrey"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/transport_box"
+                android:layout_width="match_parent"
+                android:layout_height="166dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/vector_white_radius_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/voucher_box_account_main">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:onClick="@{profileFragmentEventHandler::navigateToOrderManagement}"
+                    android:id="@+id/show_order"
+                    android:layout_width="0dp"
+                    android:layout_height="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
-                        android:layout_gravity="center"
-                        app:cardCornerRadius="50dp">
-
-                        <ImageView
-                            android:id="@+id/account_avartar"
-                            android:layout_width="90dp"
-                            android:layout_height="90dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/img_account" />
-                    </androidx.cardview.widget.CardView>
-                </androidx.cardview.widget.CardView>
-
-
-                <TextView
-                    android:id="@+id/title_username"
-                    android:layout_width="match_parent"
-                    android:layout_height="27dp"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_horizontal|top"
-                    android:lineSpacingExtra="5sp"
-                    android:text="User name"
-                    android:textAppearance="@style/regular18_blackGrey"
-                    android:textStyle="bold"
-                    android:translationY="-2.61sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/account_avatar_item" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/voucher_box_account_main"
-                    android:layout_width="match_parent"
-                    android:layout_height="86dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/vector_white_radius_8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/title_username">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/voucher_mini_box"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <View
-                            android:id="@+id/voucher_image"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/img_promotion_code"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/label_voucher"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="16dp"
-                            android:gravity="center_vertical"
-                            android:lineSpacingExtra="4sp"
-                            android:text="Mã giảm giá"
-                            android:textAppearance="@style/regular18_blackGrey"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/voucher_image"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <View
-                        android:id="@+id/thinline"
-                        android:layout_width="1dp"
-                        android:layout_height="40dp"
-                        android:layout_marginEnd="32dp"
-                        android:background="@color/grey"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/number_voucher"
-                        app:layout_constraintTop_toTopOf="parent" />
-
                     <TextView
-                        android:id="@+id/number_voucher"
+                        android:id="@+id/title_categ"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="32dp"
+                        android:layout_marginLeft="8dp"
                         android:gravity="top"
-                        android:lineSpacingExtra="4sp"
-                        android:text="00"
-                        android:textAppearance="@style/regular18_blackGrey"
+                        android:lineSpacingExtra="5sp"
+                        android:text="Đơn hàng"
+                        android:textAppearance="@style/regular16_blackGrey"
                         android:textStyle="bold"
+                        android:translationY="-2.32sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/transport_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="166dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/vector_white_radius_8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/voucher_box_account_main">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/show_order"
-                        android:layout_width="0dp"
+                        android:id="@+id/view_more_order"
+                        android:layout_width="wrap_content"
                         android:layout_height="24dp"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginVertical="12dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:id="@+id/title_categ"
+                            android:id="@+id/cta_viewmor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:gravity="top"
-                            android:lineSpacingExtra="5sp"
-                            android:text="Đơn hàng"
+                            android:layout_marginEnd="8dp"
+                            android:lineHeight="21sp"
+                            android:text="view more"
+                            android:textAppearance="@style/regular14_green"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/trailing_ic"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/trailing_ic"
+                            android:layout_width="8dp"
+                            android:layout_height="14dp"
+                            android:background="@drawable/vector_right_arrow_green"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/transport_box_inside"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/show_order">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/processing_box"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/thinline2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <View
+                            android:id="@+id/view1"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/vector_pending"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/label_processing"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:foregroundGravity="center_horizontal|center_vertical"
+                            android:gravity="center"
+                            android:lineSpacingExtra="4sp"
+                            android:text="Đang xử lý"
                             android:textAppearance="@style/regular16_blackGrey"
-                            android:textStyle="bold"
-                            android:translationY="-2.32sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/view_more_order"
-                            android:layout_width="wrap_content"
-                            android:layout_height="24dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:id="@+id/cta_viewmor"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="8dp"
-                                android:lineHeight="21sp"
-                                android:text="view more"
-                                android:textAppearance="@style/regular14_green"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/trailing_ic"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <View
-                                android:id="@+id/trailing_ic"
-                                android:layout_width="8dp"
-                                android:layout_height="14dp"
-                                android:background="@drawable/vector_right_arrow_green"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/transport_box_inside"
-                        android:layout_width="match_parent"
-
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/show_order">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/processing_box"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/thinline2"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <View
-                                android:id="@+id/view1"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_marginTop="4dp"
-                                android:background="@drawable/vector_pending"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/label_processing"
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:foregroundGravity="center_horizontal|center_vertical"
-                                android:gravity="center"
-                                android:lineSpacingExtra="4sp"
-                                android:text="Đang xử lý"
-                                android:textAppearance="@style/regular16_blackGrey"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/view1" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <View
-                            android:id="@+id/thinline2"
-                            android:layout_width="1dp"
-                            android:layout_height="84dp"
-                            android:background="@color/grey"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/delivery_box"
-                            app:layout_constraintStart_toEndOf="@id/processing_box"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/delivery_box"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/thinline3"
-                            app:layout_constraintStart_toEndOf="@id/thinline2"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <View
-                                android:id="@+id/view2"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_marginTop="4dp"
-                                android:background="@drawable/vector_indelivery"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/label_delivery"
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:foregroundGravity="center_horizontal|center_vertical"
-                                android:gravity="center"
-                                android:lineSpacingExtra="4sp"
-                                android:text="Đang vận chuyển"
-                                android:textAppearance="@style/regular16_blackGrey"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/view2" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <View
-                            android:id="@+id/thinline3"
-                            android:layout_width="1dp"
-                            android:layout_height="84dp"
-                            android:background="@color/grey"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/delivered_box"
-                            app:layout_constraintStart_toEndOf="@id/delivery_box"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/delivered_box"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/thinline3"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <View
-                                android:id="@+id/view3"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_marginTop="4dp"
-                                android:background="@drawable/vector_delivered"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/label_delivered"
-                                android:layout_width="80dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:gravity="center"
-                                android:lineSpacingExtra="4sp"
-                                android:text="Đã giao hàng"
-                                android:textAppearance="@style/regular16_blackGrey"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/view3" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            app:layout_constraintTop_toBottomOf="@+id/view1" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/user_info_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="86dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/vector_white_radius_8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/transport_box">
 
                     <View
-                        android:id="@+id/user_info_image"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/img_favourite"
+                        android:id="@+id/thinline2"
+                        android:layout_width="1dp"
+                        android:layout_height="84dp"
+                        android:background="@color/grey"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/delivery_box"
+                        app:layout_constraintStart_toEndOf="@id/processing_box"
                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/label_user_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="23dp"
-                        android:gravity="center_vertical"
-                        android:lineSpacingExtra="4sp"
-                        android:text="Favorites list"
-                        android:textAppearance="@style/regular14_blackGrey"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/user_info_image"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/label_user_info_desc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="16dp"
-                        android:gravity="center_vertical"
-                        android:lineSpacingExtra="4sp"
-                        android:text="View products you love"
-                        android:textAppearance="@style/regular14_blackGrey"
-                        app:layout_constraintStart_toEndOf="@+id/user_info_image"
-                        app:layout_constraintTop_toBottomOf="@id/label_user_info" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/next_arrow_favorite"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/delivery_box"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/thinline3"
+                        app:layout_constraintStart_toEndOf="@id/thinline2"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <View
-                            android:layout_width="8dp"
-                            android:layout_height="14dp"
-                            android:layout_marginHorizontal="16dp"
-                            android:background="@drawable/vector_right_arrow"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:id="@+id/view2"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/vector_indelivery"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/label_delivery"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:foregroundGravity="center_horizontal|center_vertical"
+                            android:gravity="center"
+                            android:lineSpacingExtra="4sp"
+                            android:text="Đang vận chuyển"
+                            android:textAppearance="@style/regular16_blackGrey"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view2" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/recently_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="86dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/vector_white_radius_8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/user_info_box">
-
                     <View
-                        android:id="@+id/recently_box_image"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/img_recent"
+                        android:id="@+id/thinline3"
+                        android:layout_width="1dp"
+                        android:layout_height="84dp"
+                        android:background="@color/grey"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/delivered_box"
+                        app:layout_constraintStart_toEndOf="@id/delivery_box"
                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/label_recently"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="23dp"
-                        android:gravity="center_vertical"
-                        android:lineSpacingExtra="4sp"
-                        android:text="Recently viewed products"
-                        android:textAppearance="@style/regular14_blackGrey"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/recently_box_image"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/label_recently_desc"
-                        android:layout_width="0dp"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="16dp"
-                        android:gravity="center_vertical"
-                        android:lineSpacingExtra="4sp"
-                        android:text="View recently products"
-                        android:textAppearance="@style/regular14_blackGrey"
-                        app:layout_constraintEnd_toStartOf="@+id/next_arrow_recently"
-                        app:layout_constraintStart_toEndOf="@+id/recently_box_image"
-                        app:layout_constraintTop_toBottomOf="@id/label_recently" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/next_arrow_recently"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/delivered_box"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/thinline3"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <View
-                            android:layout_width="8dp"
-                            android:layout_height="14dp"
-                            android:layout_marginHorizontal="16dp"
-                            android:background="@drawable/vector_right_arrow"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:id="@+id/view3"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/vector_delivered"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/support_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="86dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/vector_white_radius_8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/recently_box">
-
-                    <View
-                        android:id="@+id/support_box_image"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/img_support"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/label_support"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="23dp"
-                        android:gravity="center_vertical"
-                        android:lineSpacingExtra="4sp"
-                        android:text="Support"
-                        android:textAppearance="@style/regular14_blackGrey"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/support_box_image"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/label_support_desc"
-                        android:layout_width="0dp"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="16dp"
-                        android:gravity="center_vertical"
-                        android:lineSpacingExtra="4sp"
-                        android:text="Call or text us for quick support"
-                        android:textAppearance="@style/regular14_blackGrey"
-                        app:layout_constraintEnd_toStartOf="@+id/next_arrow_support"
-                        app:layout_constraintStart_toEndOf="@+id/support_box_image"
-                        app:layout_constraintTop_toBottomOf="@id/label_support" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/next_arrow_support"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <View
-                            android:layout_width="8dp"
-                            android:layout_height="14dp"
-                            android:layout_marginHorizontal="16dp"
-                            android:background="@drawable/vector_right_arrow"
+                        <TextView
+                            android:id="@+id/label_delivered"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:lineSpacingExtra="4sp"
+                            android:text="Đã giao hàng"
+                            android:textAppearance="@style/regular16_blackGrey"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toBottomOf="@+id/view3" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/change_password_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="86dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/vector_white_radius_8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/support_box">
-
-                    <View
-                        android:id="@+id/password_box_image"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/vector_password"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/label_password"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="23dp"
-                        android:gravity="center_vertical"
-                        android:lineSpacingExtra="4sp"
-                        android:text="Change password"
-                        android:textAppearance="@style/regular14_blackGrey"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/password_box_image"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/label_password_desc"
-                        android:layout_width="0dp"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="16dp"
-                        android:gravity="center_vertical"
-                        android:lineSpacingExtra="4sp"
-                        android:text="Change your current password"
-                        android:textAppearance="@style/regular14_blackGrey"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/password_box_image"
-                        app:layout_constraintTop_toBottomOf="@id/label_password" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/logout_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="86dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/vector_white_radius_8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/change_password_box">
-
-                    <View
-                        android:id="@+id/logout_box_image"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/vector_logout"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/label_logout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="23dp"
-                        android:gravity="center_vertical"
-                        android:lineSpacingExtra="4sp"
-                        android:text="Log out"
-                        android:textAppearance="@style/regular14_blackGrey"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/logout_box_image"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/label_logout_desc"
-                        android:layout_width="0dp"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="16dp"
-                        android:gravity="center_vertical"
-                        android:lineSpacingExtra="4sp"
-                        android:text="Log out of your account"
-                        android:textAppearance="@style/regular14_blackGrey"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/logout_box_image"
-                        app:layout_constraintTop_toBottomOf="@id/label_logout" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/user_info_box"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/vector_white_radius_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/transport_box">
 
                 <View
-                    android:id="@+id/version"
-                    android:layout_width="126dp"
-                    android:layout_height="49dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/img_version"
+                    android:id="@+id/user_info_image"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/img_favourite"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/label_user_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="23dp"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="4sp"
+                    android:text="Favorites list"
+                    android:textAppearance="@style/regular14_blackGrey"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/user_info_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/label_user_info_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="4sp"
+                    android:text="View products you love"
+                    android:textAppearance="@style/regular14_blackGrey"
+                    app:layout_constraintStart_toEndOf="@+id/user_info_image"
+                    app:layout_constraintTop_toBottomOf="@id/label_user_info" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/next_arrow_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/logout_box" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="14dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:background="@drawable/vector_right_arrow"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recently_box"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/vector_white_radius_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/user_info_box">
+
+                <View
+                    android:id="@+id/recently_box_image"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/img_recent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/label_recently"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="23dp"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="4sp"
+                    android:text="Recently viewed products"
+                    android:textAppearance="@style/regular14_blackGrey"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/recently_box_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/label_recently_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="4sp"
+                    android:text="View recently products"
+                    android:textAppearance="@style/regular14_blackGrey"
+                    app:layout_constraintEnd_toStartOf="@+id/next_arrow_recently"
+                    app:layout_constraintStart_toEndOf="@+id/recently_box_image"
+                    app:layout_constraintTop_toBottomOf="@id/label_recently" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/next_arrow_recently"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="14dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:background="@drawable/vector_right_arrow"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/support_box"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/vector_white_radius_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recently_box">
+
+                <View
+                    android:id="@+id/support_box_image"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/img_support"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/label_support"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="23dp"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="4sp"
+                    android:text="Support"
+                    android:textAppearance="@style/regular14_blackGrey"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/support_box_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/label_support_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="4sp"
+                    android:text="Call or text us for quick support"
+                    android:textAppearance="@style/regular14_blackGrey"
+                    app:layout_constraintEnd_toStartOf="@+id/next_arrow_support"
+                    app:layout_constraintStart_toEndOf="@+id/support_box_image"
+                    app:layout_constraintTop_toBottomOf="@id/label_support" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/next_arrow_support"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="14dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:background="@drawable/vector_right_arrow"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/change_password_box"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/vector_white_radius_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/support_box">
+
+                <View
+                    android:id="@+id/password_box_image"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/vector_password"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/label_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="23dp"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="4sp"
+                    android:text="Change password"
+                    android:textAppearance="@style/regular14_blackGrey"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/password_box_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/label_password_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="4sp"
+                    android:text="Change your current password"
+                    android:textAppearance="@style/regular14_blackGrey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/password_box_image"
+                    app:layout_constraintTop_toBottomOf="@id/label_password" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/logout_box"
+                android:layout_width="match_parent"
+                android:layout_height="86dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/vector_white_radius_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/change_password_box">
+
+                <View
+                    android:id="@+id/logout_box_image"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/vector_logout"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/label_logout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="23dp"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="4sp"
+                    android:text="Log out"
+                    android:textAppearance="@style/regular14_blackGrey"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/logout_box_image"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/label_logout_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="4sp"
+                    android:text="Log out of your account"
+                    android:textAppearance="@style/regular14_blackGrey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/logout_box_image"
+                    app:layout_constraintTop_toBottomOf="@id/label_logout" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/version"
+                android:layout_width="126dp"
+                android:layout_height="49dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/img_version"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/logout_box" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,5 +1,7 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.productdetail.servicehandlers;
 
+import static com.donhat.se330.flower_shop_management.frontend.constants.utils.Utils.displayErrorToast;
+
 import android.content.Context;
 import android.widget.Toast;
 
@@ -13,8 +15,13 @@ import com.donhat.se330.flower_shop_management.frontend.constants.utils.ErrorHan
 import com.donhat.se330.flower_shop_management.frontend.features.customer.productdetail.services.ProductDetailService;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.productdetail.viewmodels.ProductDetailViewModel;
 import com.donhat.se330.flower_shop_management.frontend.models.Product;
+import com.donhat.se330.flower_shop_management.frontend.models.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,6 +86,23 @@ public class ProductDetailServiceHandler {
             }
         });
         return _productsList;
+    }
+    public void addToCart(int productId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("product_id", productId);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Object requestBody = objectMapper.convertValue(map, Object.class);
+        Call<User> call = productDetailService.addToCart(Objects.requireNonNull(GlobalVariables.getUser().getValue()).getToken(), requestBody);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                ErrorHandling.httpErrorHandler(response, context, () -> GlobalVariables.getUser().setValue(response.body()));
+            }
+            @Override
+            public void onFailure(@NonNull Call<User> call, @NonNull Throwable throwable) {
+                displayErrorToast(context, throwable.getMessage());
+            }
+        });
     }
 
 }

@@ -42,7 +42,6 @@
             android:id="@+id/product_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/option_item"
             android:paddingVertical="12dp"
             app:layout_constraintTop_toBottomOf="@id/status_layout">
 
@@ -88,6 +87,14 @@
                 app:layout_constraintStart_toEndOf="@+id/card_view"
                 app:layout_constraintTop_toBottomOf="@+id/product_name_text" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_layout"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/payment_layput"
@@ -95,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/product_layout">
+            app:layout_constraintTop_toBottomOf="@id/view">
 
             <TextView
                 android:id="@+id/payment_text"

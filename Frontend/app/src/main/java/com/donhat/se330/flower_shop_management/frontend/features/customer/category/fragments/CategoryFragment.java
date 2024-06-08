@@ -285,14 +285,6 @@ public class CategoryFragment extends Fragment {
             }
         });
 
-
-
-
-
-        // occasionComboRecyclerView
-
-
-        // Return the root view
         return _fragmentCategoryBinding.getRoot();
     }
 
