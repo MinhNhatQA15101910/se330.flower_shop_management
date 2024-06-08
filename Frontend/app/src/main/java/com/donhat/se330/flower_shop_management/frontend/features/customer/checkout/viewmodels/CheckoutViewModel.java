@@ -3,4 +3,5 @@ package com.donhat.se330.flower_shop_management.frontend.features.customer.check
 import androidx.lifecycle.ViewModel;
 
 public class CheckoutViewModel extends ViewModel {
+
 }

@@ -17,8 +17,17 @@ public class CategoryEventHandler {
 
     public void onInitial() {
         _categoryServiceHandler.getCategoryList();
-        _categoryServiceHandler.getTypeList();
-        _categoryServiceHandler.getOccasionList();
+        _categoryServiceHandler.getComboTypeList();
+        _categoryServiceHandler.getFlowerTypeList();
+        _categoryServiceHandler.getCakeTypeList();
+        _categoryServiceHandler.getComboOccasionList();
+        _categoryServiceHandler.getFlowerOccasionList();
+        _categoryServiceHandler.getCakeOccasionList();
+    }
+
+    public void getCategoryById(View view) {
+        Boolean currentValue = _categoryViewModel.getIsComboClicked().getValue();
+        _categoryViewModel.getIsComboClicked().setValue(currentValue == null || !currentValue);
     }
 
     public void onComboClick(View view) {

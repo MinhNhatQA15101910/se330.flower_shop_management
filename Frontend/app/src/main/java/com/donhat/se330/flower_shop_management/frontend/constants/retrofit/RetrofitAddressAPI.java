@@ -1,16 +1,13 @@
 package com.donhat.se330.flower_shop_management.frontend.constants.retrofit;
 
-import com.donhat.se330.flower_shop_management.frontend.constants.GlobalVariables;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitClient {
+public class RetrofitAddressAPI {
     private static Retrofit retrofit = null;
-
-    public static Retrofit getRetrofitInstance() {
+    public static Retrofit getRetrofitAddressAPI() {
         if (retrofit == null) {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -18,7 +15,7 @@ public class RetrofitClient {
             httpClient.addInterceptor(logging);
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl(GlobalVariables.BASE_URL)
+                    .baseUrl("https://vapi.vnappmob.com")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
                     .build();
@@ -26,6 +23,4 @@ public class RetrofitClient {
 
         return retrofit;
     }
-
-
 }

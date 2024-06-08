@@ -22,11 +22,6 @@ import com.donhat.se330.flower_shop_management.frontend.features.customer.catego
 import com.donhat.se330.flower_shop_management.frontend.features.customer.category.eventhandlers.CategoryEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.category.viewmodels.CategoryViewModel;
 import com.donhat.se330.flower_shop_management.frontend.models.Category;
-import com.donhat.se330.flower_shop_management.frontend.models.Occasion;
-import com.donhat.se330.flower_shop_management.frontend.models.Type;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CategoryFragment extends Fragment {
     private FragmentCategoryBinding _fragmentCategoryBinding;
@@ -70,21 +65,8 @@ public class CategoryFragment extends Fragment {
             }
         });
 
-        _categoryViewModel.getTypeList().observe(getViewLifecycleOwner(), typeList -> {
-            if (typeList != null) {
-                List<Type> typeComboList = new ArrayList<>();
-                List<Type> typeFlowerList = new ArrayList<>();
-                List<Type> typeCakeList = new ArrayList<>();
-                for (Type type : typeList) {
-                    if (type.getId() == 1) {
-                        typeComboList.add(type);
-                    } else if (type.getId() == 2) {
-                        typeFlowerList.add(type);
-                    } else if (type.getId() == 3) {
-                        typeCakeList.add(type);
-                    }
-                }
-
+        _categoryViewModel.getTypeComboList().observe(getViewLifecycleOwner(), typeComboList -> {
+            if(typeComboList!=null){
                 RecyclerView typeComboRecyclerView = _fragmentCategoryBinding.typeComboRecyclerView;
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 4);
                 typeComboRecyclerView.setLayoutManager(gridLayoutManager);
@@ -92,7 +74,11 @@ public class CategoryFragment extends Fragment {
 
                 TypeAdapter typeAdapter = new TypeAdapter(typeComboList, getContext());
                 typeComboRecyclerView.setAdapter(typeAdapter);
+            }
+        });
 
+        _categoryViewModel.getTypeFlowerList().observe(getViewLifecycleOwner(), typeFlowerList -> {
+            if(typeFlowerList!=null){
                 RecyclerView typeFlowerRecyclerView = _fragmentCategoryBinding.typeFlowerRecyclerView;
                 GridLayoutManager gridLayoutManager3 = new GridLayoutManager(this.getContext(), 4);
                 typeFlowerRecyclerView.setLayoutManager(gridLayoutManager3);
@@ -100,7 +86,11 @@ public class CategoryFragment extends Fragment {
 
                 TypeAdapter typeAdapter3 = new TypeAdapter(typeFlowerList, getContext());
                 typeFlowerRecyclerView.setAdapter(typeAdapter3);
+            }
+        });
 
+        _categoryViewModel.getTypeCakeList().observe(getViewLifecycleOwner(), typeCakeList -> {
+            if(typeCakeList!=null){
                 RecyclerView typeCakeRecyclerView = _fragmentCategoryBinding.typeCakeRecyclerView;
                 GridLayoutManager gridLayoutManager5 = new GridLayoutManager(this.getContext(), 4);
                 typeCakeRecyclerView.setLayoutManager(gridLayoutManager5);
@@ -111,20 +101,8 @@ public class CategoryFragment extends Fragment {
             }
         });
 
-        _categoryViewModel.getOccasionList().observe(getViewLifecycleOwner(), occasionList -> {
-            if (occasionList != null) {
-                List<Occasion> occasionComboList = new ArrayList<>();
-                List<Occasion> occasionFlowerList = new ArrayList<>();
-                List<Occasion> occasionCakeList = new ArrayList<>();
-                for (Occasion occasion : occasionList) {
-                    if (occasion.getId() == 1) {
-                        occasionComboList.add(occasion);
-                    } else if (occasion.getId() == 2) {
-                        occasionFlowerList.add(occasion);
-                    } else if (occasion.getId() == 3) {
-                        occasionCakeList.add(occasion);
-                    }
-                }
+        _categoryViewModel.getOccasionComboList().observe(getViewLifecycleOwner(), occasionComboList -> {
+            if(occasionComboList!=null){
                 RecyclerView occasionComboRecyclerView = _fragmentCategoryBinding.occasionComboRecyclerView;
                 GridLayoutManager gridLayoutManager2 = new GridLayoutManager(this.getContext(), 4);
                 occasionComboRecyclerView.setLayoutManager(gridLayoutManager2);
@@ -132,7 +110,11 @@ public class CategoryFragment extends Fragment {
 
                 OccasionAdapter typeAdapter2 = new OccasionAdapter(occasionComboList, getContext());
                 occasionComboRecyclerView.setAdapter(typeAdapter2);
+            }
+        });
 
+        _categoryViewModel.getOccasionFlowerList().observe(getViewLifecycleOwner(), occasionFlowerList -> {
+            if(occasionFlowerList!=null){
                 RecyclerView occasionFlowerRecyclerView = _fragmentCategoryBinding.occasionFlowerRecyclerView;
                 GridLayoutManager gridLayoutManager4 = new GridLayoutManager(this.getContext(), 4);
                 occasionFlowerRecyclerView.setLayoutManager(gridLayoutManager4);
@@ -140,7 +122,11 @@ public class CategoryFragment extends Fragment {
 
                 OccasionAdapter typeAdapter4 = new OccasionAdapter(occasionFlowerList, getContext());
                 occasionFlowerRecyclerView.setAdapter(typeAdapter4);
+            }
+        });
 
+        _categoryViewModel.getOccasionCakeList().observe(getViewLifecycleOwner(), occasionCakeList -> {
+            if(occasionCakeList!=null){
                 RecyclerView occasionCakeRecyclerView = _fragmentCategoryBinding.occasionCakeRecyclerView;
                 GridLayoutManager gridLayoutManager6 = new GridLayoutManager(this.getContext(), 4);
                 occasionCakeRecyclerView.setLayoutManager(gridLayoutManager6);

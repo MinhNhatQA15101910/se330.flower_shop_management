@@ -1,5 +1,6 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.navbar.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -19,6 +20,7 @@ public class CustomerNavBarActivity extends AppCompatActivity {
     private CustomerNavBarEventHandler _customerNavBarEventHandler;
     private FragmentTransaction _transaction;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class CustomerNavBarActivity extends AppCompatActivity {
 
         _customerNavBarViewModel.getIsHomeClicked().observe(this, isHomeClicked -> {
             if (isHomeClicked) {
+                _activityCustomerNavBarBinding.titleLable.setText("Flowerfly");
                 _activityCustomerNavBarBinding.homeTxt.setVisibility(View.VISIBLE);
                 _activityCustomerNavBarBinding.homeImage.setImageResource(R.drawable.vector_home_selected);
                 _activityCustomerNavBarBinding.homeLayout.setBackgroundResource(R.drawable.round_white_100);
@@ -64,6 +67,7 @@ public class CustomerNavBarActivity extends AppCompatActivity {
         });
         _customerNavBarViewModel.getIsCategoryClicked().observe(this, isCategoryClicked -> {
             if (isCategoryClicked) {
+                _activityCustomerNavBarBinding.titleLable.setText("Category");
                 _activityCustomerNavBarBinding.categoryTxt.setVisibility(View.VISIBLE);
                 _activityCustomerNavBarBinding.categoryImage.setImageResource(R.drawable.vector_category_selected);
                 _activityCustomerNavBarBinding.categoryLayout.setBackgroundResource(R.drawable.round_white_100);
@@ -83,6 +87,7 @@ public class CustomerNavBarActivity extends AppCompatActivity {
         });
         _customerNavBarViewModel.getIsSearchClicked().observe(this, isSearchClicked -> {
             if (isSearchClicked) {
+                _activityCustomerNavBarBinding.titleLable.setText("Search");
                 _activityCustomerNavBarBinding.searchTxt.setVisibility(View.VISIBLE);
                 _activityCustomerNavBarBinding.searchImage.setImageResource(R.drawable.vector_search_selected);
                 _activityCustomerNavBarBinding.searchLayout.setBackgroundResource(R.drawable.round_white_100);
@@ -102,6 +107,7 @@ public class CustomerNavBarActivity extends AppCompatActivity {
         });
         _customerNavBarViewModel.getIsProfileClicked().observe(this, isProfileClicked -> {
             if (isProfileClicked) {
+                _activityCustomerNavBarBinding.titleLable.setText("Profile");
                 _activityCustomerNavBarBinding.profileTxt.setVisibility(View.VISIBLE);
                 _activityCustomerNavBarBinding.profileImage.setImageResource(R.drawable.vector_profile_selected);
                 _activityCustomerNavBarBinding.profileLayout.setBackgroundResource(R.drawable.round_white_100);
