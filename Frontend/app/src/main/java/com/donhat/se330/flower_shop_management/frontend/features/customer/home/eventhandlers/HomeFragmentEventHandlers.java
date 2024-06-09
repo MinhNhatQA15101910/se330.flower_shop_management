@@ -25,8 +25,15 @@ public class HomeFragmentEventHandlers {
         _homeFragmentViewModel.setListBanners();
     }
 
-    public void onClickViewMore(View view) {
+    public void onDoDClickViewMore(View view) {
         Intent intent = new Intent(context, ProductListActivity.class);
+        intent.putExtra("title", "Deals of the day");
+        context.startActivity(intent);
+    }
+
+    public void onRecommendClickViewMore(View view) {
+        Intent intent = new Intent(context, ProductListActivity.class);
+        intent.putExtra("title", "Recommend");
         context.startActivity(intent);
     }
 

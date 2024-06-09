@@ -61,7 +61,7 @@
 
             <TextView
                 android:id="@+id/deals_of_the_day_text_view_2"
-                android:onClick="@{homeFragmentEventHandler::onClickViewMore}"
+                android:onClick="@{homeFragmentEventHandler::onDoDClickViewMore}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
@@ -101,6 +101,7 @@
 
             <TextView
                 android:id="@+id/category_text_view_2"
+                android:onClick="@{homeFragmentEventHandler::onRecommendClickViewMore}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
@@ -141,6 +142,7 @@
 
             <TextView
                 android:id="@+id/recommend_text_view_2"
+                android:onClick="@{homeFragmentEventHandler::onRecommendClickViewMore}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"

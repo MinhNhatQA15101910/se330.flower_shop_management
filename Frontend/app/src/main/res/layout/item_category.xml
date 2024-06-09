@@ -1,9 +1,19 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="categoryEventHandler"
+            type="com.donhat.se330.flower_shop_management.frontend.features.components.eventhandlers.ItemCategoryEventHandler">
+
+        </variable>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/grid_item_g"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:onClick="@{categoryEventHandler::onCategoryClick}"
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView

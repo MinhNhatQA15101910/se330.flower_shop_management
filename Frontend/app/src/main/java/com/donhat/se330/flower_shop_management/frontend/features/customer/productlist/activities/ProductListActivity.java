@@ -26,6 +26,8 @@ public class ProductListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        String title = getIntent().getSerializableExtra("title").toString();
+
         _activityProductListBinding = DataBindingUtil.setContentView(this, R.layout.activity_product_list);
 
         _productListViewModel = new ViewModelProvider(this).get(ProductListViewModel.class);
@@ -38,6 +40,8 @@ public class ProductListActivity extends AppCompatActivity {
 
         _productListEventHandler.onInitial();
 
+        _productListViewModel.setTitle(title);
+
         getAllDoDProducts();
     }
 
@@ -47,7 +51,7 @@ public class ProductListActivity extends AppCompatActivity {
 
     void displayDealOfDayRecyclerView(List<Product> productsList) {
         RecyclerView _productsListRecyclerView = _activityProductListBinding.productsRecyclerView;
-
+        _activityProductListBinding.textTitle.setText(_productListViewModel.getTitle().getValue());
         ItemProductCardAdapter _productAdapter = new ItemProductCardAdapter(productsList);
 
         _productsListRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
