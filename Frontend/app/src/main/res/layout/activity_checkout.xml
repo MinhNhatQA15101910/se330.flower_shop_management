@@ -657,6 +657,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:onClick="@{activityCheckoutEventHandler::onCheckOutClick}"
                 android:id="@+id/status_change"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

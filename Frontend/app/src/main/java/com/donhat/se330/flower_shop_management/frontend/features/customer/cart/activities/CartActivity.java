@@ -2,6 +2,7 @@ package com.donhat.se330.flower_shop_management.frontend.features.customer.cart.
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -43,25 +44,34 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnPro
 
         GlobalVariables.getUser().observe(this, user -> {
             if(user != null){
-                RecyclerView cartItemRecyclerView = _activityCartBinding.cartItemRecyclerView;
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-                cartItemRecyclerView.setLayoutManager(linearLayoutManager);
-                cartItemRecyclerView.setHasFixedSize(true);
+                if(user.getProducts().isEmpty()){
+                    _activityCartBinding.voucherBox.setVisibility(View.GONE);
+                    _activityCartBinding.constraintLayout1.setVisibility(View.GONE);
+                    _activityCartBinding.emptyCartImage.setVisibility(View.VISIBLE);
 
-                cartAdapter = new CartAdapter(user, this);
-                cartAdapter.setOnProductDeleteListener(this);
-                cartItemRecyclerView.setAdapter(cartAdapter);
-
-                double subtotalPrice = 0;
-                int index = 0;
-                for (Product product : user.getProducts()) {
-                    subtotalPrice += product.getPrice() * user.getQuantities().get(index);
-                    index++;
                 }
-                String formattedSubtotalPrice = String.format(Locale.US, "%.2f", subtotalPrice);
-                _activityCartBinding.suptotalPriceText.setText("$" + formattedSubtotalPrice);
+                else{
+                    _activityCartBinding.voucherBox.setVisibility(View.VISIBLE);
+                    _activityCartBinding.constraintLayout1.setVisibility(View.VISIBLE);
+                    _activityCartBinding.emptyCartImage.setVisibility(View.GONE);
+                    RecyclerView cartItemRecyclerView = _activityCartBinding.cartItemRecyclerView;
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                    cartItemRecyclerView.setLayoutManager(linearLayoutManager);
+                    cartItemRecyclerView.setHasFixedSize(true);
 
+                    cartAdapter = new CartAdapter(user, this);
+                    cartAdapter.setOnProductDeleteListener(this);
+                    cartItemRecyclerView.setAdapter(cartAdapter);
 
+                    double subtotalPrice = 0;
+                    int index = 0;
+                    for (Product product : user.getProducts()) {
+                        subtotalPrice += product.getPrice() * user.getQuantities().get(index);
+                        index++;
+                    }
+                    String formattedSubtotalPrice = String.format(Locale.US, "%.2f", subtotalPrice);
+                    _activityCartBinding.suptotalPriceText.setText("$" + formattedSubtotalPrice);
+                }
             }
         });
     }

@@ -45,10 +45,12 @@
                 android:layout_marginEnd="32dp"
                 android:gravity="center_vertical"
                 android:text="00.000 ₫"
+                android:textAlignment="textEnd"
                 android:textAppearance="@style/regular14_blackGrey"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cart_text_2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
@@ -71,11 +73,11 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/check_out_button"
-                android:onClick="@{activityCartEventHandler::navigateToCheckout}"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="16dp"
                 android:background="@drawable/vector_fill_green_box"
+                android:onClick="@{activityCartEventHandler::navigateToCheckout}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,9 +109,9 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/navigate_back"
-                android:onClick="@{activityCartEventHandler::onNavigateBack}"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:onClick="@{activityCartEventHandler::onNavigateBack}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -117,8 +119,8 @@
                 <View
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:background="@drawable/vector_left_arrow"
                     android:layout_marginHorizontal="16dp"
+                    android:background="@drawable/vector_left_arrow"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -150,6 +152,7 @@
             app:layout_constraintTop_toBottomOf="@+id/first_bar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_recycle_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -160,7 +163,6 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginVertical="12dp"
                     android:background="@drawable/vector_white_radius_8"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -175,6 +177,53 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- New ConstraintLayout below constraintLayout1 -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/empty_cart_image"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginVertical="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/constraintLayout1">
+
+                    <View
+                        android:id="@+id/view4"
+                        android:layout_width="200dp"
+                        android:layout_height="243dp"
+                        android:layout_marginTop="80dp"
+                        android:background="@drawable/vector_empty_cart"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/cart_text_5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="38dp"
+                        android:text="Your cart is empty"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/regular20_darkGrey"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+                    <TextView
+                        android:id="@+id/cart_text_6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="You have no items in your shopping cart. Let’s go buy something!"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/regular16_darkGrey"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cart_text_5" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
