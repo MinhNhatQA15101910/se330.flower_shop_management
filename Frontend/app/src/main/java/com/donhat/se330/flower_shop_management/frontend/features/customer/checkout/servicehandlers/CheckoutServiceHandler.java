@@ -34,7 +34,17 @@ public class CheckoutServiceHandler {
     }
 
     public void createOrderFromCart(Order order) {
-        Call<Order> call = _checkoutService.createOrderFromCart(Objects.requireNonNull(GlobalVariables.getUser().getValue()).getToken());
+        Map<String, Object> map = new HashMap<>();
+        map.put("estimated_receive_date", order.getEstimatedReceiveDate());
+        map.put("province", order.getProvince());
+        map.put("district", order.getDistrict());
+        map.put("ward", order.getWard());
+        map.put("detail_address", order.getDetailAddress());
+        map.put("receiver_name", order.getReceiverName());
+        map.put("receiver_phone_number", order.getReceiverPhoneNumber());
+        ObjectMapper objectMapper = new ObjectMapper();
+        Object requestBody = objectMapper.convertValue(map, Object.class);
+        Call<Order> call = _checkoutService.createOrderFromCart(Objects.requireNonNull(GlobalVariables.getUser().getValue()).getToken(), requestBody);
         call.enqueue(new Callback<Order>() {
             @Override
             public void onResponse(@NonNull Call<Order> call, @NonNull Response<Order> response) {

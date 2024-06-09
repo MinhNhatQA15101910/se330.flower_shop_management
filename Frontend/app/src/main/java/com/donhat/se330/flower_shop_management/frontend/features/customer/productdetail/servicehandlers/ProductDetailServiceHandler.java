@@ -31,8 +31,8 @@ public class ProductDetailServiceHandler {
     Context context;
     ProductDetailService productDetailService;
     ProductDetailViewModel productDetailViewModel;
-    private MutableLiveData<Product> _products = new MutableLiveData<>();
-    private MutableLiveData<List<Product>> _productsList = new MutableLiveData<>();
+    private final MutableLiveData<Product> _products = new MutableLiveData<>();
+    private final MutableLiveData<List<Product>> _productsList = new MutableLiveData<>();
 
     public ProductDetailServiceHandler(Context context, ProductDetailViewModel productDetailViewModel) {
         this.context = context;

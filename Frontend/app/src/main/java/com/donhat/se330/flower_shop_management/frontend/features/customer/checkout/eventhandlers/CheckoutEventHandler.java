@@ -15,6 +15,8 @@ import com.donhat.se330.flower_shop_management.frontend.models.Order;
 import com.donhat.se330.flower_shop_management.frontend.models.Product;
 import com.donhat.se330.flower_shop_management.frontend.models.User;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class CheckoutEventHandler {
@@ -40,32 +42,18 @@ public class CheckoutEventHandler {
     public void onNavigateBack(View view) {
         _activity.finish();
     }
-    public void  onCheckOutClick(View view){
+    public void onCheckOutClick(View view) {
         User user = GlobalVariables.getUser().getValue();
         ShippingInfo shippingInfo = GlobalVariables.getShippingInfo().getValue();
-        if(user!=null && shippingInfo!=null){
+        if (user != null && shippingInfo != null) {
             Order order = new Order();
-            double subtotalPrice = 0;
-            int index = 0;
-            for (Product product : user.getProducts()) {
-                subtotalPrice += product.getPrice() * user.getQuantities().get(index);
-                index++;
-            }
-            order.setUserId(user.getId());
-            order.setProductPrice(subtotalPrice);
-            order.setShippingPrice(0);
-            order.setStatus("Pending");
-            Date today = new Date(); //current day
-            order.setOrderDate(today);
+
             order.setProvince(shippingInfo.getProvinceName());
             order.setDistrict(shippingInfo.getDistrictName());
             order.setWard(shippingInfo.getWardName());
             order.setDetailAddress(shippingInfo.getStreet());
             order.setReceiverName(shippingInfo.getFullName());
             order.setReceiverPhoneNumber(shippingInfo.getPhoneNumber());
-            order.setProducts(user.getProducts());
-            order.setQuantities(user.getQuantities());
-            _checkoutServiceHandler.createOrderFromCart(order);
         }
     }
 }

@@ -12,5 +12,5 @@ import retrofit2.http.Path;
 
 public interface CheckoutService {
     @POST("/customer/create-order-from-cart")
-    Call<Order> createOrderFromCart(@Header("x-auth-token") String token);
+    Call<Order> createOrderFromCart(@Header("x-auth-token") String token, @Body Object createOrderFromCartRequestBody);
 }

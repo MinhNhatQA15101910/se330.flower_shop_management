@@ -17,6 +17,7 @@ import com.donhat.se330.flower_shop_management.frontend.databinding.ItemOrderCar
 import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.activities.CartActivity;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.activities.CheckoutActivity;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.order.activities.OrderDetailActivity;
+import com.donhat.se330.flower_shop_management.frontend.features.welcome.activities.WelcomeActivity;
 import com.donhat.se330.flower_shop_management.frontend.models.Order;
 
 import java.util.List;
