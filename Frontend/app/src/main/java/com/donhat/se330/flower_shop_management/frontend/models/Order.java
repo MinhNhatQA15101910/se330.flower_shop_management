@@ -11,11 +11,11 @@ public class Order {
     @SerializedName("user_id")
     private int userId;
     @SerializedName("total_price")
-    private double totalPrice;
+    private String totalPrice;
     @SerializedName("product_price")
-    private double productPrice;
+    private String productPrice;
     @SerializedName("shipping_price")
-    private double shippingPrice;
+    private String shippingPrice;
     private String status;
     @SerializedName("estimated_receive_date")
     private Date estimatedReceiveDate;
@@ -40,9 +40,9 @@ public class Order {
     public Order() {
         id = 0;
         userId = 0;
-        totalPrice = 0;
-        productPrice = 0;
-        shippingPrice = 0;
+        totalPrice = "0";
+        productPrice = "0";
+        shippingPrice ="0";
         status = "";
         estimatedReceiveDate = new Date();
         orderDate = new Date();
@@ -58,7 +58,7 @@ public class Order {
         quantities = new ArrayList<>();
     }
 
-    public Order(int id, int userId, double totalPrice, double productPrice, double shippingPrice, String status, Date estimatedReceiveDate, Date orderDate, Date inDeliveryDate, Date receiveDate, String province, String district, String ward, String detailAddress, String receiverName, String receiverPhoneNumber, List<Product> products, List<Integer> quantities) {
+    public Order(int id, int userId, String totalPrice, String productPrice, String shippingPrice, String status, Date estimatedReceiveDate, Date orderDate, Date inDeliveryDate, Date receiveDate, String province, String district, String ward, String detailAddress, String receiverName, String receiverPhoneNumber, List<Product> products, List<Integer> quantities) {
         this.id = id;
         this.userId = userId;
         this.totalPrice = totalPrice;
@@ -95,27 +95,27 @@ public class Order {
         this.userId = userId;
     }
 
-    public double getTotalPrice() {
+    public String getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public double getProductPrice() {
+    public String getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(double productPrice) {
+    public void setProductPrice(String productPrice) {
         this.productPrice = productPrice;
     }
 
-    public double getShippingPrice() {
+    public String getShippingPrice() {
         return shippingPrice;
     }
 
-    public void setShippingPrice(double shippingPrice) {
+    public void setShippingPrice(String shippingPrice) {
         this.shippingPrice = shippingPrice;
     }
 
