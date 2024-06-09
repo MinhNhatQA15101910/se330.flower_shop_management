@@ -12,9 +12,11 @@ import com.donhat.se330.flower_shop_management.frontend.constants.retrofit.Retro
 import com.donhat.se330.flower_shop_management.frontend.constants.utils.ErrorHandling;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.home.services.HomeService;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.home.viewmodels.HomeFragmentViewModel;
+import com.donhat.se330.flower_shop_management.frontend.models.Category;
 import com.donhat.se330.flower_shop_management.frontend.models.Product;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +35,7 @@ public class HomeServiceHandler {
     }
 
     public MutableLiveData<List<Product>> getRecommendProducts() {
-        String authToken = GlobalVariables.getUser().getValue().getToken();
+        String authToken = Objects.requireNonNull(GlobalVariables.getUser().getValue()).getToken();
         Call<ProductListResponse> call = homeService.getRecommendProducts(authToken);
 
         call.enqueue(new Callback<ProductListResponse>() {
@@ -57,7 +59,7 @@ public class HomeServiceHandler {
     }
 
     public MutableLiveData<List<Product>> getDoDProducts() {
-        String authToken = GlobalVariables.getUser().getValue().getToken();
+        String authToken = Objects.requireNonNull(GlobalVariables.getUser().getValue()).getToken();
         Call<ProductListResponse> call = homeService.getDoDProducts(authToken);
 
         call.enqueue(new Callback<ProductListResponse>() {
@@ -78,5 +80,25 @@ public class HomeServiceHandler {
             }
         });
         return _productsList;
+    }
+
+    public void getCategoryList() {
+        Call<List<Category>> call = homeService.getCategoryList(Objects.requireNonNull(GlobalVariables.getUser().getValue()).getToken());
+        call.enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
+                ErrorHandling.httpErrorHandler(response, context, () -> {
+                    List<Category> categoryList = response.body();
+                    if (categoryList != null) {
+                        homeFragmentViewModel.getListCategories().setValue(categoryList);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Category>> call, @NonNull Throwable throwable) {
+                Toast.makeText(context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

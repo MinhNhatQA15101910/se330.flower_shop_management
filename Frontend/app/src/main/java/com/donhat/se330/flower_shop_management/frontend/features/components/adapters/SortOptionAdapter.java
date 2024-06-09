@@ -1,4 +1,4 @@
-package com.donhat.se330.flower_shop_management.frontend.features.customer.search.adapters;
+package com.donhat.se330.flower_shop_management.frontend.features.components.adapters;
 
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemSortOptionBinding;
+import com.donhat.se330.flower_shop_management.frontend.features.components.eventhandlers.SortOptionEventHandler;
 
 import java.util.List;
 
@@ -20,20 +21,26 @@ public class SortOptionAdapter extends RecyclerView.Adapter<SortOptionAdapter.So
     private final List<String> items;
     private int selectedPosition = -1;
 
+    private SortOptionEventHandler _sortOptionEventHandler;
+
     public SortOptionAdapter(List<String> items) {
         this.items = items;
     }
+
     @NonNull
     @Override
     public SortOptionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemSortOptionBinding itemSortOptionBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_sort_option, parent, false);
+
+        _sortOptionEventHandler = new SortOptionEventHandler(parent.getContext());
+        itemSortOptionBinding.setSortOptionEventHandler(_sortOptionEventHandler);
         return new SortOptionViewHolder(itemSortOptionBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SortOptionAdapter.SortOptionViewHolder holder, int position) {
         String item = items.get(position);
-        holder._itemSortOptionBinding.setData(item);
+        holder._itemSortOptionBinding.setOption(item);
 
         if (position == selectedPosition) {
             holder._itemSortOptionBinding.getRoot().setBackgroundResource(R.drawable.option_item_color);

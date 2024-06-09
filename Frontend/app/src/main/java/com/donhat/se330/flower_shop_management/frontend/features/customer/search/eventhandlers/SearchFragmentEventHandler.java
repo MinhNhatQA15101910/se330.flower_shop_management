@@ -9,6 +9,10 @@ import com.donhat.se330.flower_shop_management.frontend.features.customer.search
 import com.donhat.se330.flower_shop_management.frontend.features.customer.search.fragments.SortBtmSheetFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.search.servicehandlers.SearchServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.search.viewmodels.SearchFragmentViewModel;
+import com.donhat.se330.flower_shop_management.frontend.models.Product;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchFragmentEventHandler {
     Context context;
@@ -33,5 +37,31 @@ public class SearchFragmentEventHandler {
     public void onSortBtnClicked(View view) {
         SortBtmSheetFragment sortBtmSheet = new SortBtmSheetFragment();
         sortBtmSheet.show(((FragmentActivity) context).getSupportFragmentManager(), sortBtmSheet.getTag());
+    }
+
+    public void onSearchQuerySubmit(String query) {
+        searchFragmentViewModel.setQuery(query);
+        List<Product> results = performSearch(query);
+        searchFragmentViewModel.setSearchResults(results);
+    }
+
+    public void onSearchQueryChange(String newText) {
+        searchFragmentViewModel.setQuery(newText);
+        List<Product> results = performSearch(newText);
+        searchFragmentViewModel.setSearchResults(results);
+    }
+
+    private List<Product> performSearch(String query) {
+        List<Product> allProducts = searchFragmentViewModel.getProductsList().getValue();
+        List<Product> filteredProducts = new ArrayList<>();
+
+        assert allProducts != null;
+        for (Product product : allProducts) {
+            if (product.getName().toLowerCase().contains(query.toLowerCase())) {
+                filteredProducts.add(product);
+            }
+        }
+
+        return filteredProducts;
     }
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -47,6 +48,8 @@ public class SearchFragment extends Fragment {
             _products = products;
             displaySearchRecyclerView();
         });
+
+        handleSearchView();
         return _fragmentSearchBinding.getRoot();
     }
 
@@ -58,5 +61,27 @@ public class SearchFragment extends Fragment {
         searchRecyclerView.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
         searchRecyclerView.setHasFixedSize(true);
         searchRecyclerView.setAdapter(adapter);
+    }
+
+    private void handleSearchView() {
+        SearchView searchView = _fragmentSearchBinding.searchBar;
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                _searchFragmentEventHandler.onSearchQuerySubmit(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                _searchFragmentEventHandler.onSearchQueryChange(newText);
+                return true;
+            }
+        });
+
+        _searchFragmentViewModel.getSearchResults().observe(getViewLifecycleOwner(), products -> {
+            _products = products;
+            displaySearchRecyclerView();
+        });
     }
 }

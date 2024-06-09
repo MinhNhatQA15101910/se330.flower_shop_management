@@ -1,4 +1,4 @@
-package com.donhat.se330.flower_shop_management.frontend.features.customer.search.adapters;
+package com.donhat.se330.flower_shop_management.frontend.features.components.adapters;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;

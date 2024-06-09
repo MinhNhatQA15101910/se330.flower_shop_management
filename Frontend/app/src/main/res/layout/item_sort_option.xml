@@ -5,7 +5,11 @@
     <data>
 
         <variable
-            name="data"
+            name="sortOptionEventHandler"
+            type="com.donhat.se330.flower_shop_management.frontend.features.components.eventhandlers.SortOptionEventHandler" />
+
+        <variable
+            name="option"
             type="String" />
     </data>
 
@@ -19,7 +23,7 @@
             android:id="@+id/option_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{data}"
+            android:text="@{option}"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"

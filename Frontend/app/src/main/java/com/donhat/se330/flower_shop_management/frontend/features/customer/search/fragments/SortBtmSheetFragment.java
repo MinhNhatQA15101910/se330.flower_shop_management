@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.FragmentProductSortBtmSheetBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.search.adapters.SortOptionAdapter;
+import com.donhat.se330.flower_shop_management.frontend.features.components.adapters.SortOptionAdapter;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.search.eventhandlers.SortBtmSheetEventHandler;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
