@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".features.customer.order.activities.OrderDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_layout"
@@ -11,7 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:background="@color/white"
             android:paddingHorizontal="16dp"
             android:paddingVertical="12dp"
@@ -26,7 +28,7 @@
                 android:fontFamily="@font/pacifico"
                 android:text="Order detail"
                 android:textColor="@color/darkGreen"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +41,7 @@
             android:layout_height="0dp"
             android:paddingHorizontal="16dp"
             android:paddingVertical="12dp"
+            android:background="@drawable/img_blur_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

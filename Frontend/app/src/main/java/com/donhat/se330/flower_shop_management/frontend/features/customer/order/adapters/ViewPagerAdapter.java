@@ -27,9 +27,9 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 1:
                 return new PendingOrderFragment();
             case 2:
-                return new InDeliveryOrderFragment();
-            case 3:
                 return new DeliveredOrderFragment();
+            case 3:
+                return new InDeliveryOrderFragment();
             default:
                 return new AllOrderFragment();
         }

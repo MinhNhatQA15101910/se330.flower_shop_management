@@ -6,11 +6,20 @@ import android.view.View;
 
 import androidx.fragment.app.FragmentActivity;
 
+import com.donhat.se330.flower_shop_management.frontend.constants.GlobalVariables;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.bottomsheetaddress.entities.ShippingInfo;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.bottomsheetaddress.fragments.BottomSheetAddressFragment;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.servicehandlers.CheckoutServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.viewmodels.CheckoutViewModel;
+import com.donhat.se330.flower_shop_management.frontend.models.Order;
+import com.donhat.se330.flower_shop_management.frontend.models.Product;
+import com.donhat.se330.flower_shop_management.frontend.models.User;
+
+import java.util.Date;
 
 public class CheckoutEventHandler {
     private final CheckoutViewModel _checkoutViewModel;
+    private final CheckoutServiceHandler _checkoutServiceHandler;
     private final Context _context;
 
     private final Activity _activity;
@@ -19,6 +28,7 @@ public class CheckoutEventHandler {
         _checkoutViewModel = checkoutViewModel;
         _context = context;
         _activity = activity;
+        _checkoutServiceHandler = new CheckoutServiceHandler(context);
     }
 
     public void onClickShippingInfoBox(View view) {
@@ -29,5 +39,33 @@ public class CheckoutEventHandler {
     }
     public void onNavigateBack(View view) {
         _activity.finish();
+    }
+    public void  onCheckOutClick(View view){
+        User user = GlobalVariables.getUser().getValue();
+        ShippingInfo shippingInfo = GlobalVariables.getShippingInfo().getValue();
+        if(user!=null && shippingInfo!=null){
+            Order order = new Order();
+            double subtotalPrice = 0;
+            int index = 0;
+            for (Product product : user.getProducts()) {
+                subtotalPrice += product.getPrice() * user.getQuantities().get(index);
+                index++;
+            }
+            order.setUserId(user.getId());
+            order.setProductPrice(subtotalPrice);
+            order.setShippingPrice(0);
+            order.setStatus("Pending");
+            Date today = new Date(); //current day
+            order.setOrderDate(today);
+            order.setProvince(shippingInfo.getProvinceName());
+            order.setDistrict(shippingInfo.getDistrictName());
+            order.setWard(shippingInfo.getWardName());
+            order.setDetailAddress(shippingInfo.getStreet());
+            order.setReceiverName(shippingInfo.getFullName());
+            order.setReceiverPhoneNumber(shippingInfo.getPhoneNumber());
+            order.setProducts(user.getProducts());
+            order.setQuantities(user.getQuantities());
+            _checkoutServiceHandler.createOrderFromCart(order);
+        }
     }
 }

@@ -15,7 +15,7 @@ public class Order {
     private double productPrice;
     @SerializedName("shipping_price")
     private double shippingPrice;
-    private OrderStatus status;
+    private String status;
     @SerializedName("estimated_receive_date")
     private Date estimatedReceiveDate;
     @SerializedName("order_date")
@@ -35,47 +35,6 @@ public class Order {
     private String receiverPhoneNumber;
     private List<Product> products;
     private List<Integer> quantities;
-
-    public Order() {
-        id = 0;
-        userId = 0;
-        productPrice = 0;
-        shippingPrice = 0;
-        status = OrderStatus.PENDING;
-        estimatedReceiveDate = new Date();
-        orderDate = new Date();
-        inDeliveryDate = new Date();
-        receiveDate = new Date();
-        province = "";
-        district = "";
-        ward = "";
-        detailAddress = "";
-        receiverName = "";
-        receiverPhoneNumber = "";
-        products = new ArrayList<>();
-        quantities = new ArrayList<>();
-    }
-
-    public Order(int id, int userId, double productPrice, double shippingPrice, OrderStatus status, Date estimatedReceiveDate, Date orderDate, Date inDeliveryDate, Date receiveDate, String province, String district, String ward, String detailAddress, String receiverName, String receiverPhoneNumber, List<Product> products, List<Integer> quantities) {
-        this.id = id;
-        this.userId = userId;
-        this.productPrice = productPrice;
-        this.shippingPrice = shippingPrice;
-        this.status = status;
-        this.estimatedReceiveDate = estimatedReceiveDate;
-        this.orderDate = orderDate;
-        this.inDeliveryDate = inDeliveryDate;
-        this.receiveDate = receiveDate;
-        this.province = province;
-        this.district = district;
-        this.ward = ward;
-        this.detailAddress = detailAddress;
-        this.receiverName = receiverName;
-        this.receiverPhoneNumber = receiverPhoneNumber;
-        this.products = products;
-        this.quantities = quantities;
-    }
-
     public int getId() {
         return id;
     }
@@ -108,11 +67,11 @@ public class Order {
         this.shippingPrice = shippingPrice;
     }
 
-    public OrderStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
