@@ -66,7 +66,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnPro
                     double subtotalPrice = 0;
                     int index = 0;
                     for (Product product : user.getProducts()) {
-                        subtotalPrice += product.getPrice() * user.getQuantities().get(index);
+                        subtotalPrice += Double.parseDouble(product.getPrice()) * user.getQuantities().get(index);
                         index++;
                     }
                     String formattedSubtotalPrice = String.format(Locale.US, "%.2f", subtotalPrice);

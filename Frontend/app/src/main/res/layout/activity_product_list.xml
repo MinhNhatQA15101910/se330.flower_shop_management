@@ -32,16 +32,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/image_back"
-                android:layout_width="24sp"
-                android:layout_height="24sp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/vector_left_arrow"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/navigate_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="@{productListEventHandler::onNavigateBack}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/darkGreen" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@drawable/vector_left_arrow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/text_title"
@@ -55,7 +64,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/image_cart"
-                app:layout_constraintStart_toEndOf="@id/image_back"
+                app:layout_constraintStart_toEndOf="@id/navigate_back"
                 app:layout_constraintTop_toTopOf="parent" />
 
 

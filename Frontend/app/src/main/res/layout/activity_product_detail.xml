@@ -167,7 +167,6 @@
                         android:layout_height="wrap_content"
                         android:numStars="5"
                         android:paddingVertical="4dp"
-                        android:rating="@{Float.parseFloat(product.ratingAvg)}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_product_name" />
 

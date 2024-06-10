@@ -51,6 +51,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         _product = _productDetailViewModel.getProduct().getValue();
 
         displayProductDetail();
+
         _productDetailViewModel.getSuggestProducts().observe(this, products -> {
             _suggestProducts = products;
             displaySuggestProductList();
@@ -62,6 +63,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         _productDetailViewModel.getProduct().observe(this, product -> {
             _product = product;
+            _activityProductDetailBinding.ratingBar.setRating(Float.parseFloat(_product.getRatingAvg()));
             _activityProductDetailBinding.setProduct(_product);
             displayProductImageList();
         });

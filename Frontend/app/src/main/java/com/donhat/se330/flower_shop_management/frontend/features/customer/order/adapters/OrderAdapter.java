@@ -14,10 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemOrderCardBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.activities.CartActivity;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.activities.CheckoutActivity;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.order.activities.OrderDetailActivity;
-import com.donhat.se330.flower_shop_management.frontend.features.welcome.activities.WelcomeActivity;
 import com.donhat.se330.flower_shop_management.frontend.models.Order;
 
 import java.util.List;
@@ -70,7 +67,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             String productPromoteName = order.getProducts().get(0).getName();
             holder.itemOrderCardBinding.productNameText.setText(productPromoteName);
 
-            double price = order.getProducts().get(0).getPrice();
+            String price = order.getProducts().get(0).getPrice();
             int quantity = !order.getQuantities().isEmpty() ? order.getQuantities().get(0) : 0;
             holder.itemOrderCardBinding.textProductPrice.setText(quantity + " x $" + price);
 

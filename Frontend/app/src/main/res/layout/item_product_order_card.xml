@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:paddingHorizontal="8dp"
-            android:text="@{Double.toString(product.price)}"
+            android:text='@{"$" + product.price}'
             android:textAppearance="@style/small_grey_text"
             app:layout_constraintEnd_toStartOf="@id/rating_text"
             app:layout_constraintStart_toEndOf="@+id/card_view"
