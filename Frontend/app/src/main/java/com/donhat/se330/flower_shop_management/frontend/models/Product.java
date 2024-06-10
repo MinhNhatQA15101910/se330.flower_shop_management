@@ -8,21 +8,21 @@ import java.util.List;
 public class Product {
     private int id;
     private String name;
-    private double price;
+    private String price;
     @SerializedName("sale_price")
-    private double salePrice;
+    private String salePrice;
     @SerializedName("sale_percentage")
-    private double salePercentage;
+    private String salePercentage;
     @SerializedName("detail_description")
     private String detailDescription;
     private String size;
-    private float weight;
+    private String weight;
     private String color;
     private String material;
     private int stock;
     private int sold;
     @SerializedName("rating_avg")
-    private float ratingAvg;
+    private String ratingAvg;
     @SerializedName("total_rating")
     private int totalRating;
     @SerializedName("image_urls")
@@ -31,22 +31,22 @@ public class Product {
     public Product() {
         id = 0;
         name = "";
-        price = 0;
-        salePrice = 0;
-        salePercentage = 0;
+        price = "";
+        salePrice = "";
+        salePercentage = "";
         detailDescription = "";
         size = "";
-        weight = 0;
+        weight = "";
         color = "";
         material = "";
         stock = 0;
         sold = 0;
-        ratingAvg = 0;
+        ratingAvg = "";
         totalRating = 0;
         imageUrls = new ArrayList<>();
     }
 
-    public Product(int id, String name, double price, double salePrice, double salePercentage, String detailDescription, String size, float weight, String color, String material, int stock, int sold, float ratingAvg, int totalRating, List<String> imageUrls) {
+    public Product(int id, String name, String price, String salePrice, String salePercentage, String detailDescription, String size, String weight, String color, String material, int stock, int sold, String ratingAvg, int totalRating, List<String> imageUrls) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -80,27 +80,27 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public double getSalePrice() {
+    public String getSalePrice() {
         return salePrice;
     }
 
-    public void setSalePrice(double salePrice) {
+    public void setSalePrice(String salePrice) {
         this.salePrice = salePrice;
     }
 
-    public double getSalePercentage() {
+    public String getSalePercentage() {
         return salePercentage;
     }
 
-    public void setSalePercentage(double salePercentage) {
+    public void setSalePercentage(String salePercentage) {
         this.salePercentage = salePercentage;
     }
 
@@ -120,11 +120,11 @@ public class Product {
         this.size = size;
     }
 
-    public float getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
@@ -160,11 +160,11 @@ public class Product {
         this.sold = sold;
     }
 
-    public float getRatingAvg() {
+    public String getRatingAvg() {
         return ratingAvg;
     }
 
-    public void setRatingAvg(float ratingAvg) {
+    public void setRatingAvg(String ratingAvg) {
         this.ratingAvg = ratingAvg;
     }
 

@@ -1,9 +1,7 @@
 package com.donhat.se330.flower_shop_management.frontend.models;
 
-import com.donhat.se330.flower_shop_management.frontend.constants.enums.OrderStatus;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,9 +10,9 @@ public class Order {
     @SerializedName("user_id")
     private int userId;
     @SerializedName("product_price")
-    private double productPrice;
+    private String productPrice;
     @SerializedName("shipping_price")
-    private double shippingPrice;
+    private String shippingPrice;
     private String status;
     @SerializedName("estimated_receive_date")
     private Date estimatedReceiveDate;
@@ -51,19 +49,19 @@ public class Order {
         this.userId = userId;
     }
 
-    public double getProductPrice() {
+    public String getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(double productPrice) {
+    public void setProductPrice(String productPrice) {
         this.productPrice = productPrice;
     }
 
-    public double getShippingPrice() {
+    public String getShippingPrice() {
         return shippingPrice;
     }
 
-    public void setShippingPrice(double shippingPrice) {
+    public void setShippingPrice(String shippingPrice) {
         this.shippingPrice = shippingPrice;
     }
 

@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:numStars="5"
             android:paddingVertical="4dp"
-            android:rating="@{product.ratingAvg}"
+            android:rating="@{Float.parseFloat(product.ratingAvg)}"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/text_product_name"
             app:layout_constraintTop_toBottomOf="@+id/text_product_name" />
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="4dp"
-            android:text="@{Integer.toString(product.totalRating)}"
+            android:text='@{"(" + (product.totalRating) + ")"}'
             android:textColor="@color/darkGrey"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/rating_bar"
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
             android:paddingTop="4dp"
-            android:text='@{String.format("$%.2f", product.salePrice)}'
+            android:text='@{"$" + product.salePrice}'
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/card_view"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -100,7 +100,7 @@
             android:fontFamily="@font/inter_bold"
             android:paddingHorizontal="6dp"
             android:paddingVertical="1dp"
-            android:text='@{String.format("%.0f%%", product.salePercentage)}'
+            android:text='@{product.salePercentage + "%"}'
             android:textColor="@color/white"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_product_price"

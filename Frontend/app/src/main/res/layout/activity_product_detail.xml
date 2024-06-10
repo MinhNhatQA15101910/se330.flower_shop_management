@@ -167,7 +167,7 @@
                         android:layout_height="wrap_content"
                         android:numStars="5"
                         android:paddingVertical="4dp"
-                        android:rating="@{product.ratingAvg}"
+                        android:rating="@{Float.parseFloat(product.ratingAvg)}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text_product_name" />
 
@@ -176,7 +176,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingStart="6dp"
-                        android:text='@{String.format("(%d)", product.totalRating)}'
+                        android:text='@{"(" + product.totalRating + ")"}'
                         android:textColor="@color/darkGrey"
                         android:textSize="10sp"
                         app:layout_constraintBottom_toBottomOf="@+id/rating_bar"
@@ -189,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_bold"
                         android:paddingVertical="4dp"
-                        android:text='@{String.format("$%.2f", product.salePrice)}'
+                        android:text='@{"$" + product.salePrice}'
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
@@ -201,7 +201,7 @@
                         android:layout_marginVertical="4dp"
                         android:background="@drawable/discount_badge"
                         android:fontFamily="@font/inter_bold"
-                        android:text='@{String.format("%.0f%%", product.salePercentage)}'
+                        android:text='@{product.salePercentage + "%"}'
                         android:textColor="@color/white"
                         android:textSize="10sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -213,7 +213,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/strikethrough"
                         android:paddingStart="6dp"
-                        android:text='@{String.format("$%.2f", product.price)}'
+                        android:text='@{product.price + "$"}'
                         android:textColor="@color/darkGrey"
                         android:textSize="14sp"
 
@@ -299,7 +299,7 @@
                             android:id="@+id/product_weight_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@{Float.toString(product.weight)}"
+                            android:text="@{product.weight}"
                             android:textAppearance="@style/bold_text"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
