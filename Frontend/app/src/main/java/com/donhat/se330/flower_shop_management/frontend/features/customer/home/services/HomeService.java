@@ -13,7 +13,7 @@ public interface HomeService {
     @GET("customer/recommended-products")
     Call<ProductListResponse> getRecommendProducts(@Header("x-auth-token") String authToken);
 
-    @GET("customer/deal-of-the-day")
+    @GET("customer/deals-of-day")
     Call<ProductListResponse> getDoDProducts(@Header("x-auth-token") String authToken);
 
     @GET("/customer/categories")

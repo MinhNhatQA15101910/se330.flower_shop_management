@@ -54,6 +54,9 @@
         <activity
             android:name=".features.customer.checkout.activities.CheckoutActivity"
             android:exported="true" />
+        <activity
+            android:name=".features.customer.rating.activities.RatingActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

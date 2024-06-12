@@ -2,6 +2,7 @@ package com.donhat.se330.flower_shop_management.frontend.features.customer.check
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 
 import androidx.fragment.app.FragmentActivity;
@@ -11,13 +12,9 @@ import com.donhat.se330.flower_shop_management.frontend.features.customer.bottom
 import com.donhat.se330.flower_shop_management.frontend.features.customer.bottomsheetaddress.fragments.BottomSheetAddressFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.servicehandlers.CheckoutServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.viewmodels.CheckoutViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.rating.activities.RatingActivity;
 import com.donhat.se330.flower_shop_management.frontend.models.Order;
-import com.donhat.se330.flower_shop_management.frontend.models.Product;
 import com.donhat.se330.flower_shop_management.frontend.models.User;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 public class CheckoutEventHandler {
     private final CheckoutViewModel _checkoutViewModel;
@@ -54,6 +51,9 @@ public class CheckoutEventHandler {
             order.setDetailAddress(shippingInfo.getStreet());
             order.setReceiverName(shippingInfo.getFullName());
             order.setReceiverPhoneNumber(shippingInfo.getPhoneNumber());
+
         }
+        Intent intent = new Intent(_context, RatingActivity.class);
+        _context.startActivity(intent);
     }
 }

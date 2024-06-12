@@ -7,11 +7,11 @@
 
         <variable
             name="ratingEventHandler"
-            type="com.donhat.se330.flower_shop_management.frontend.features.customer.productdetail.eventhandlers.ProductDetailEventHandler" />
+            type="com.donhat.se330.flower_shop_management.frontend.features.customer.rating.eventhandlers.RatingEventHandler" />
 
         <variable
             name="ratingViewModel"
-            type="com.donhat.se330.flower_shop_management.frontend.features.customer.productdetail.viewmodels.ProductDetailViewModel" />
+            type="com.donhat.se330.flower_shop_management.frontend.features.customer.rating.viewmodels.RatingViewModels" />
 
         <variable
             name="product"
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/lightGrey"
-        tools:context=".features.customer.productdetail.activities.ProductDetailActivity">
+        tools:context=".features.customer.rating.activities.RatingActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header_constraint_layout"
@@ -141,14 +141,15 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <RatingBar
+                    <androidx.appcompat.widget.AppCompatRatingBar
                         android:id="@+id/rating_bar"
                         style="@style/Widget.AppCompat.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:numStars="5"
                         android:paddingVertical="4dp"
-                        android:rating="@{Float.parseFloat(product.ratingAvg)}"
+                        android:rating="0"
+                        android:stepSize="0.5"
                         app:layout_constraintStart_toStartOf="@+id/text_product_name"
                         app:layout_constraintTop_toBottomOf="@+id/text_product_name" />
 
@@ -224,14 +225,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <RatingBar
+                    <androidx.appcompat.widget.AppCompatRatingBar
                         android:id="@+id/main_rating_bar"
-                        style="@style/RatingBar"
+                        android:theme="@style/RatingBar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:numStars="5"
                         android:stepSize="0.5"
-
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/label" />
