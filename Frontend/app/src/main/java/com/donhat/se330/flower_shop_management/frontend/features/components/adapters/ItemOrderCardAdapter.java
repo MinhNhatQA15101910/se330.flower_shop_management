@@ -1,8 +1,6 @@
-package com.donhat.se330.flower_shop_management.frontend.features.customer.order.adapters;
+package com.donhat.se330.flower_shop_management.frontend.features.components.adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -13,37 +11,35 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemOrderCardBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.order.activities.OrderDetailActivity;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.order.eventhandlers.OrderEventHandlers;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.order.viewmodel.OrderManagementViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.components.eventhandlers.ItemOrderCardEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.models.Order;
 
 import java.util.List;
-import java.util.Objects;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
+public class ItemOrderCardAdapter extends RecyclerView.Adapter<ItemOrderCardAdapter.OrderViewHolder> {
     private final Context context;
     private final List<Order> orderList;
-    private final OrderEventHandlers orderEventHandlers;
-    private final OrderManagementViewModel orderManagementViewModel;
+    private ItemOrderCardEventHandler itemOrderCardEventHandlers;
 
-    public OrderAdapter(List<Order> orderList, Context context) {
+    public ItemOrderCardAdapter(List<Order> orderList, Context context) {
         this.orderList = orderList;
         this.context = context;
-        this.orderManagementViewModel = new OrderManagementViewModel();
-        this.orderEventHandlers = new OrderEventHandlers(context, orderManagementViewModel);
+
+
     }
 
     @NonNull
     @Override
-    public OrderAdapter.OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ItemOrderCardAdapter.OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemOrderCardBinding itemOrderCardBinding = ItemOrderCardBinding
                 .inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new OrderAdapter.OrderViewHolder(itemOrderCardBinding);
+        itemOrderCardEventHandlers = new ItemOrderCardEventHandler(parent.getContext());
+        itemOrderCardBinding.setEventHandler(itemOrderCardEventHandlers);
+        return new ItemOrderCardAdapter.OrderViewHolder(itemOrderCardBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderAdapter.OrderViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemOrderCardAdapter.OrderViewHolder holder, int position) {
         Order order = orderList.get(position);
 
         // Set status layout and text color based on order status
@@ -82,14 +78,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                         .into(holder.itemOrderCardBinding.imageProduct);
             }
         }
+        itemOrderCardEventHandlers.setOrder(order);
 
-        // Set click listener for order card
-        holder.itemOrderCardBinding.itemOrderCard.setOnClickListener(v -> {
-            orderEventHandlers.getOrderById(order.getId());
-            Intent intent = new Intent(context, OrderDetailActivity.class);
-            context.startActivity(intent);
-            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        });
     }
 
     @Override

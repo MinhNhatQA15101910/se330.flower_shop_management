@@ -4,6 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".features.customer.order.activities.OrderDetailActivity">
 
+    <data>
+
+        <variable
+            name="order"
+            type="com.donhat.se330.flower_shop_management.frontend.models.Order" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
@@ -39,9 +46,9 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@drawable/img_blur_background"
             android:paddingHorizontal="16dp"
             android:paddingVertical="12dp"
-            android:background="@drawable/img_blur_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +98,7 @@
                             android:id="@+id/order_id_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="000123456"
+                            android:text="@{Integer.toString(order.id)}"
                             android:textAppearance="@style/bold_text"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -119,7 +126,7 @@
                             android:id="@+id/order_date_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="12kg"
+
                             android:textAppearance="@style/bold_text"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -147,7 +154,7 @@
                             android:id="@+id/order_status_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rainbow Prismatic"
+                            android:text="@{order.status}"
                             android:textAppearance="@style/bold_text"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -166,48 +173,100 @@
                     app:layout_constraintTop_toBottomOf="@id/order_detail_layout" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/shipping_info_layout"
+                    android:id="@+id/shipping_info_box"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="12dp"
-                    android:background="@drawable/background_white"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp"
+                    android:background="@color/white"
                     app:layout_constraintTop_toBottomOf="@id/shipping_info_text">
 
+                    <View
+                        android:id="@+id/location_icon"
+                        android:layout_width="16dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/vector_location"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:id="@+id/next_arrow_order_detail2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="1.0">
 
                         <View
-                            android:id="@+id/shipping_address_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:background="@drawable/vector_location_pin"
+                            android:layout_width="8dp"
+                            android:layout_height="14dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="32dp"
+                            android:background="@drawable/vector_right_arrow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/box_text1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="12dp"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/next_arrow_order_detail2"
+                        app:layout_constraintStart_toEndOf="@id/location_icon"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:id="@+id/shipping_address_text"
+                            android:id="@+id/label_ship"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="1234 Rainbow Road, Mushroom Kingdom"
-                            android:textAppearance="@style/bold_text"
-                            app:layout_constraintStart_toEndOf="@id/shipping_address_icon"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:layout_height="21dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="top"
+                            android:lineSpacingExtra="4sp"
+                            android:text="Shipping address"
+                            android:textAppearance="@style/regular14_blackGrey"
+                            android:translationY="-2.03sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="HardcodedText,TextSizeCheck" />
 
                         <TextView
-                            android:id="@+id/customer_info_text"
+                            android:id="@+id/label_ship_order_detail"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Nguyen Van Vu - 0123456789"
-                            android:textAppearance="@style/small_grey_text"
-                            app:layout_constraintStart_toEndOf="@id/shipping_address_icon"
-                            app:layout_constraintTop_toBottomOf="@id/shipping_address_text" />
+                            android:layout_marginTop="4dp"
+                            android:gravity="top"
+                            android:lineSpacingExtra="4sp"
+                            android:text="No shipping info"
+                            android:textAppearance="@style/regular14_blackGrey"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/label_ship"
+                            tools:ignore="HardcodedText" />
 
+                        <TextView
+                            android:id="@+id/label_ship_description_order_detail"
+                            android:layout_width="0dp"
+                            android:layout_height="18dp"
+                            android:layout_marginTop="4dp"
+                            android:gravity="top"
+                            android:lineSpacingExtra="3sp"
+                            android:text=""
+                            android:textAppearance="@style/regular12_darkGrey"
+                            android:textColor="#757575"
+                            android:translationY="-1.74sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/label_ship_order_detail"
+                            tools:ignore="HardcodedText,TextSizeCheck" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -218,7 +277,7 @@
                     android:layout_marginVertical="24dp"
                     android:text="Delivery time"
                     android:textAppearance="@style/label_green_text"
-                    app:layout_constraintTop_toBottomOf="@id/shipping_info_layout" />
+                    app:layout_constraintTop_toBottomOf="@id/shipping_info_box" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/delivery_time_layout"
@@ -243,6 +302,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="24dp"
+                    android:visibility="gone"
                     android:text="Product information"
                     android:textAppearance="@style/label_green_text"
                     app:layout_constraintTop_toBottomOf="@id/delivery_time_layout" />
