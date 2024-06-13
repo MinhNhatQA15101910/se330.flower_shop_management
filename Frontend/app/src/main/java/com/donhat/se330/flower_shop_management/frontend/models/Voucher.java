@@ -2,7 +2,7 @@ package com.donhat.se330.flower_shop_management.frontend.models;
 
 public class Voucher {
     int id;
-    String codeNane;
+    String name;
     String percentage;
 
     public int getId() {
@@ -13,12 +13,12 @@ public class Voucher {
         this.id = id;
     }
 
-    public String getCodeNane() {
-        return codeNane;
+    public String getName() {
+        return name;
     }
 
-    public void setCodeNane(String codeNane) {
-        this.codeNane = codeNane;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPercentage() {

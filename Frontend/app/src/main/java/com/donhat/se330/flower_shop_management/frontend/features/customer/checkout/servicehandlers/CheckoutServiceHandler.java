@@ -6,17 +6,19 @@ import static com.donhat.se330.flower_shop_management.frontend.constants.utils.U
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 import com.donhat.se330.flower_shop_management.frontend.constants.GlobalVariables;
 import com.donhat.se330.flower_shop_management.frontend.constants.retrofit.RetrofitClient;
 import com.donhat.se330.flower_shop_management.frontend.constants.utils.ErrorHandling;
-import com.donhat.se330.flower_shop_management.frontend.features.auth.fragments.LoginFragment;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.services.CheckoutService;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.viewmodels.CheckoutViewModel;
 import com.donhat.se330.flower_shop_management.frontend.models.Order;
-import com.donhat.se330.flower_shop_management.frontend.models.User;
+import com.donhat.se330.flower_shop_management.frontend.models.Voucher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -27,10 +29,12 @@ import retrofit2.Response;
 public class CheckoutServiceHandler {
     private final Context _context;
     private final CheckoutService _checkoutService;
+    private final CheckoutViewModel _checkoutViewModel;
 
-    public CheckoutServiceHandler(Context context) {
+    public CheckoutServiceHandler(Context context, CheckoutViewModel checkoutViewModel) {
         _checkoutService = RetrofitClient.getRetrofitInstance().create(CheckoutService.class);
         _context = context;
+        _checkoutViewModel = checkoutViewModel;
     }
 
     public void createOrderFromCart(Order order) {
@@ -57,5 +61,24 @@ public class CheckoutServiceHandler {
                 displayErrorToast(_context, throwable.getMessage());
             }
         });
+    }
+
+    public MutableLiveData<List<Voucher>> getAllVouchers() {
+        MutableLiveData<List<Voucher>> voucherList = new MutableLiveData<>();
+        Call<List<Voucher>> call = _checkoutService.getAllVouchers(Objects.requireNonNull(GlobalVariables.getUser().getValue()).getToken());
+        call.enqueue(new Callback<List<Voucher>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Voucher>> call, @NonNull Response<List<Voucher>> response) {
+                ErrorHandling.httpErrorHandler(response, _context, () -> {
+                    voucherList.setValue(response.body());
+                });
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<Voucher>> call, @NonNull Throwable throwable) {
+                displayErrorToast(_context, throwable.getMessage());
+            }
+        });
+        return voucherList;
     }
 }

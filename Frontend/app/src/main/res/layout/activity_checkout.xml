@@ -630,7 +630,7 @@
                     android:background="@color/white"
                     android:fontFamily="@font/inter"
                     android:hint="Type a voucher"
-                    android:text="@={fragmentBottomSheetAddressViewModel.streetNumber}"
+                    android:text="@={activityCheckoutViewModel._selectedVoucher.name}"
                     android:textAppearance="@style/regular16_blackGrey"
                     android:textColorHint="@color/hintTextColor"
                     android:textSize="16sp"
