@@ -68,7 +68,8 @@ public class CheckoutActivity extends AppCompatActivity {
         }
         String formattedSubtotalPrice = String.format(Locale.US, "%.2f", subtotalPrice);
         _activityCheckoutBinding.totalPriceOrderDetail.setText("$" + formattedSubtotalPrice);
-        _activityCheckoutBinding.finalPriceOrderDetail.setText("$" + formattedSubtotalPrice);
+        _activityCheckoutBinding.transportFeePriceOrderDetail.setText("$" + formattedSubtotalPrice);
+        _activityCheckoutBinding.finalPriceOrderDetail.setText("$" + "0.00");
         _activityCheckoutBinding.changeOrderStatusText.setText("Checkout $" + formattedSubtotalPrice);
     }
 
