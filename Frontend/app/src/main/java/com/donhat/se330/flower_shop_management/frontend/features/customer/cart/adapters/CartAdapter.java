@@ -63,7 +63,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .into(holder.itemCartBinding.itemImageListCart);
 
         holder.itemCartBinding.labelProductCart.setText(product.getName());
-        holder.itemCartBinding.labelPriceCart.setText("$"+ product.getPrice());
+        holder.itemCartBinding.labelPriceCart.setText("$"+ product.getSalePrice());
         holder.itemCartBinding.inputValue.setText(String.valueOf(quantity));
 
         int stock = product.getStock();

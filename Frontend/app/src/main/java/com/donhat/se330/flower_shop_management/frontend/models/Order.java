@@ -9,6 +9,8 @@ public class Order {
     private int id;
     @SerializedName("user_id")
     private int userId;
+    @SerializedName("total_price")
+    private String totalPrice;
     @SerializedName("product_price")
     private String productPrice;
     @SerializedName("shipping_price")
