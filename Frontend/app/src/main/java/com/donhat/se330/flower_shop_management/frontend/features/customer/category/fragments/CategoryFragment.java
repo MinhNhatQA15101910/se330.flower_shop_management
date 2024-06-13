@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -23,7 +25,6 @@ import com.donhat.se330.flower_shop_management.frontend.models.Category;
 
 public class CategoryFragment extends Fragment {
     private FragmentCategoryBinding _fragmentCategoryBinding;
-    private CategoryEventHandler _categoryEventHandler;
 
     @NonNull
     @Override
@@ -40,9 +41,10 @@ public class CategoryFragment extends Fragment {
         CategoryViewModel _categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
 
         // Event Handler
-        _categoryEventHandler = new CategoryEventHandler(_categoryViewModel, getContext());
+        CategoryEventHandler _categoryEventHandler = new CategoryEventHandler(_categoryViewModel, getContext());
 
         _fragmentCategoryBinding.setFragmentCategoryEventHandler(_categoryEventHandler);
+
         _categoryViewModel.getCategoryList().observe(getViewLifecycleOwner(), categoryList -> {
             if (categoryList != null) {
                 for (Category category : categoryList) {
@@ -106,8 +108,8 @@ public class CategoryFragment extends Fragment {
                 occasionComboRecyclerView.setLayoutManager(gridLayoutManager2);
                 occasionComboRecyclerView.setHasFixedSize(true);
 
-                OccasionAdapter occasionAdapter2 = new OccasionAdapter(occasionComboList, getContext());
-                occasionComboRecyclerView.setAdapter(occasionAdapter2);
+                OccasionAdapter typeAdapter2 = new OccasionAdapter(occasionComboList, getContext());
+                occasionComboRecyclerView.setAdapter(typeAdapter2);
             }
         });
 
@@ -118,8 +120,8 @@ public class CategoryFragment extends Fragment {
                 occasionFlowerRecyclerView.setLayoutManager(gridLayoutManager4);
                 occasionFlowerRecyclerView.setHasFixedSize(true);
 
-                OccasionAdapter occasionAdapter4 = new OccasionAdapter(occasionFlowerList, getContext());
-                occasionFlowerRecyclerView.setAdapter(occasionAdapter4);
+                OccasionAdapter typeAdapter4 = new OccasionAdapter(occasionFlowerList, getContext());
+                occasionFlowerRecyclerView.setAdapter(typeAdapter4);
             }
         });
 
@@ -130,14 +132,158 @@ public class CategoryFragment extends Fragment {
                 occasionCakeRecyclerView.setLayoutManager(gridLayoutManager6);
                 occasionCakeRecyclerView.setHasFixedSize(true);
 
-                OccasionAdapter occasionAdapter6 = new OccasionAdapter(occasionCakeList, getContext());
-                occasionCakeRecyclerView.setAdapter(occasionAdapter6);
+                OccasionAdapter typeAdapter6 = new OccasionAdapter(occasionCakeList, getContext());
+                occasionCakeRecyclerView.setAdapter(typeAdapter6);
             }
         });
 
         _categoryEventHandler.onInitial();
 
         _fragmentCategoryBinding.comboVector.setRotation(0);
+
+        _categoryViewModel.getIsComboClicked().observe(getViewLifecycleOwner(), isComboClicked -> {
+            _fragmentCategoryBinding.typeComboRecyclerView.setVisibility(View.GONE);
+            _fragmentCategoryBinding.occasionComboRecyclerView.setVisibility(View.GONE);
+            _fragmentCategoryBinding.typeComboVector.setRotation(0);
+            _fragmentCategoryBinding.occasionComboVector.setRotation(0);
+
+
+            Animation fadeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade);
+            if (isComboClicked) {
+                _fragmentCategoryBinding.typeComboLayout.setVisibility(View.VISIBLE);
+                _fragmentCategoryBinding.occasionComboLayout.setVisibility(View.VISIBLE);
+
+                _fragmentCategoryBinding.typeComboLayout.startAnimation(fadeAnimation);
+                _fragmentCategoryBinding.occasionComboLayout.startAnimation(fadeAnimation);
+                _fragmentCategoryBinding.comboVector.setRotation(180);
+
+            } else {
+                _fragmentCategoryBinding.typeComboLayout.setVisibility(View.GONE);
+                _fragmentCategoryBinding.occasionComboLayout.setVisibility(View.GONE);
+                _fragmentCategoryBinding.comboVector.setRotation(0);
+            }
+        });
+
+        _categoryViewModel.getIsFlowerClicked().observe(getViewLifecycleOwner(), isFlowerClicked -> {
+            _fragmentCategoryBinding.typeFlowerRecyclerView.setVisibility(View.GONE);
+            _fragmentCategoryBinding.occasionFlowerRecyclerView.setVisibility(View.GONE);
+            _fragmentCategoryBinding.typeFlowerVector.setRotation(0);
+            _fragmentCategoryBinding.occasionFlowerVector.setRotation(0);
+
+            Animation fadeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade);
+            if (isFlowerClicked) {
+                _fragmentCategoryBinding.typeFlowerLayout.setVisibility(View.VISIBLE);
+                _fragmentCategoryBinding.occasionFlowerLayout.setVisibility(View.VISIBLE);
+
+                _fragmentCategoryBinding.typeFlowerLayout.startAnimation(fadeAnimation);
+                _fragmentCategoryBinding.occasionFlowerLayout.startAnimation(fadeAnimation);
+                _fragmentCategoryBinding.flowerVector.setRotation(180);
+
+            } else {
+                _fragmentCategoryBinding.typeFlowerLayout.setVisibility(View.GONE);
+                _fragmentCategoryBinding.occasionFlowerLayout.setVisibility(View.GONE);
+                _fragmentCategoryBinding.flowerVector.setRotation(0);
+            }
+        });
+
+        _categoryViewModel.getIsCakeClicked().observe(getViewLifecycleOwner(), isCakeClicked -> {
+            _fragmentCategoryBinding.typeCakeRecyclerView.setVisibility(View.GONE);
+            _fragmentCategoryBinding.occasionCakeRecyclerView.setVisibility(View.GONE);
+            _fragmentCategoryBinding.typeCakeVector.setRotation(0);
+            _fragmentCategoryBinding.occasionCakeVector.setRotation(0);
+            Animation fadeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade);
+            if (isCakeClicked) {
+                _fragmentCategoryBinding.typeCakeLayout.setVisibility(View.VISIBLE);
+                _fragmentCategoryBinding.occasionCakeLayout.setVisibility(View.VISIBLE);
+
+                _fragmentCategoryBinding.typeCakeLayout.startAnimation(fadeAnimation);
+                _fragmentCategoryBinding.occasionCakeLayout.startAnimation(fadeAnimation);
+                _fragmentCategoryBinding.cakeVector.setRotation(180);
+
+            } else {
+                _fragmentCategoryBinding.typeCakeLayout.setVisibility(View.GONE);
+                _fragmentCategoryBinding.occasionCakeLayout.setVisibility(View.GONE);
+                _fragmentCategoryBinding.cakeVector.setRotation(0);
+            }
+        });
+
+        _categoryViewModel.getIsTypeComboClicked().observe(getViewLifecycleOwner(), isTypeComboClicked -> {
+            Animation fadeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade);
+            if (isTypeComboClicked) {
+                _fragmentCategoryBinding.typeComboRecyclerView.setVisibility(View.VISIBLE);
+                _fragmentCategoryBinding.typeComboRecyclerView.startAnimation(fadeAnimation);
+                _fragmentCategoryBinding.typeComboVector.setRotation(180);
+
+            } else {
+                _fragmentCategoryBinding.typeComboRecyclerView.setVisibility(View.GONE);
+                _fragmentCategoryBinding.typeComboVector.setRotation(0);
+            }
+        });
+
+        _categoryViewModel.getIsOccasionComboClicked().observe(getViewLifecycleOwner(), isOccasionComboClicked -> {
+            Animation fadeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade);
+            if (isOccasionComboClicked) {
+                _fragmentCategoryBinding.occasionComboRecyclerView.setVisibility(View.VISIBLE);
+                _fragmentCategoryBinding.occasionComboRecyclerView.startAnimation(fadeAnimation);
+                _fragmentCategoryBinding.occasionComboVector.setRotation(180);
+
+            } else {
+                _fragmentCategoryBinding.occasionComboRecyclerView.setVisibility(View.GONE);
+                _fragmentCategoryBinding.occasionComboVector.setRotation(0);
+            }
+        });
+
+        _categoryViewModel.getIsTypeFlowerClicked().observe(getViewLifecycleOwner(), isTypeFlowerClicked -> {
+            Animation fadeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade);
+            if (isTypeFlowerClicked) {
+                _fragmentCategoryBinding.typeFlowerRecyclerView.setVisibility(View.VISIBLE);
+                _fragmentCategoryBinding.typeFlowerRecyclerView.startAnimation(fadeAnimation);
+                _fragmentCategoryBinding.typeFlowerVector.setRotation(180);
+
+            } else {
+                _fragmentCategoryBinding.typeFlowerRecyclerView.setVisibility(View.GONE);
+                _fragmentCategoryBinding.typeFlowerVector.setRotation(0);
+            }
+        });
+
+        _categoryViewModel.getIsOccasionFlowerClicked().observe(getViewLifecycleOwner(), isOccasionFlowerClicked -> {
+            Animation fadeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade);
+            if (isOccasionFlowerClicked) {
+                _fragmentCategoryBinding.occasionFlowerRecyclerView.setVisibility(View.VISIBLE);
+                _fragmentCategoryBinding.occasionFlowerRecyclerView.startAnimation(fadeAnimation);
+                _fragmentCategoryBinding.occasionFlowerVector.setRotation(180);
+
+            } else {
+                _fragmentCategoryBinding.occasionFlowerRecyclerView.setVisibility(View.GONE);
+                _fragmentCategoryBinding.occasionFlowerVector.setRotation(0);
+            }
+        });
+
+        _categoryViewModel.getIsTypeCakeClicked().observe(getViewLifecycleOwner(), isTypeCakeClicked -> {
+            Animation fadeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade);
+            if (isTypeCakeClicked) {
+                _fragmentCategoryBinding.typeCakeRecyclerView.setVisibility(View.VISIBLE);
+                _fragmentCategoryBinding.typeCakeRecyclerView.startAnimation(fadeAnimation);
+                _fragmentCategoryBinding.typeCakeVector.setRotation(180);
+
+            } else {
+                _fragmentCategoryBinding.typeCakeRecyclerView.setVisibility(View.GONE);
+                _fragmentCategoryBinding.typeCakeVector.setRotation(0);
+            }
+        });
+
+        _categoryViewModel.getIsOccasionCakeClicked().observe(getViewLifecycleOwner(), isOccasionCakeClicked -> {
+            Animation fadeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade);
+            if (isOccasionCakeClicked) {
+                _fragmentCategoryBinding.occasionCakeRecyclerView.setVisibility(View.VISIBLE);
+                _fragmentCategoryBinding.occasionCakeRecyclerView.startAnimation(fadeAnimation);
+                _fragmentCategoryBinding.occasionCakeVector.setRotation(180);
+
+            } else {
+                _fragmentCategoryBinding.occasionCakeRecyclerView.setVisibility(View.GONE);
+                _fragmentCategoryBinding.occasionCakeVector.setRotation(0);
+            }
+        });
 
         return _fragmentCategoryBinding.getRoot();
     }
