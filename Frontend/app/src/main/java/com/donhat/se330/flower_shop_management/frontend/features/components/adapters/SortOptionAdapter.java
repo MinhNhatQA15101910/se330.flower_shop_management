@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemSortOptionBinding;
 import com.donhat.se330.flower_shop_management.frontend.features.components.eventhandlers.SortOptionEventHandler;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.search.viewmodels.SearchFragmentViewModel;
 
 import java.util.List;
 
@@ -22,9 +23,11 @@ public class SortOptionAdapter extends RecyclerView.Adapter<SortOptionAdapter.So
     private int selectedPosition = -1;
 
     private SortOptionEventHandler _sortOptionEventHandler;
+    private SearchFragmentViewModel _searchFragmentViewModel;
 
-    public SortOptionAdapter(List<String> items) {
+    public SortOptionAdapter(List<String> items, SearchFragmentViewModel searchFragmentViewModel) {
         this.items = items;
+        _searchFragmentViewModel = searchFragmentViewModel;
     }
 
     @NonNull
@@ -34,6 +37,7 @@ public class SortOptionAdapter extends RecyclerView.Adapter<SortOptionAdapter.So
 
         _sortOptionEventHandler = new SortOptionEventHandler(parent.getContext());
         itemSortOptionBinding.setSortOptionEventHandler(_sortOptionEventHandler);
+
         return new SortOptionViewHolder(itemSortOptionBinding);
     }
 
@@ -56,8 +60,9 @@ public class SortOptionAdapter extends RecyclerView.Adapter<SortOptionAdapter.So
         }
 
         holder.itemView.setOnClickListener(v -> {
-            // Update the selected position
             selectedPosition = position;
+            _sortOptionEventHandler.setSelectedOption(item);
+            _searchFragmentViewModel.setSelectedSortOption(item);
             notifyDataSetChanged();
         });
     }

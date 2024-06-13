@@ -12,11 +12,16 @@ public class SortOptionEventHandler {
         this.context = context;
     }
 
-    public void setSelectedOption(MutableLiveData<String> selectedOption) {
-        this.selectedOption = selectedOption;
+    public MutableLiveData<String> getSelectedOption() {
+        return selectedOption;
     }
 
-    public void onOptionClick(String option) {
-        selectedOption.setValue(option);
+    public void setSelectedOption(String selectedOption) {
+        this.selectedOption.setValue(selectedOption);
+        onOptionClick();
+    }
+
+    public void onOptionClick() {
+        //Log.i("SortOptionEventHandler", "Option clicked: " + getSelectedOption().getValue());
     }
 }
