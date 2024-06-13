@@ -13,14 +13,12 @@ import com.donhat.se330.flower_shop_management.frontend.features.customer.produc
 
 public class ProductDetailEventHandler {
     private final Context context;
-    private final Activity activity;
     private final ProductDetailViewModel productDetailViewModel;
     private final ProductDetailServiceHandler productDetailServiceHandler;
 
     public ProductDetailEventHandler(ProductDetailViewModel productDetailViewModel, Context context, Activity activity) {
         this.productDetailViewModel = productDetailViewModel;
         this.context = context;
-        this.activity = activity;
         this.productDetailServiceHandler = new ProductDetailServiceHandler(context, productDetailViewModel);
     }
 
@@ -51,7 +49,7 @@ public class ProductDetailEventHandler {
     }
 
     public void onNavigateBack(View view) {
-        activity.finish();
+        ((Activity) context).finish();
     }
 
     public void navigateToCartActivity(View view) {

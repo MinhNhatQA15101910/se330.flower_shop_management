@@ -29,4 +29,5 @@ public class ItemProductCardEventHandler {
         intent.putExtra("product", Objects.requireNonNull(_product.getValue()).getId());
         view.getContext().startActivity(intent);
     }
+
 }

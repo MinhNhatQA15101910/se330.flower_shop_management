@@ -44,6 +44,7 @@ public class ProductListServiceHandler {
                     ProductListResponse productListResponse = response.body();
 
                     if (productListResponse != null && productListResponse.getResults() != null) {
+
                         _productsList.setValue(productListResponse.getResults());
                     }
                 });

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.FragmentInDeliveryOrderBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.order.adapters.OrderAdapter;
+import com.donhat.se330.flower_shop_management.frontend.features.components.adapters.ItemOrderCardAdapter;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.order.eventhandlers.OrderEventHandlers;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.order.viewmodel.OrderManagementViewModel;
 import com.donhat.se330.flower_shop_management.frontend.models.Order;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class InDeliveryOrderFragment extends Fragment {
     private FragmentInDeliveryOrderBinding fragmentInDeliveryOrderBinding;
-    private OrderAdapter orderAdapter;
+    private ItemOrderCardAdapter itemOrderCardAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -57,7 +57,7 @@ public class InDeliveryOrderFragment extends Fragment {
         orderItemRecyclerView.setLayoutManager(linearLayoutManager);
         orderItemRecyclerView.setHasFixedSize(true);
 
-        orderAdapter = new OrderAdapter(orderList, getContext());
-        orderItemRecyclerView.setAdapter(orderAdapter);
+        itemOrderCardAdapter = new ItemOrderCardAdapter(orderList, getContext());
+        orderItemRecyclerView.setAdapter(itemOrderCardAdapter);
     }
 }

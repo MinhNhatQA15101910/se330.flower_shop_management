@@ -7,7 +7,7 @@ import com.donhat.se330.flower_shop_management.frontend.models.Order;
 import com.donhat.se330.flower_shop_management.frontend.models.User;
 
 public class GlobalVariables {
-    public static final String BASE_URL = "http://192.168.1.198:8080/";
+    public static final String BASE_URL = "http://192.168.1.73:3000/";
     private static final MutableLiveData<User> user = new MutableLiveData<>(new User());
     private static final MutableLiveData<ShippingInfo> shippingInfo = new MutableLiveData<>();
     private static final MutableLiveData<Order> order = new MutableLiveData<>();

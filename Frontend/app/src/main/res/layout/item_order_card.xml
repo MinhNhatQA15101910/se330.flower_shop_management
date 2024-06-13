@@ -5,12 +5,16 @@
     <data>
 
         <variable
+            name="eventHandler"
+            type="com.donhat.se330.flower_shop_management.frontend.features.components.eventhandlers.ItemOrderCardEventHandler" />
+        <variable
             name="order"
             type="com.donhat.se330.flower_shop_management.frontend.models.Order" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_order_card"
+        android:onClick="@{eventHandler::onOrderClick}"
         android:layout_marginTop="12dp"
         android:layout_marginHorizontal="16dp"
         android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.search.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment extends Fragment {
+    private Handler handler = new Handler();
+    private Runnable runnable;
     List<Product> _products = new ArrayList<>();
 
     private FragmentSearchBinding _fragmentSearchBinding;
@@ -50,6 +53,11 @@ public class SearchFragment extends Fragment {
         });
 
         handleSearchView();
+
+        _searchFragmentViewModel.getSelectedSortOption().observe(getViewLifecycleOwner(), newSelectedSortOption -> {
+            _fragmentSearchBinding.labelSortProduct.setText(newSelectedSortOption);
+            handleSortLogic(newSelectedSortOption);
+        });
         return _fragmentSearchBinding.getRoot();
     }
 
@@ -65,6 +73,7 @@ public class SearchFragment extends Fragment {
 
     private void handleSearchView() {
         SearchView searchView = _fragmentSearchBinding.searchBar;
+        List<Product> searchResults = new ArrayList<>();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -74,14 +83,38 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                _searchFragmentEventHandler.onSearchQueryChange(newText);
+                handler.removeCallbacks(runnable);
+                runnable = () -> {
+                    _searchFragmentEventHandler.onSearchQueryChange(newText);
+                    updateUIBasedOnSearchResults();
+                };
+                handler.postDelayed(runnable, 500); // 500 ms delay
                 return true;
             }
         });
+    }
 
-        _searchFragmentViewModel.getSearchResults().observe(getViewLifecycleOwner(), products -> {
-            _products = products;
-            displaySearchRecyclerView();
-        });
+    private void updateUIBasedOnSearchResults() {
+        if (_searchFragmentViewModel.isNoResults()) {
+            _fragmentSearchBinding.labelSuggestList.setVisibility(View.VISIBLE);
+            _fragmentSearchBinding.noResultConstraintLayout.setVisibility(View.VISIBLE);
+
+            _searchFragmentViewModel.getProductsList().observe(getViewLifecycleOwner(), products -> {
+                _products = products;
+                displaySearchRecyclerView();
+            });
+        } else {
+            _fragmentSearchBinding.labelSuggestList.setVisibility(View.GONE);
+            _fragmentSearchBinding.noResultConstraintLayout.setVisibility(View.GONE);
+
+            _searchFragmentViewModel.getSearchResults().observe(getViewLifecycleOwner(), products -> {
+                _products = products;
+                displaySearchRecyclerView();
+            });
+        }
+    }
+
+    private void handleSortLogic(String newSelectedSortOption) {
+        // Add your logic here
     }
 }

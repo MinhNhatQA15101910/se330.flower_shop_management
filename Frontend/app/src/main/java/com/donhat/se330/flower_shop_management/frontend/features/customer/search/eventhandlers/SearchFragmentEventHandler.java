@@ -49,6 +49,7 @@ public class SearchFragmentEventHandler {
         searchFragmentViewModel.setQuery(newText);
         List<Product> results = performSearch(newText);
         searchFragmentViewModel.setSearchResults(results);
+        searchFragmentViewModel.setNoResults(results.isEmpty());
     }
 
     private List<Product> performSearch(String query) {

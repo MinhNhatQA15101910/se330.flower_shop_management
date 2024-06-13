@@ -52,7 +52,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <View
-                    android:id="@+id/filter_icon_admin_product"
+                    android:id="@+id/filter_icon_product"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="8dp"
@@ -62,7 +62,7 @@
                     app:layout_constraintTop_toTopOf="@id/filter_button" />
 
                 <TextView
-                    android:id="@+id/label_filter_admin_product"
+                    android:id="@+id/label_filter_product"
                     android:layout_width="50dp"
                     android:layout_height="21dp"
                     android:layout_marginHorizontal="8dp"
@@ -72,7 +72,7 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/filter_button"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/filter_icon_admin_product"
+                    app:layout_constraintStart_toEndOf="@id/filter_icon_product"
                     app:layout_constraintTop_toTopOf="@id/filter_button" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -87,7 +87,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <View
-                    android:id="@+id/sort_icon_admin_product"
+                    android:id="@+id/sort_icon_product"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="8dp"
@@ -97,7 +97,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/label_sort_admin_product"
+                    android:id="@+id/label_sort_product"
                     android:layout_width="50dp"
                     android:layout_height="21dp"
                     android:layout_marginStart="8dp"
@@ -109,7 +109,7 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/sort_icon_admin_product"
+                    app:layout_constraintStart_toEndOf="@+id/sort_icon_product"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -118,15 +118,51 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             app:layout_constraintTop_toBottomOf="@id/sort_filter_constraint_layout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/no_result_constraint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="24dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/no_result_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:contentDescription="No result found, try another keywords"
+                    android:src="@drawable/img_no_result"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/no_result_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_horizontal"
+                    android:text="No result found!\nTry another keywords"
+                    android:textAppearance="@style/bold_text"
+                    app:layout_constraintTop_toBottomOf="@id/no_result_image" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/label_suggest_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:text="Product you might like"
+                android:textAppearance="@style/label_green_text"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/no_result_constraint_layout" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/label_suggest_list" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
