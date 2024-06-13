@@ -37,6 +37,7 @@ public class CheckoutActivity extends AppCompatActivity {
         // Event Handler
         CheckoutEventHandler _checkoutEventHandler = new CheckoutEventHandler(_checkoutViewModel, this, this);
         _activityCheckoutBinding.setActivityCheckoutEventHandler(_checkoutEventHandler);
+        _activityCheckoutBinding.setActivityCheckoutViewModel(_checkoutViewModel);
 
         GlobalVariables.getUser().observe(this, user -> {
             if(user != null){
