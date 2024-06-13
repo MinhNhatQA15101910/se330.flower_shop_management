@@ -18,8 +18,6 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.CategoryViewHo
     private final Context _context;
     private final List<Type> typeList;
 
-    private ItemCategoryEventHandler _itemCategoryEventHandler;
-
     public TypeAdapter(List<Type> typeList, Context context) {
         _context = context;
         this.typeList = typeList;
@@ -30,17 +28,18 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.CategoryViewHo
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ItemCategoryBinding _itemCategoryBinding = ItemCategoryBinding
                 .inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        _itemCategoryEventHandler = new ItemCategoryEventHandler(parent.getContext());
         return new CategoryViewHolder(_itemCategoryBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Type type = typeList.get(position);
-        if(type==null){
+        if (type == null) {
             return;
         }
-        _itemCategoryEventHandler.setTitle(type.getName());
+
+        ItemCategoryEventHandler itemCategoryEventHandler = new ItemCategoryEventHandler(holder.itemView.getContext());
+        itemCategoryEventHandler.setTitle(type.getName());
 
         Glide.with(_context).load(type.getImageUrl()).into(holder.itemCategoryBinding.itemImageCategory);
         holder.itemCategoryBinding.labelCategory.setText(type.getName());
@@ -53,8 +52,10 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.CategoryViewHo
         }
         return 0;
     }
+
     public static class CategoryViewHolder extends RecyclerView.ViewHolder {
         private final ItemCategoryBinding itemCategoryBinding;
+
         public CategoryViewHolder(@NonNull ItemCategoryBinding itemCategoryBinding) {
             super(itemCategoryBinding.getRoot());
             this.itemCategoryBinding = itemCategoryBinding;

@@ -50,13 +50,16 @@ public class ProductListActivity extends AppCompatActivity {
     }
 
     void displayDealOfDayRecyclerView(List<Product> productsList) {
-        RecyclerView _productsListRecyclerView = _activityProductListBinding.productsRecyclerView;
-        _activityProductListBinding.textTitle.setText(_productListViewModel.getTitle().getValue());
-        ItemProductCardAdapter _productAdapter = new ItemProductCardAdapter(productsList);
+        if(productsList!=null){
+            RecyclerView _productsListRecyclerView = _activityProductListBinding.productsRecyclerView;
+            _activityProductListBinding.textTitle.setText(_productListViewModel.getTitle().getValue());
+            ItemProductCardAdapter _productAdapter = new ItemProductCardAdapter(productsList);
 
-        _productsListRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        _productsListRecyclerView.setHasFixedSize(true);
-        _productsListRecyclerView.setAdapter(_productAdapter);
+            _productsListRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+            _productsListRecyclerView.setHasFixedSize(true);
+            _productsListRecyclerView.setAdapter(_productAdapter);
+        }
+
     }
 
 }

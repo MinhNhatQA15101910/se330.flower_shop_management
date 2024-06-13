@@ -39,7 +39,7 @@ public class PendingOrderFragment extends Fragment {
         OrderManagementViewModel orderManagementViewModel = new ViewModelProvider(this).get(OrderManagementViewModel.class);
 
         // Event Handler
-        OrderEventHandlers orderEventHandlers = new OrderEventHandlers(getContext(), orderManagementViewModel, getActivity());
+        OrderEventHandlers orderEventHandlers = new OrderEventHandlers(getContext(), orderManagementViewModel);
 
         orderManagementViewModel.getOrderList().observe(getViewLifecycleOwner(), orderList -> {
             if (orderList != null && !orderList.isEmpty()) {

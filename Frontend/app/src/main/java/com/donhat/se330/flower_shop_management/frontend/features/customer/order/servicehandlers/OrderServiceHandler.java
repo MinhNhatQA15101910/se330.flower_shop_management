@@ -12,6 +12,7 @@ import com.donhat.se330.flower_shop_management.frontend.constants.utils.ErrorHan
 import com.donhat.se330.flower_shop_management.frontend.features.customer.order.services.OrderService;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.order.viewmodel.OrderManagementViewModel;
 import com.donhat.se330.flower_shop_management.frontend.models.Order;
+import com.donhat.se330.flower_shop_management.frontend.models.User;
 
 import java.util.List;
 import java.util.Objects;
@@ -52,6 +53,23 @@ public class OrderServiceHandler {
             }
             @Override
             public void onFailure(@NonNull Call<List<Order>> call, @NonNull Throwable throwable) {
+                displayErrorToast(_context, throwable.getMessage());
+            }
+        });
+    }
+    public void getOrderById(int orderId) {
+        Call<Order> call = _orderService.getOrderById(
+                Objects.requireNonNull(GlobalVariables.getUser().getValue()).getToken(),
+                orderId
+        );
+        call.enqueue(new Callback<Order>() {
+            @Override
+            public void onResponse(@NonNull Call<Order> call, @NonNull Response<Order> response) {
+                ErrorHandling.httpErrorHandler(response, _context, () -> GlobalVariables.getOrder().setValue(response.body()));
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Order> call, @NonNull Throwable throwable) {
                 displayErrorToast(_context, throwable.getMessage());
             }
         });

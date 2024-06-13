@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.donhat.se330.flower_shop_management.frontend.models.Category;
 import com.donhat.se330.flower_shop_management.frontend.models.Occasion;
+import com.donhat.se330.flower_shop_management.frontend.models.Product;
 import com.donhat.se330.flower_shop_management.frontend.models.Type;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class CategoryViewModel extends ViewModel {
     private final MutableLiveData<Boolean> isOccasionFlowerClicked = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> isTypeCakeClicked = new MutableLiveData<>(false);
     private final MutableLiveData<Boolean> isOccasionCakeClicked = new MutableLiveData<>(false);
+    private final MutableLiveData<List<Product>> productList = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> getIsComboClicked() {
         return isComboClicked;
@@ -101,5 +103,8 @@ public class CategoryViewModel extends ViewModel {
 
     public MutableLiveData<List<Occasion>> getOccasionCakeList() {
         return occasionCakeList;
+    }
+    public MutableLiveData<List<Product>> getProductList() {
+        return productList;
     }
 }

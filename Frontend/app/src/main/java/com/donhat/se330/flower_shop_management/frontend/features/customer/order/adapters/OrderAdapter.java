@@ -1,6 +1,5 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.order.adapters;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -15,17 +14,24 @@ import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemOrderCardBinding;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.order.activities.OrderDetailActivity;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.order.eventhandlers.OrderEventHandlers;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.order.viewmodel.OrderManagementViewModel;
 import com.donhat.se330.flower_shop_management.frontend.models.Order;
 
 import java.util.List;
+import java.util.Objects;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
     private final Context context;
     private final List<Order> orderList;
+    private final OrderEventHandlers orderEventHandlers;
+    private final OrderManagementViewModel orderManagementViewModel;
 
     public OrderAdapter(List<Order> orderList, Context context) {
         this.orderList = orderList;
         this.context = context;
+        this.orderManagementViewModel = new OrderManagementViewModel();
+        this.orderEventHandlers = new OrderEventHandlers(context, orderManagementViewModel);
     }
 
     @NonNull
@@ -36,7 +42,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         return new OrderAdapter.OrderViewHolder(itemOrderCardBinding);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull OrderAdapter.OrderViewHolder holder, int position) {
         Order order = orderList.get(position);
@@ -80,6 +85,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
         // Set click listener for order card
         holder.itemOrderCardBinding.itemOrderCard.setOnClickListener(v -> {
+            orderEventHandlers.getOrderById(order.getId());
             Intent intent = new Intent(context, OrderDetailActivity.class);
             context.startActivity(intent);
             ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

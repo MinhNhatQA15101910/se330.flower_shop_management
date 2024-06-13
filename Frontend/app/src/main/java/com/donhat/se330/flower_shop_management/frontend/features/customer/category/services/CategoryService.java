@@ -2,11 +2,13 @@ package com.donhat.se330.flower_shop_management.frontend.features.customer.categ
 
 import com.donhat.se330.flower_shop_management.frontend.models.Category;
 import com.donhat.se330.flower_shop_management.frontend.models.Occasion;
+import com.donhat.se330.flower_shop_management.frontend.models.Product;
 import com.donhat.se330.flower_shop_management.frontend.models.Type;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Query;
@@ -27,4 +29,8 @@ public interface CategoryService {
     Call<List<Occasion>> getFlowerOccasionList(@Header("x-auth-token") String token, @Query("category_id") int categoryId);
     @GET("/customer/occasions")
     Call<List<Occasion>> getCakeOccasionList(@Header("x-auth-token") String token, @Query("category_id") int categoryId);
+    @GET("/customer/products")
+    Call<List<Product>> getProductListType(@Header("x-auth-token") String token, @Body Object getProductListTypeOccasionRequest);
+    @GET("/customer/products")
+    Call<List<Product>> getProductListOccasion(@Header("x-auth-token") String token, @Body Object getProductListTypeOccasionRequest);
 }

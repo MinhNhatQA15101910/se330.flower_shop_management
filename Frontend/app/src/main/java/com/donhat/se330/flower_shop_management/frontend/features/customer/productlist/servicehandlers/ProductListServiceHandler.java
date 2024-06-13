@@ -6,6 +6,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
+import com.donhat.se330.flower_shop_management.frontend.constants.GlobalVariables;
 import com.donhat.se330.flower_shop_management.frontend.constants.responses.ProductListResponse;
 import com.donhat.se330.flower_shop_management.frontend.constants.retrofit.RetrofitClient;
 import com.donhat.se330.flower_shop_management.frontend.constants.utils.ErrorHandling;
@@ -32,7 +33,7 @@ public class ProductListServiceHandler {
     }
 
     public MutableLiveData<List<Product>> getProduct() {
-        String authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE3MjM2Mjc5fQ.Jk0iyx5q5gLEDCdjt4YqW4dD1grcS7BxJu32fke2cns";
+        String authToken = GlobalVariables.getUser().getValue().getToken();
 
         Call<ProductListResponse> call = _productListService.getDoDProducts(authToken);
 
@@ -44,7 +45,6 @@ public class ProductListServiceHandler {
 
                     if (productListResponse != null && productListResponse.getResults() != null) {
                         _productsList.setValue(productListResponse.getResults());
-                        //_productListViewModel.getListDoDProducts().setValue(productListResponse.getResults());
                     }
                 });
             }

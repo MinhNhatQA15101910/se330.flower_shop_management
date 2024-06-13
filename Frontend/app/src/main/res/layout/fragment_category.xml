@@ -38,8 +38,7 @@
                         android:id="@+id/comboLayout"
                         android:layout_width="match_parent"
                         android:layout_height="104dp"
-                        android:background="@drawable/rounded_lightgreen_image"
-                        android:onClick="@{fragmentCategoryEventHandler::onComboClick}">
+                        android:background="@drawable/rounded_lightgreen_image">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cardViewCombos"
@@ -94,12 +93,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/rounded_lightgrey_stroke"
-                        android:onClick="@{fragmentCategoryEventHandler::onTypeComboClick}"
                         android:paddingLeft="16dp"
                         android:paddingTop="12dp"
                         android:paddingRight="16dp"
-                        android:paddingBottom="12dp"
-                        android:visibility="gone">
+                        android:paddingBottom="12dp">
 
                         <TextView
                             android:id="@+id/textView2"
@@ -145,12 +142,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/rounded_lightgrey_stroke"
-                        android:onClick="@{fragmentCategoryEventHandler::onOccasionComboClick}"
                         android:paddingLeft="16dp"
                         android:paddingTop="12dp"
                         android:paddingRight="16dp"
-                        android:paddingBottom="12dp"
-                        android:visibility="gone">
+                        android:paddingBottom="12dp">
 
                         <TextView
                             android:id="@+id/textView3"
@@ -196,8 +191,7 @@
                         android:id="@+id/flowerLayout"
                         android:layout_width="match_parent"
                         android:layout_height="104dp"
-                        android:background="@drawable/rounded_lightgreen_image"
-                        android:onClick="@{fragmentCategoryEventHandler::onFlowerClick}">
+                        android:background="@drawable/rounded_lightgreen_image">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cardViewFlower"
@@ -250,12 +244,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/rounded_lightgrey_stroke"
-                        android:onClick="@{fragmentCategoryEventHandler::onTypeFlowerClick}"
                         android:paddingLeft="16dp"
                         android:paddingTop="12dp"
                         android:paddingRight="16dp"
-                        android:paddingBottom="12dp"
-                        android:visibility="gone">
+                        android:paddingBottom="12dp">
 
                         <TextView
                             android:id="@+id/textView4"
@@ -299,11 +291,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/rounded_lightgrey_stroke"
-                        android:onClick="@{fragmentCategoryEventHandler::onOccasionFlowerClick}"
                         android:paddingHorizontal="16dp"
-                        android:paddingVertical="12dp"
-
-                        android:visibility="gone">
+                        android:paddingVertical="12dp">
 
                         <TextView
                             android:id="@+id/textView5"
@@ -349,8 +338,7 @@
                         android:id="@+id/cakeLayout"
                         android:layout_width="match_parent"
                         android:layout_height="104dp"
-                        android:background="@drawable/rounded_lightgreen_image"
-                        android:onClick="@{fragmentCategoryEventHandler::onCakeClick}">
+                        android:background="@drawable/rounded_lightgreen_image">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cardViewcake"
@@ -403,11 +391,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/rounded_lightgrey_stroke"
-                        android:onClick="@{fragmentCategoryEventHandler::onTypeCakeClick}"
                         android:paddingHorizontal="16dp"
-                        android:paddingVertical="12dp"
-
-                        android:visibility="gone">
+                        android:paddingVertical="12dp">
 
                         <TextView
                             android:id="@+id/textView6"
@@ -451,10 +436,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/rounded_lightgrey_stroke"
-                        android:onClick="@{fragmentCategoryEventHandler::onOccasionCakeClick}"
                         android:paddingHorizontal="16dp"
-                        android:paddingVertical="12dp"
-                        android:visibility="gone">
+                        android:paddingVertical="12dp">
 
                         <TextView
                             android:id="@+id/textView7"

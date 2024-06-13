@@ -18,8 +18,7 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/lightGrey"
-        tools:context=".features.customer.productlist.activities.ProductListActivity">
+        android:background="@color/lightGrey">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header_constraint_layout"

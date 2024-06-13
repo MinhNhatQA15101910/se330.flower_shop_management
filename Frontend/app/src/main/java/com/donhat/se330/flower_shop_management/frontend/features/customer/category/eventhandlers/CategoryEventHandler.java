@@ -5,13 +5,19 @@ import android.view.View;
 
 import com.donhat.se330.flower_shop_management.frontend.features.customer.category.servicehandlers.CategoryServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.category.viewmodels.CategoryViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.viewmodels.ProductListViewModel;
+import com.donhat.se330.flower_shop_management.frontend.models.Product;
+
+import java.util.List;
 
 public class CategoryEventHandler {
     private final CategoryViewModel _categoryViewModel;
+    private final ProductListViewModel _productListViewModel;
     private final CategoryServiceHandler _categoryServiceHandler;
 
     public CategoryEventHandler(CategoryViewModel categoryViewModel, Context context) {
         _categoryViewModel = categoryViewModel;
+        _productListViewModel = new ProductListViewModel();
         _categoryServiceHandler = new CategoryServiceHandler(context, _categoryViewModel);
     }
 

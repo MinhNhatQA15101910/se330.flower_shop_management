@@ -52,6 +52,9 @@
             android:name=".features.customer.order.activities.OrderManagementActivity"
             android:exported="false" />
         <activity
+            android:name=".features.customer.order.activities.OrderDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.customer.checkout.activities.CheckoutActivity"
             android:exported="true" />
         <activity

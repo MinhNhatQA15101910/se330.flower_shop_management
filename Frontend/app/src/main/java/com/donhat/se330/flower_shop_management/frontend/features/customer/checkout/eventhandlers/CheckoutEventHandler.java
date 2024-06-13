@@ -44,16 +44,15 @@ public class CheckoutEventHandler {
         ShippingInfo shippingInfo = GlobalVariables.getShippingInfo().getValue();
         if (user != null && shippingInfo != null) {
             Order order = new Order();
-
             order.setProvince(shippingInfo.getProvinceName());
             order.setDistrict(shippingInfo.getDistrictName());
             order.setWard(shippingInfo.getWardName());
             order.setDetailAddress(shippingInfo.getStreet());
             order.setReceiverName(shippingInfo.getFullName());
             order.setReceiverPhoneNumber(shippingInfo.getPhoneNumber());
-
+            _checkoutServiceHandler.createOrderFromCart(order);
+            ((Activity) _context).finish();
         }
-        Intent intent = new Intent(_context, RatingActivity.class);
-        _context.startActivity(intent);
+
     }
 }

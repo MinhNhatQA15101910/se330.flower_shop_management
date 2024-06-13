@@ -7,11 +7,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
+import com.donhat.se330.flower_shop_management.frontend.constants.GlobalVariables;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ActivityOrderDetailBinding;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.order.eventhandlers.OrderEventHandlers;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.order.viewmodel.OrderManagementViewModel;
 
-public class OrderDetailActivity extends AppCompatActivity{
+public class OrderDetailActivity extends AppCompatActivity {
     private ActivityOrderDetailBinding _activityOrderDetailBinding;
     private OrderManagementViewModel _orderManagementViewModel;
     private OrderEventHandlers _orderEventHandlers;
@@ -22,7 +23,7 @@ public class OrderDetailActivity extends AppCompatActivity{
 
         _activityOrderDetailBinding = DataBindingUtil.setContentView(
                 this,
-                R.layout.activity_welcome
+                R.layout.activity_order_detail
         );
 
         setViewModels();
@@ -30,6 +31,11 @@ public class OrderDetailActivity extends AppCompatActivity{
         // Event handler
         setEventHandlers();
 
+        GlobalVariables.getOrder().observe(this, order -> {
+            _activityOrderDetailBinding.orderIdText.setText(order.getId());
+            _activityOrderDetailBinding.orderDateText.setText(order.getOrderDate().toString());
+            _activityOrderDetailBinding.orderIdText.setText(order.getId());
+        });
     }
 
     private void setViewModels() {
@@ -37,6 +43,6 @@ public class OrderDetailActivity extends AppCompatActivity{
     }
 
     private void setEventHandlers() {
-        _orderEventHandlers = new OrderEventHandlers(this, _orderManagementViewModel, this);
+        _orderEventHandlers = new OrderEventHandlers(this, _orderManagementViewModel);
     }
 }

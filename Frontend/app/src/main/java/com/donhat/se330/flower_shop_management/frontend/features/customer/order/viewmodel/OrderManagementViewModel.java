@@ -9,8 +9,12 @@ import java.util.List;
 
 public class OrderManagementViewModel extends ViewModel {
     MutableLiveData<List<Order>> orderList =new MutableLiveData<>();
+    MutableLiveData<Order> order =new MutableLiveData<>();
 
     public MutableLiveData<List<Order>> getOrderList() {
         return orderList;
+    }
+    public MutableLiveData<Order> getOrder() {
+        return order;
     }
 }
