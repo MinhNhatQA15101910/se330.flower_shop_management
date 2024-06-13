@@ -1,6 +1,5 @@
 package com.se330.flower_shop_management.backend.entity;
 
-import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @Getter
 @Setter

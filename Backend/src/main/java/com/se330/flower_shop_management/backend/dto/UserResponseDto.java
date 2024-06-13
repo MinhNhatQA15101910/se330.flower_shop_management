@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,4 +24,6 @@ public class UserResponseDto {
     @SerializedName(value = "image_url")
     private String imageUrl;
     private String role;
+    private List<ProductDto> products;
+    private List<Integer> quantities;
 }

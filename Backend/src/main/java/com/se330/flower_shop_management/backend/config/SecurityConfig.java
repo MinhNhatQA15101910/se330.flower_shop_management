@@ -1,7 +1,7 @@
 package com.se330.flower_shop_management.backend.config;
 
+import com.se330.flower_shop_management.backend.exception.AuthenticationFilterRequestHandler;
 import com.se330.flower_shop_management.backend.filter.JwtAuthenticationFilter;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,12 +11,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -25,6 +25,9 @@ public class SecurityConfig {
     @Autowired
     @Lazy
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private AuthenticationFilterRequestHandler authenticationFilterRequestHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -40,6 +43,11 @@ public class SecurityConfig {
                                 .authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationFilterRequestHandler)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .build();
 
     }

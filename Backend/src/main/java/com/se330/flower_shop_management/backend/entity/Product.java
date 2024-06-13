@@ -24,13 +24,13 @@ public class Product {
     private String name;
 
     @Column(name = "price")
-    private Float price;
+    private String price;
 
     @Column(name = "sale_price")
-    private Float salePrice;
+    private String salePrice;
 
     @Column(name = "sale_percentage")
-    private Float salePercentage;
+    private String salePercentage;
 
     @Column(name = "detail_description")
     private String detailDescription;
@@ -39,7 +39,7 @@ public class Product {
     private String size;
 
     @Column(name = "weight")
-    private Float weight;
+    private String weight;
 
     @Column(name = "color")
     private String color;
@@ -54,7 +54,7 @@ public class Product {
     private Integer sold;
 
     @Column(name = "rating_avg")
-    private Float ratingAvg;
+    private String ratingAvg;
 
     @Column(name = "total_rating")
     private Integer totalRating;

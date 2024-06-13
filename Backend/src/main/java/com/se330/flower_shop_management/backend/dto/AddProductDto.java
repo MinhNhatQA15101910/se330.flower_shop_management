@@ -12,8 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDto {
-    private Long id;
+public class AddProductDto {
     private String name;
     private String price;
     @SerializedName("sale_price")
@@ -25,15 +24,15 @@ public class ProductDto {
     private String size;
     private String weight;
     private String color;
-    private String material;
-    private Integer stock;
-    private Integer sold;
+    private String material = "unknown";
+    private Integer stock = 0;
+    private Integer sold = 0;
     @SerializedName("rating_avg")
-    private String ratingAvg;
+    private String ratingAvg = "0";
     @SerializedName("total_rating")
-    private Integer totalRating;
+    private Integer totalRating = 0;
     @SerializedName("is_available")
-    private Boolean isAvailable;
+    private Boolean isAvailable = true;
     @SerializedName("image_urls")
-    private List<String> imageUrls;
+    private List<String> imageUrls = null;
 }

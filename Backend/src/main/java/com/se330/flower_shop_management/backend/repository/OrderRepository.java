@@ -1,10 +1,8 @@
 package com.se330.flower_shop_management.backend.repository;
 
-import com.se330.flower_shop_management.backend.entity.Category;
+import com.se330.flower_shop_management.backend.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-public interface CategoryRepository extends JpaRepository<Category, Long> {
-}
+public interface OrderRepository extends JpaRepository<Order, Long> { }

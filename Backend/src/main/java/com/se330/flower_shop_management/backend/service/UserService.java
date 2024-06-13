@@ -1,13 +1,17 @@
 package com.se330.flower_shop_management.backend.service;
 
 import com.se330.flower_shop_management.backend.dto.*;
+import com.se330.flower_shop_management.backend.entity.ProductImage;
 import com.se330.flower_shop_management.backend.entity.User;
 import com.se330.flower_shop_management.backend.entity.Cart;
 import com.se330.flower_shop_management.backend.entity.Product;
 import com.se330.flower_shop_management.backend.exception.UserEmailExistsException;
 import com.se330.flower_shop_management.backend.exception.UserEmailNotExistsException;
 import com.se330.flower_shop_management.backend.exception.UserNotFoundException;
+import com.se330.flower_shop_management.backend.mapper.ProductMapper;
 import com.se330.flower_shop_management.backend.repository.CartRepository;
+import com.se330.flower_shop_management.backend.repository.ProductImageRepository;
+import com.se330.flower_shop_management.backend.repository.ProductRepository;
 import com.se330.flower_shop_management.backend.repository.UserRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -33,6 +37,10 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private CartRepository cartRepository;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private ProductImageRepository productImageRepository;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -65,6 +73,12 @@ public class UserService {
 
         String jwt = jwtService.generateToken(user);
 
+        List<Cart> cartItems = cartRepository.findByUserId(user.getId());
+        List<Long> productIdsInCart = cartItems.stream()
+                .map(cart -> cart.getProduct().getId())
+                .collect(Collectors.toList());
+        List<Product> products = productRepository.findAllById(productIdsInCart);
+
         UserResponseDto userResponseDto = new UserResponseDto();
         userResponseDto.setToken(jwt);
         userResponseDto.setId(user.getId());
@@ -73,6 +87,25 @@ public class UserService {
         userResponseDto.setPassword(user.getPassword());
         userResponseDto.setImageUrl(user.getImageUrl());
         userResponseDto.setRole(user.getRole());
+
+
+        List<ProductDto> productDtos = products
+                .stream()
+                .filter(Product::getIsAvailable)
+                .map(product -> {
+                    List<String> imageUrls = productImageRepository.findByProductId(product.getId())
+                            .stream()
+                            .map(ProductImage::getImageUrl)
+                            .collect(Collectors.toList());
+                    return ProductMapper.toDto(product, imageUrls);
+                }).collect(Collectors.toList());
+
+        List<Integer> quantities = cartItems.stream()
+                .map(Cart::getQuantity)
+                .collect(Collectors.toList());
+
+        userResponseDto.setProducts(productDtos);
+        userResponseDto.setQuantities(quantities);
 
         return userResponseDto;
     }
@@ -138,31 +171,46 @@ public class UserService {
     }
 
 
-    public Map<String, Object> getUserData(String token) {
+    public UserResponseDto getUserData(String token) {
         Long userId = jwtService.extractUserId(token);
 
-        Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isEmpty()) {
-            throw new UserNotFoundException("User not found");
-        }
-        User user = userOptional.get();
+        User user = userRepository.findById(userId).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        List<Cart> carts = cartRepository.findByUserId(userId);
-        List<Product> products = carts.stream().map(Cart::getProduct).collect(Collectors.toList());
-        List<Integer> quantities = carts.stream().map(Cart::getQuantity).collect(Collectors.toList());
+        List<Cart> cartItems = cartRepository.findByUserId(user.getId());
+        List<Long> productIdsInCart = cartItems.stream()
+                .map(cart -> cart.getProduct().getId())
+                .collect(Collectors.toList());
+        List<Product> products = productRepository.findAllById(productIdsInCart);
 
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("token", token);
-        response.put("id", user.getId());
-        response.put("username", user.getUsername());
-        response.put("email", user.getEmail());
-        response.put("password", user.getPassword());
-        response.put("image_url", user.getImageUrl());
-        response.put("role", user.getRole());
-        response.put("products", products);
-        response.put("quantities", quantities);
+        UserResponseDto userResponseDto = new UserResponseDto();
+        userResponseDto.setToken(token);
+        userResponseDto.setId(user.getId());
+        userResponseDto.setUsername(user.getUsername());
+        userResponseDto.setEmail(user.getEmail());
+        userResponseDto.setPassword(user.getPassword());
+        userResponseDto.setImageUrl(user.getImageUrl());
+        userResponseDto.setRole(user.getRole());
 
-        return response;
+
+        List<ProductDto> productDtos = products
+                .stream()
+                .filter(Product::getIsAvailable)
+                .map(product -> {
+                    List<String> imageUrls = productImageRepository.findByProductId(product.getId())
+                            .stream()
+                            .map(ProductImage::getImageUrl)
+                            .collect(Collectors.toList());
+                    return ProductMapper.toDto(product, imageUrls);
+                }).collect(Collectors.toList());
+
+        List<Integer> quantities = cartItems.stream()
+                .map(Cart::getQuantity)
+                .collect(Collectors.toList());
+
+        userResponseDto.setProducts(productDtos);
+        userResponseDto.setQuantities(quantities);
+
+        return userResponseDto;
     }
 
     public User loadUserByEmail(String email) {

@@ -6,16 +6,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class TypeDTO {
     private Long id;
-    @SerializedName(value = "category_id")
-    private Long categoryId;
     private String name;
-    @SerializedName(value = "image_url")
+    @SerializedName("image_url")
     private String imageUrl;
     private String description;
+
+    @SerializedName("category_id")
+    private Long categoryId;
+    @SerializedName("category_name")
+    private String categoryName;
+    @SerializedName("category_description")
+    private String categoryDescription;
 }

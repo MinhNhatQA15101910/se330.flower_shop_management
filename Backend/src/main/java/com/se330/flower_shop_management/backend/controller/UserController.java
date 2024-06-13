@@ -85,9 +85,9 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<Map<String, Object>> getUser(@RequestHeader("x-auth-token") String token) {
+    public ResponseEntity<?> getUser(@RequestHeader("x-auth-token") String token) {
         try {
-            Map<String, Object> userData = userService.getUserData(token);
+            UserResponseDto userData = userService.getUserData(token);
             return ResponseEntity.ok(userData);
         } catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
