@@ -1,8 +1,9 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.productdetail.services;
 
-import com.donhat.se330.flower_shop_management.frontend.constants.responses.ProductListResponse;
 import com.donhat.se330.flower_shop_management.frontend.models.Product;
 import com.donhat.se330.flower_shop_management.frontend.models.User;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -17,6 +18,6 @@ public interface ProductDetailService {
     @GET("customer/products/{product_id}")
     Call<Product> getProductFromId(@Header("x-auth-token") String authToken, @Path("product_id") int productId);
 
-    @GET("customer/recommended-products")
-    Call<ProductListResponse> getRecommendProducts(@Header("x-auth-token") String authToken);
+    @GET("customer/recommended-products/all")
+    Call<List<Product>> getRecommendProducts(@Header("x-auth-token") String authToken);
 }

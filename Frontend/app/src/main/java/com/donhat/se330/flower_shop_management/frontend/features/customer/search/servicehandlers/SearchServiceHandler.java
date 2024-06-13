@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.donhat.se330.flower_shop_management.frontend.constants.GlobalVariables;
-import com.donhat.se330.flower_shop_management.frontend.constants.responses.ProductListResponse;
 import com.donhat.se330.flower_shop_management.frontend.constants.retrofit.RetrofitClient;
 import com.donhat.se330.flower_shop_management.frontend.constants.utils.ErrorHandling;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.search.services.SearchService;
@@ -34,22 +33,22 @@ public class SearchServiceHandler {
 
     public MutableLiveData<List<Product>> getAllProducts() {
         String authToken = GlobalVariables.getUser().getValue().getToken();
-        Call<ProductListResponse> call = searchService.getAllProducts(authToken);
+        Call<List<Product>> call = searchService.getAllProducts(authToken);
 
-        call.enqueue(new Callback<ProductListResponse>() {
+        call.enqueue(new Callback<List<Product>>() {
             @Override
-            public void onResponse(@NonNull Call<ProductListResponse> call, @NonNull Response<ProductListResponse> response) {
+            public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
                 ErrorHandling.httpErrorHandler(response, context, () -> {
-                    ProductListResponse productListResponse = response.body();
+                    List<Product> productListResponse = response.body();
 
-                    if (productListResponse != null && productListResponse.getResults() != null) {
-                        _productsList.setValue(productListResponse.getResults());
+                    if (productListResponse != null) {
+                        _productsList.setValue(productListResponse);
                     }
                 });
             }
 
             @Override
-            public void onFailure(@NonNull Call<ProductListResponse> call, @NonNull Throwable throwable) {
+            public void onFailure(@NonNull Call<List<Product>> call, @NonNull Throwable throwable) {
                 Toast.makeText(context, throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

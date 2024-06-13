@@ -1,6 +1,7 @@
 package com.donhat.se330.flower_shop_management.frontend.features.components.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemCategoryBinding;
 import com.donhat.se330.flower_shop_management.frontend.features.components.eventhandlers.ItemCategoryEventHandler;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.activities.ProductListActivity;
 import com.donhat.se330.flower_shop_management.frontend.models.Type;
 
 import java.util.List;
@@ -43,6 +45,12 @@ public class TypeAdapter extends RecyclerView.Adapter<TypeAdapter.CategoryViewHo
 
         Glide.with(_context).load(type.getImageUrl()).into(holder.itemCategoryBinding.itemImageCategory);
         holder.itemCategoryBinding.labelCategory.setText(type.getName());
+
+        holder.itemCategoryBinding.categoryItem.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), ProductListActivity.class);
+            intent.putExtra("title", type.getName());
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override
