@@ -2,6 +2,7 @@ package com.donhat.se330.flower_shop_management.frontend.features.customer.botto
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -18,6 +19,8 @@ import com.donhat.se330.flower_shop_management.frontend.features.customer.bottom
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kotlin.contracts.Returns;
 
 public class BottomSheetAddressEventHandler implements SelectionCallback {
     private final BottomSheetAddressViewModel _bottomSheetAddressViewModel;
@@ -71,6 +74,27 @@ public class BottomSheetAddressEventHandler implements SelectionCallback {
             _bottomSheetAddressServiceHandler.getWards(_bottomSheetAddressViewModel.getSelectedDistrict().getValue());
         }
     }
+    public Boolean verifyAddress(View view) {
+        ShippingInfo shippingInfo = GlobalVariables.getShippingInfo().getValue();
+        if (shippingInfo != null) {
+            boolean isEmpty = (shippingInfo.provinceName == null || shippingInfo.provinceName.trim().isEmpty()) &&
+                    (shippingInfo.districtName == null || shippingInfo.districtName.trim().isEmpty()) &&
+                    (shippingInfo.wardName == null || shippingInfo.wardName.trim().isEmpty()) &&
+                    (shippingInfo.street == null || shippingInfo.street.trim().isEmpty()) &&
+                    (shippingInfo.fullName == null || shippingInfo.fullName.trim().isEmpty()) &&
+                    (shippingInfo.PhoneNumber == null || shippingInfo.PhoneNumber.trim().isEmpty());
+
+            if (isEmpty) {
+                Toast.makeText(view.getContext(), "Empty information", Toast.LENGTH_SHORT).show();
+                return false; // Address is not valid
+            } else {
+                return true; // Address is valid
+            }
+        }
+        return false; // Address is not valid (shippingInfo is null)
+    }
+
+
 
     private void showProvinceDropdown(FragmentActivity activity, List<Province> provinceList) {
         ArrayList<String> stringList = new ArrayList<>();
@@ -107,20 +131,27 @@ public class BottomSheetAddressEventHandler implements SelectionCallback {
         String fullName = _bottomSheetAddressViewModel.getFullName().getValue();
         String phoneNumber = _bottomSheetAddressViewModel.getPhoneNumber().getValue();
 
-        // Set empty string if any value is null
-        provinceName = (provinceName != null) ? provinceName : "";
-        districtName = (districtName != null) ? districtName : "";
-        wardName = (wardName != null) ? wardName : "";
-        streetName = (streetName != null) ? streetName : "";
-        fullName = (fullName != null) ? fullName : "";
-        phoneNumber = (phoneNumber != null) ? phoneNumber : "";
+        // Check for empty values
+        if (provinceName == null || provinceName.trim().isEmpty() ||
+                districtName == null || districtName.trim().isEmpty() ||
+                wardName == null || wardName.trim().isEmpty() ||
+                streetName == null || streetName.trim().isEmpty() ||
+                fullName == null || fullName.trim().isEmpty() ||
+                phoneNumber == null || phoneNumber.trim().isEmpty()) {
 
+            // Show Toast message indicating which field(s) are empty
+            Toast.makeText(view.getContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+            return; // Exit method and prevent confirmation
+        }
+
+        // If all fields are filled, proceed to set shipping info and dismiss fragment
         ShippingInfo shippingInfo = new ShippingInfo(provinceName, districtName, wardName, streetName, fullName, phoneNumber);
         GlobalVariables.getShippingInfo().setValue(shippingInfo);
 
         // Dismiss the fragment
         _fragment.dismiss();
     }
+
 
     public void onDismiss(View view){
         _fragment.dismiss();
