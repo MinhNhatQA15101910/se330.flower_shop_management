@@ -31,6 +31,10 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/green</item>
     </style>
+    <style name="regular16_darkGrey">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/darkGrey</item>
+    </style>
     <style name="regular18_darkGreen">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#198155</item>
@@ -44,7 +48,10 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#27272A</item>
     </style>
-
+    <style name="regular20_darkGrey">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/darkGrey</item>
+    </style>
     <style name="regular24_darkGreen">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/darkGreen</item>
@@ -78,6 +85,11 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/darkGrey</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/darkGrey</item>
+        <item name="colorControlActivated">@color/yellow</item>
     </style>
     <style name="Theme.Frontend" parent="Base.Theme.Frontend" />
 </resources>

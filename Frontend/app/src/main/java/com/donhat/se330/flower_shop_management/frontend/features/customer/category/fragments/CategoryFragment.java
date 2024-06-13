@@ -1,31 +1,29 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.category.fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
+import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.FragmentCategoryBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.category.adapters.CategoryAdapter;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.category.entities.Category;
+import com.donhat.se330.flower_shop_management.frontend.features.components.adapters.OccasionAdapter;
+import com.donhat.se330.flower_shop_management.frontend.features.components.adapters.TypeAdapter;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.category.eventhandlers.CategoryEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.category.viewmodels.CategoryViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.donhat.se330.flower_shop_management.frontend.models.Category;
 
 public class CategoryFragment extends Fragment {
-    private List<Category> categoryList = new ArrayList<>();
-    private CategoryViewModel _categoryViewModel;
-    private CategoryEventHandler _categoryEventHandler;
     private FragmentCategoryBinding _fragmentCategoryBinding;
 
     @NonNull
@@ -40,12 +38,106 @@ public class CategoryFragment extends Fragment {
                 false
         );
 
-        _categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
+        CategoryViewModel _categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
 
         // Event Handler
-        _categoryEventHandler = new CategoryEventHandler(_categoryViewModel, getContext());
+        CategoryEventHandler _categoryEventHandler = new CategoryEventHandler(_categoryViewModel, getContext());
 
         _fragmentCategoryBinding.setFragmentCategoryEventHandler(_categoryEventHandler);
+
+        _categoryViewModel.getCategoryList().observe(getViewLifecycleOwner(), categoryList -> {
+            if (categoryList != null) {
+                for (Category category : categoryList) {
+                    if (category.getId() == 1) {
+                        Glide.with(requireContext())
+                                .load(category.getImageUrl())
+                                .into(_fragmentCategoryBinding.imageCombos);
+                    } else if (category.getId() == 2) {
+                        Glide.with(requireContext())
+                                .load(category.getImageUrl())
+                                .into(_fragmentCategoryBinding.imageFlowers);
+                    } else if (category.getId() == 3) {
+                        Glide.with(requireContext())
+                                .load(category.getImageUrl())
+                                .into(_fragmentCategoryBinding.imageCakes);
+                    }
+                }
+            }
+        });
+
+        _categoryViewModel.getTypeComboList().observe(getViewLifecycleOwner(), typeComboList -> {
+            if (typeComboList != null) {
+                RecyclerView typeComboRecyclerView = _fragmentCategoryBinding.typeComboRecyclerView;
+                GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(), 4);
+                typeComboRecyclerView.setLayoutManager(gridLayoutManager);
+                typeComboRecyclerView.setHasFixedSize(true);
+
+                TypeAdapter typeAdapter = new TypeAdapter(typeComboList, getContext());
+                typeComboRecyclerView.setAdapter(typeAdapter);
+            }
+        });
+
+        _categoryViewModel.getTypeFlowerList().observe(getViewLifecycleOwner(), typeFlowerList -> {
+            if (typeFlowerList != null) {
+                RecyclerView typeFlowerRecyclerView = _fragmentCategoryBinding.typeFlowerRecyclerView;
+                GridLayoutManager gridLayoutManager3 = new GridLayoutManager(this.getContext(), 4);
+                typeFlowerRecyclerView.setLayoutManager(gridLayoutManager3);
+                typeFlowerRecyclerView.setHasFixedSize(true);
+
+                TypeAdapter typeAdapter3 = new TypeAdapter(typeFlowerList, getContext());
+                typeFlowerRecyclerView.setAdapter(typeAdapter3);
+            }
+        });
+
+        _categoryViewModel.getTypeCakeList().observe(getViewLifecycleOwner(), typeCakeList -> {
+            if (typeCakeList != null) {
+                RecyclerView typeCakeRecyclerView = _fragmentCategoryBinding.typeCakeRecyclerView;
+                GridLayoutManager gridLayoutManager5 = new GridLayoutManager(this.getContext(), 4);
+                typeCakeRecyclerView.setLayoutManager(gridLayoutManager5);
+                typeCakeRecyclerView.setHasFixedSize(true);
+
+                TypeAdapter typeAdapter5 = new TypeAdapter(typeCakeList, getContext());
+                typeCakeRecyclerView.setAdapter(typeAdapter5);
+            }
+        });
+
+        _categoryViewModel.getOccasionComboList().observe(getViewLifecycleOwner(), occasionComboList -> {
+            if (occasionComboList != null) {
+                RecyclerView occasionComboRecyclerView = _fragmentCategoryBinding.occasionComboRecyclerView;
+                GridLayoutManager gridLayoutManager2 = new GridLayoutManager(this.getContext(), 4);
+                occasionComboRecyclerView.setLayoutManager(gridLayoutManager2);
+                occasionComboRecyclerView.setHasFixedSize(true);
+
+                OccasionAdapter typeAdapter2 = new OccasionAdapter(occasionComboList, getContext());
+                occasionComboRecyclerView.setAdapter(typeAdapter2);
+            }
+        });
+
+        _categoryViewModel.getOccasionFlowerList().observe(getViewLifecycleOwner(), occasionFlowerList -> {
+            if (occasionFlowerList != null) {
+                RecyclerView occasionFlowerRecyclerView = _fragmentCategoryBinding.occasionFlowerRecyclerView;
+                GridLayoutManager gridLayoutManager4 = new GridLayoutManager(this.getContext(), 4);
+                occasionFlowerRecyclerView.setLayoutManager(gridLayoutManager4);
+                occasionFlowerRecyclerView.setHasFixedSize(true);
+
+                OccasionAdapter typeAdapter4 = new OccasionAdapter(occasionFlowerList, getContext());
+                occasionFlowerRecyclerView.setAdapter(typeAdapter4);
+            }
+        });
+
+        _categoryViewModel.getOccasionCakeList().observe(getViewLifecycleOwner(), occasionCakeList -> {
+            if (occasionCakeList != null) {
+                RecyclerView occasionCakeRecyclerView = _fragmentCategoryBinding.occasionCakeRecyclerView;
+                GridLayoutManager gridLayoutManager6 = new GridLayoutManager(this.getContext(), 4);
+                occasionCakeRecyclerView.setLayoutManager(gridLayoutManager6);
+                occasionCakeRecyclerView.setHasFixedSize(true);
+
+                OccasionAdapter typeAdapter6 = new OccasionAdapter(occasionCakeList, getContext());
+                occasionCakeRecyclerView.setAdapter(typeAdapter6);
+            }
+        });
+
+        _categoryEventHandler.onInitial();
 
         _fragmentCategoryBinding.comboVector.setRotation(0);
 
@@ -65,8 +157,7 @@ public class CategoryFragment extends Fragment {
                 _fragmentCategoryBinding.occasionComboLayout.startAnimation(fadeAnimation);
                 _fragmentCategoryBinding.comboVector.setRotation(180);
 
-            }
-            else {
+            } else {
                 _fragmentCategoryBinding.typeComboLayout.setVisibility(View.GONE);
                 _fragmentCategoryBinding.occasionComboLayout.setVisibility(View.GONE);
                 _fragmentCategoryBinding.comboVector.setRotation(0);
@@ -88,8 +179,7 @@ public class CategoryFragment extends Fragment {
                 _fragmentCategoryBinding.occasionFlowerLayout.startAnimation(fadeAnimation);
                 _fragmentCategoryBinding.flowerVector.setRotation(180);
 
-            }
-            else {
+            } else {
                 _fragmentCategoryBinding.typeFlowerLayout.setVisibility(View.GONE);
                 _fragmentCategoryBinding.occasionFlowerLayout.setVisibility(View.GONE);
                 _fragmentCategoryBinding.flowerVector.setRotation(0);
@@ -110,8 +200,7 @@ public class CategoryFragment extends Fragment {
                 _fragmentCategoryBinding.occasionCakeLayout.startAnimation(fadeAnimation);
                 _fragmentCategoryBinding.cakeVector.setRotation(180);
 
-            }
-            else {
+            } else {
                 _fragmentCategoryBinding.typeCakeLayout.setVisibility(View.GONE);
                 _fragmentCategoryBinding.occasionCakeLayout.setVisibility(View.GONE);
                 _fragmentCategoryBinding.cakeVector.setRotation(0);
@@ -125,8 +214,7 @@ public class CategoryFragment extends Fragment {
                 _fragmentCategoryBinding.typeComboRecyclerView.startAnimation(fadeAnimation);
                 _fragmentCategoryBinding.typeComboVector.setRotation(180);
 
-            }
-            else {
+            } else {
                 _fragmentCategoryBinding.typeComboRecyclerView.setVisibility(View.GONE);
                 _fragmentCategoryBinding.typeComboVector.setRotation(0);
             }
@@ -139,8 +227,7 @@ public class CategoryFragment extends Fragment {
                 _fragmentCategoryBinding.occasionComboRecyclerView.startAnimation(fadeAnimation);
                 _fragmentCategoryBinding.occasionComboVector.setRotation(180);
 
-            }
-            else {
+            } else {
                 _fragmentCategoryBinding.occasionComboRecyclerView.setVisibility(View.GONE);
                 _fragmentCategoryBinding.occasionComboVector.setRotation(0);
             }
@@ -153,8 +240,7 @@ public class CategoryFragment extends Fragment {
                 _fragmentCategoryBinding.typeFlowerRecyclerView.startAnimation(fadeAnimation);
                 _fragmentCategoryBinding.typeFlowerVector.setRotation(180);
 
-            }
-            else {
+            } else {
                 _fragmentCategoryBinding.typeFlowerRecyclerView.setVisibility(View.GONE);
                 _fragmentCategoryBinding.typeFlowerVector.setRotation(0);
             }
@@ -167,8 +253,7 @@ public class CategoryFragment extends Fragment {
                 _fragmentCategoryBinding.occasionFlowerRecyclerView.startAnimation(fadeAnimation);
                 _fragmentCategoryBinding.occasionFlowerVector.setRotation(180);
 
-            }
-            else {
+            } else {
                 _fragmentCategoryBinding.occasionFlowerRecyclerView.setVisibility(View.GONE);
                 _fragmentCategoryBinding.occasionFlowerVector.setRotation(0);
             }
@@ -181,8 +266,7 @@ public class CategoryFragment extends Fragment {
                 _fragmentCategoryBinding.typeCakeRecyclerView.startAnimation(fadeAnimation);
                 _fragmentCategoryBinding.typeCakeVector.setRotation(180);
 
-            }
-            else {
+            } else {
                 _fragmentCategoryBinding.typeCakeRecyclerView.setVisibility(View.GONE);
                 _fragmentCategoryBinding.typeCakeVector.setRotation(0);
             }
@@ -195,107 +279,13 @@ public class CategoryFragment extends Fragment {
                 _fragmentCategoryBinding.occasionCakeRecyclerView.startAnimation(fadeAnimation);
                 _fragmentCategoryBinding.occasionCakeVector.setRotation(180);
 
-            }
-            else {
+            } else {
                 _fragmentCategoryBinding.occasionCakeRecyclerView.setVisibility(View.GONE);
                 _fragmentCategoryBinding.occasionCakeVector.setRotation(0);
             }
         });
 
-
-
-
-        // typeComboRecyclerView
-        // Initialize RecyclerView and set its properties
-        RecyclerView typeComboRecyclerView = _fragmentCategoryBinding.typeComboRecyclerView;
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this.getContext(),4);
-        typeComboRecyclerView.setLayoutManager(gridLayoutManager);
-        typeComboRecyclerView.setHasFixedSize(true);
-
-        // Add sample data to categoryList
-        categoryList = addCategory();
-
-        // Set up the adapter
-        CategoryAdapter categoryAdapter = new CategoryAdapter(categoryList, getContext());
-        typeComboRecyclerView.setAdapter(categoryAdapter);
-
-
-        // occasionComboRecyclerView
-        RecyclerView occasionComboRecyclerView = _fragmentCategoryBinding.occasionComboRecyclerView;
-        GridLayoutManager gridLayoutManager2 = new GridLayoutManager(this.getContext(),4);
-        occasionComboRecyclerView.setLayoutManager(gridLayoutManager2);
-        occasionComboRecyclerView.setHasFixedSize(true);
-
-        // Add sample data to categoryList
-        categoryList = addCategory();
-
-        // Set up the adapter
-        CategoryAdapter categoryAdapter2 = new CategoryAdapter(categoryList, getContext());
-        occasionComboRecyclerView.setAdapter(categoryAdapter2);
-
-        // typeFloweRecyclerView
-        RecyclerView typeFlowerRecyclerView = _fragmentCategoryBinding.typeFlowerRecyclerView;
-        GridLayoutManager gridLayoutManager3 = new GridLayoutManager(this.getContext(),4);
-        typeFlowerRecyclerView.setLayoutManager(gridLayoutManager3);
-        typeFlowerRecyclerView.setHasFixedSize(true);
-
-        // Add sample data to categoryList
-        categoryList = addCategory();
-
-        // Set up the adapter
-        CategoryAdapter categoryAdapter3 = new CategoryAdapter(categoryList, getContext());
-        typeFlowerRecyclerView.setAdapter(categoryAdapter3);
-
-        // occasionFloweRecyclerView
-        RecyclerView occasionFlowerRecyclerView = _fragmentCategoryBinding.occasionFlowerRecyclerView;
-        GridLayoutManager gridLayoutManager4 = new GridLayoutManager(this.getContext(),4);
-        occasionFlowerRecyclerView.setLayoutManager(gridLayoutManager4);
-        occasionFlowerRecyclerView.setHasFixedSize(true);
-
-        // Add sample data to categoryList
-        categoryList = addCategory();
-
-        // Set up the adapter
-        CategoryAdapter categoryAdapter4 = new CategoryAdapter(categoryList, getContext());
-        occasionFlowerRecyclerView.setAdapter(categoryAdapter4);
-
-        // typeCakeRecyclerView
-        RecyclerView typeCakeRecyclerView = _fragmentCategoryBinding.typeCakeRecyclerView;
-        GridLayoutManager gridLayoutManager5 = new GridLayoutManager(this.getContext(),4);
-        typeCakeRecyclerView.setLayoutManager(gridLayoutManager5);
-        typeCakeRecyclerView.setHasFixedSize(true);
-
-        // Add sample data to categoryList
-        categoryList = addCategory();
-
-        // Set up the adapter
-        CategoryAdapter categoryAdapter5 = new CategoryAdapter(categoryList, getContext());
-        typeCakeRecyclerView.setAdapter(categoryAdapter5);
-
-        // occasionCakeRecyclerView
-        RecyclerView occasionCakeRecyclerView = _fragmentCategoryBinding.occasionCakeRecyclerView;
-        GridLayoutManager gridLayoutManager6 = new GridLayoutManager(this.getContext(),4);
-        occasionCakeRecyclerView.setLayoutManager(gridLayoutManager6);
-        occasionCakeRecyclerView.setHasFixedSize(true);
-
-        // Add sample data to categoryList
-        categoryList = addCategory();
-
-        // Set up the adapter
-        CategoryAdapter categoryAdapter6 = new CategoryAdapter(categoryList, getContext());
-        occasionCakeRecyclerView.setAdapter(categoryAdapter6);
-
-        // Return the root view
         return _fragmentCategoryBinding.getRoot();
     }
 
-    private List<Category> addCategory() {
-        List<Category> categories = new ArrayList<>();
-        categories.add(new Category("Category 1", "@drawable/img_background1"));
-        categories.add(new Category("Category 2", "@drawable/img_background2"));
-        categories.add(new Category("Category 3", "@drawable/img_background3"));
-        categories.add(new Category("Category 4", "@drawable/img_background4"));
-        categories.add(new Category("Category 5", "@drawable/img_background5"));
-        return categories;
-    }
 }

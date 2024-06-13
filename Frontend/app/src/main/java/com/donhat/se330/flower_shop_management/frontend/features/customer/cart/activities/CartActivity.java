@@ -1,6 +1,8 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.cart.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -9,21 +11,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
+import com.donhat.se330.flower_shop_management.frontend.constants.GlobalVariables;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ActivityCartBinding;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.adapters.CartAdapter;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.entities.ProductCart;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.eventhandlers.CartEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.viewmodels.CartViewModel;
+import com.donhat.se330.flower_shop_management.frontend.models.Product;
+import com.donhat.se330.flower_shop_management.frontend.models.User;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements CartAdapter.OnProductDeleteListener {
+    private CartAdapter cartAdapter;
     private ActivityCartBinding _activityCartBinding;
-    private CartViewModel _cartViewModel;
-    private CartEventHandler _cartEventHandler;
-    private List<ProductCart> productCartList = new ArrayList<>();
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,33 +34,66 @@ public class CartActivity extends AppCompatActivity {
         _activityCartBinding = DataBindingUtil.setContentView(this, R.layout.activity_cart);
 
         // View Model
-        _cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
+        CartViewModel _cartViewModel = new ViewModelProvider(this).get(CartViewModel.class);
 
         // Event Handler
-        _cartEventHandler = new CartEventHandler(_cartViewModel, this);
+        CartEventHandler _cartEventHandler = new CartEventHandler(this , _cartViewModel, this);
         _activityCartBinding.setActivityCartEventHandler(_cartEventHandler);
 
         // Set up RecyclerView
-        RecyclerView cartItemRecyclerView = _activityCartBinding.cartItemRecyclerView;
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        cartItemRecyclerView.setLayoutManager(linearLayoutManager);
-        cartItemRecyclerView.setHasFixedSize(true);
 
-        // Add sample data to productCartList
-        productCartList = addProductCart();
+        GlobalVariables.getUser().observe(this, user -> {
+            if(user != null){
+                if(user.getProducts().isEmpty()){
+                    _activityCartBinding.voucherBox.setVisibility(View.GONE);
+                    _activityCartBinding.constraintLayout1.setVisibility(View.GONE);
+                    _activityCartBinding.emptyCartImage.setVisibility(View.VISIBLE);
 
-        // Set up the adapter
-        CartAdapter cartAdapter = new CartAdapter(productCartList, this);
-        cartItemRecyclerView.setAdapter(cartAdapter);
+                }
+                else{
+                    _activityCartBinding.voucherBox.setVisibility(View.VISIBLE);
+                    _activityCartBinding.constraintLayout1.setVisibility(View.VISIBLE);
+                    _activityCartBinding.emptyCartImage.setVisibility(View.GONE);
+                    RecyclerView cartItemRecyclerView = _activityCartBinding.cartItemRecyclerView;
+                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+                    cartItemRecyclerView.setLayoutManager(linearLayoutManager);
+                    cartItemRecyclerView.setHasFixedSize(true);
+
+                    cartAdapter = new CartAdapter(user, this);
+                    cartAdapter.setOnProductDeleteListener(this);
+                    cartItemRecyclerView.setAdapter(cartAdapter);
+
+                    double subtotalPrice = 0;
+                    int index = 0;
+                    for (Product product : user.getProducts()) {
+                        subtotalPrice += Double.parseDouble(product.getPrice()) * user.getQuantities().get(index);
+                        index++;
+                    }
+                    String formattedSubtotalPrice = String.format(Locale.US, "%.2f", subtotalPrice);
+                    _activityCartBinding.suptotalPriceText.setText("$" + formattedSubtotalPrice);
+                }
+            }
+        });
     }
 
-    private List<ProductCart> addProductCart() {
-        List<ProductCart> productCarts = new ArrayList<>();
-        productCarts.add(new ProductCart(1, "Product 1", "@drawable/img_product1", 19.99, 2));
-        productCarts.add(new ProductCart(2, "Product 2", "@drawable/img_product2", 29.99, 1));
-        productCarts.add(new ProductCart(3, "Product 3", "@drawable/img_product3", 39.99, 3));
-        productCarts.add(new ProductCart(4, "Product 4", "@drawable/img_product4", 49.99, 1));
-        productCarts.add(new ProductCart(5, "Product 5", "@drawable/img_product5", 59.99, 2));
-        return productCarts;
+    @Override
+    public void onProductDelete(int position) {
+        // Get the user from GlobalVariables
+        User user = GlobalVariables.getUser().getValue();
+        if (user != null) {
+            // Remove the product and quantity at the specified position
+            user.getProducts().remove(position);
+            user.getQuantities().remove(position);
+
+            // Notify the adapter about the item removed
+            cartAdapter.notifyItemRemoved(position);
+            cartAdapter.notifyItemRangeChanged(position, user.getProducts().size());
+            _activityCartBinding.cartItemRecyclerView.requestLayout();
+        }
+    }
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

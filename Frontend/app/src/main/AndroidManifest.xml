@@ -16,6 +16,7 @@
         android:theme="@style/Theme.Frontend"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
             android:name=".features.intro.activities.IntroActivity"
             android:exported="true">
@@ -24,13 +25,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".features.customer.productlist.activities.ProductListActivity"
             android:exported="false" />
         <activity
             android:name=".features.customer.navbar.activities.CustomerNavBarActivity"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".features.auth.activities.AuthActivity"
             android:exported="false"
@@ -48,8 +52,14 @@
             android:name=".features.customer.order.activities.OrderManagementActivity"
             android:exported="false" />
         <activity
+            android:name=".features.customer.order.activities.OrderDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.customer.checkout.activities.CheckoutActivity"
             android:exported="true" />
+        <activity
+            android:name=".features.customer.rating.activities.RatingActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

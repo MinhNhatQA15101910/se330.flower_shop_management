@@ -8,28 +8,25 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ActivityProductListBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.adapters.ProductAdapter;
+import com.donhat.se330.flower_shop_management.frontend.features.components.adapters.ItemProductCardAdapter;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.eventhandlers.ProductListEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.viewmodels.ProductListViewModel;
 import com.donhat.se330.flower_shop_management.frontend.models.Product;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ProductListActivity extends AppCompatActivity {
 
-    ArrayList<Product> _products = new ArrayList<>();
     private ActivityProductListBinding _activityProductListBinding;
     private ProductListViewModel _productListViewModel;
-    private ProductListEventHandler _productListEventHandler;
-
-    private ProductAdapter _productAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String title = getIntent().getSerializableExtra("title").toString();
 
         _activityProductListBinding = DataBindingUtil.setContentView(this, R.layout.activity_product_list);
 
@@ -37,24 +34,32 @@ public class ProductListActivity extends AppCompatActivity {
 
         _activityProductListBinding.setProductListViewModel(_productListViewModel);
 
-        _productListEventHandler = new ProductListEventHandler();
+        ProductListEventHandler _productListEventHandler = new ProductListEventHandler(this, _productListViewModel);
 
-        addProducts();
-        _productAdapter = new ProductAdapter(_products);
+        _activityProductListBinding.setProductListEventHandler(_productListEventHandler);
 
-        _activityProductListBinding.productsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        _activityProductListBinding.productsRecyclerView.setHasFixedSize(true);
-        _activityProductListBinding.productsRecyclerView.setAdapter(_productAdapter);
+        _productListEventHandler.onInitial();
 
+        _productListViewModel.setTitle(title);
+
+        getAllDoDProducts();
+    }
+
+    void getAllDoDProducts() {
+        _productListViewModel.getListDoDProducts().observe(this, this::displayDealOfDayRecyclerView);
+    }
+
+    void displayDealOfDayRecyclerView(List<Product> productsList) {
+        if(productsList!=null){
+            RecyclerView _productsListRecyclerView = _activityProductListBinding.productsRecyclerView;
+            _activityProductListBinding.textTitle.setText(_productListViewModel.getTitle().getValue());
+            ItemProductCardAdapter _productAdapter = new ItemProductCardAdapter(productsList);
+
+            _productsListRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+            _productsListRecyclerView.setHasFixedSize(true);
+            _productsListRecyclerView.setAdapter(_productAdapter);
+        }
 
     }
 
-    //add some products to the list
-    private void addProducts() {
-       /* _products.add(new Product("Rose", 4.5f, "100", "$10"));
-        _products.add(new Product("Lily", 4.0f, "50", "$15"));
-        _products.add(new Product("Sunflower", 4.2f, "70", "$20"));
-        _products.add(new Product("Tulip", 4.3f, "80", "$25"));
-        _products.add(new Product("Daisy", 4.1f, "60", "$30"));*/
-    }
 }

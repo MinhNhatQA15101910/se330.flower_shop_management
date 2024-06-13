@@ -12,18 +12,23 @@
 
     </data>
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
-        <ScrollView
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingLeft="16dp"
                 android:paddingTop="12dp"
@@ -32,21 +37,29 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/comboLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="104dp"
                     android:background="@drawable/rounded_lightgreen_image"
                     android:onClick="@{fragmentCategoryEventHandler::onComboClick}">
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewCombos"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginVertical="12dp"
-                        android:contentDescription="App icon"
-                        android:src="@drawable/img_combo"
+                        app:cardCornerRadius="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageCombos"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:contentDescription="App icon"
+                            android:scaleType="fitXY" />
+                    </androidx.cardview.widget.CardView>
+
 
                     <TextView
                         android:id="@+id/textView"
@@ -60,7 +73,7 @@
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/combo_vector"
-                        app:layout_constraintStart_toEndOf="@+id/imageView"
+                        app:layout_constraintStart_toEndOf="@+id/cardViewCombos"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
@@ -182,21 +195,28 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/flowerLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="104dp"
                     android:background="@drawable/rounded_lightgreen_image"
                     android:onClick="@{fragmentCategoryEventHandler::onFlowerClick}">
 
-                    <ImageView
-                        android:id="@+id/imageView1"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewFlower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginVertical="12dp"
-                        android:contentDescription="App icon"
-                        android:src="@drawable/img_combo"
+                        app:cardCornerRadius="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageFlowers"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:contentDescription="App icon"
+                            android:scaleType="fitXY" />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:layout_width="0dp"
@@ -209,7 +229,7 @@
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/flower_vector"
-                        app:layout_constraintStart_toEndOf="@+id/imageView1"
+                        app:layout_constraintStart_toEndOf="@+id/cardViewFlower"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
@@ -328,22 +348,28 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cakeLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="104dp"
                     android:background="@drawable/rounded_lightgreen_image"
                     android:onClick="@{fragmentCategoryEventHandler::onCakeClick}">
 
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewcake"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginVertical="12dp"
-                        android:layout_marginStart="16dp"
-                        android:contentDescription="App icon"
-                        android:src="@drawable/img_combo"
+                        app:cardCornerRadius="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageCakes"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:contentDescription="App icon"
+                            android:scaleType="fitXY" />
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:layout_width="0dp"
@@ -355,8 +381,8 @@
                         android:textColor="@color/darkGreen"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/categoryImage"
-                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintEnd_toStartOf="@+id/cake_vector"
+                        app:layout_constraintStart_toEndOf="@+id/cardViewcake"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
@@ -470,7 +496,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="12dp" />
             </LinearLayout>
-        </ScrollView>
-    </FrameLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
 

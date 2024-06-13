@@ -22,8 +22,10 @@ public class ForgotPasswordEventHandler {
         _authServiceHandler = new AuthServiceHandler(context, authViewModel);
     }
 
-    public void navigateToLogInFragment(View view) {
-        _authViewModel.getAuthFragment().setValue(new LoginFragment());
+    public void navigateToPreviousFragment(View view) {
+        _authViewModel.getAuthFragment().setValue(
+                _authViewModel.getPreviousFragment()
+        );
     }
 
     public void verifyEmail(View view) {
@@ -33,7 +35,7 @@ public class ForgotPasswordEventHandler {
             Handler handler = new Handler();
             handler.postDelayed(
                     () -> {
-                        _authServiceHandler.checkEmailExists(_forgotPasswordViewModel.getEmail().getValue());
+                        _authServiceHandler.checkEmailExistsToChangePassword(_forgotPasswordViewModel.getEmail().getValue());
 
                         _forgotPasswordViewModel.getIsVerifyLoading().setValue(false);
                     },

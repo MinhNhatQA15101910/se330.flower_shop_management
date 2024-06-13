@@ -1,7 +1,10 @@
 package com.donhat.se330.flower_shop_management.frontend.models;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -14,9 +17,19 @@ public class User {
     private String role;
     private String token;
     private List<Product> products;
+    private final MutableLiveData<String> _title = new MutableLiveData<>();
     private List<Integer> quantities;
 
     public User() {
+        id = 0;
+        username = "";
+        email = "";
+        password = "";
+        imageUrl = "";
+        role = "";
+        token = "";
+        products = new ArrayList<>();
+        quantities = new ArrayList<>();
     }
 
     public User(int id, String username, String email, String password, String imageUrl, String role, String token, List<Product> products, List<Integer> quantities) {

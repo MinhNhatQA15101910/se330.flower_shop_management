@@ -14,7 +14,9 @@ public class PinputViewModel extends ViewModel {
 
     private CountDownTimer countDownTimer;
     private final String actualPincode = generateRandomNumberString();
+
     public static boolean isNavigatingBack = false;
+    public static boolean isSigningIn = false;
 
     public MutableLiveData<String> getPincode() {
         return pincode;

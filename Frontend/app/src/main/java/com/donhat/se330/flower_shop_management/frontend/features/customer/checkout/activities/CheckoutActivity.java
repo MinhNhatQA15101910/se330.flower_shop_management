@@ -1,5 +1,6 @@
 package com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,20 +10,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.donhat.se330.flower_shop_management.frontend.R;
+import com.donhat.se330.flower_shop_management.frontend.constants.GlobalVariables;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ActivityCheckoutBinding;
-import com.donhat.se330.flower_shop_management.frontend.features.customer.cart.entities.ProductCart;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.bottomsheetaddress.entities.ShippingInfo;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.adapters.CheckoutAdapter;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.eventhandlers.CheckoutEventHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.checkout.viewmodels.CheckoutViewModel;
+import com.donhat.se330.flower_shop_management.frontend.models.Product;
+import com.donhat.se330.flower_shop_management.frontend.models.User;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
 public class CheckoutActivity extends AppCompatActivity {
     private ActivityCheckoutBinding _activityCheckoutBinding;
-    private CheckoutViewModel _checkoutViewModel;
-    private CheckoutEventHandler _checkoutEventHandler;
-    private List<ProductCart> productCartList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,33 +32,65 @@ public class CheckoutActivity extends AppCompatActivity {
         _activityCheckoutBinding = DataBindingUtil.setContentView(this, R.layout.activity_checkout);
 
         // View Model
-        _checkoutViewModel = new ViewModelProvider(this).get(CheckoutViewModel.class);
+        CheckoutViewModel _checkoutViewModel = new ViewModelProvider(this).get(CheckoutViewModel.class);
 
         // Event Handler
-        _checkoutEventHandler = new CheckoutEventHandler(_checkoutViewModel, this);
+        CheckoutEventHandler _checkoutEventHandler = new CheckoutEventHandler(_checkoutViewModel, this, this);
         _activityCheckoutBinding.setActivityCheckoutEventHandler(_checkoutEventHandler);
 
-        // Set up RecyclerView
+        GlobalVariables.getUser().observe(this, user -> {
+            if(user != null){
+                displayOrderInfo(user);
+            }
+        });
+
+        GlobalVariables.getShippingInfo().observe(this, shippingInfo -> {
+            if (shippingInfo != null) {
+                disPlayDeliveryInfo(shippingInfo);
+            }
+        });
+    }
+
+    public void displayOrderInfo(User user) {
         RecyclerView productCheckoutItemRecyclerView = _activityCheckoutBinding.recyclerViewCheckoutDetail;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         productCheckoutItemRecyclerView.setLayoutManager(linearLayoutManager);
         productCheckoutItemRecyclerView.setHasFixedSize(true);
 
-        // Add sample data to productCartList
-        productCartList = addProductCart();
-
-        // Set up the adapter
-        CheckoutAdapter checkoutAdapter = new CheckoutAdapter(productCartList, this);
+        CheckoutAdapter checkoutAdapter = new CheckoutAdapter(user, this);
         productCheckoutItemRecyclerView.setAdapter(checkoutAdapter);
+
+        double subtotalPrice = 0;
+        int index = 0;
+        for (Product product : user.getProducts()) {
+            subtotalPrice += Double.parseDouble(product.getPrice()) * user.getQuantities().get(index);
+            index++;
+        }
+        String formattedSubtotalPrice = String.format(Locale.US, "%.2f", subtotalPrice);
+        _activityCheckoutBinding.totalPriceOrderDetail.setText("$" + formattedSubtotalPrice);
+        _activityCheckoutBinding.finalPriceOrderDetail.setText("$" + formattedSubtotalPrice);
+        _activityCheckoutBinding.changeOrderStatusText.setText("Checkout $" + formattedSubtotalPrice);
     }
 
-    private List<ProductCart> addProductCart() {
-        List<ProductCart> productCarts = new ArrayList<>();
-        productCarts.add(new ProductCart(1, "Product 1", "@drawable/img_product1", 19.99, 2));
-        productCarts.add(new ProductCart(2, "Product 2", "@drawable/img_product2", 29.99, 1));
-        productCarts.add(new ProductCart(3, "Product 3", "@drawable/img_product3", 39.99, 3));
-        productCarts.add(new ProductCart(4, "Product 4", "@drawable/img_product4", 49.99, 1));
-        productCarts.add(new ProductCart(5, "Product 5", "@drawable/img_product5", 59.99, 2));
-        return productCarts;
+    @SuppressLint("SetTextI18n")
+    public void disPlayDeliveryInfo(ShippingInfo shippingInfo) {
+        _activityCheckoutBinding.labelShipOrderDetail.setText(shippingInfo.getStreet() + checkEmpty(shippingInfo.getStreet(), ", ")
+                + shippingInfo.getWardName() + checkEmpty(shippingInfo.getWardName(), ", ")
+                + shippingInfo.getDistrictName() + checkEmpty(shippingInfo.getDistrictName(), ", ")
+                + shippingInfo.getProvinceName());
+        _activityCheckoutBinding.labelShipDescriptionOrderDetail.setText(shippingInfo.getFullName() + checkEmpty(shippingInfo.getFullName(), " • ")
+                + shippingInfo.getPhoneNumber());
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+    String checkEmpty(String string, String symbol){
+        if(string==null || string.isEmpty()){
+            return "";
+        }
+        else return symbol;
     }
 }

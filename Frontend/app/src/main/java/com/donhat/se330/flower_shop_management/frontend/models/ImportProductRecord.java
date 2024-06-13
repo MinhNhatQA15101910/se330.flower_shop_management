@@ -1,14 +1,21 @@
 package com.donhat.se330.flower_shop_management.frontend.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class ImportProductRecord {
     private int id;
     private Product product;
     private int quantity;
+    @SerializedName("import_date")
     private Date importDate;
 
     public ImportProductRecord() {
+        id = 0;
+        product = new Product();
+        quantity = 0;
+        importDate = new Date();
     }
 
     public ImportProductRecord(int id, Product product, int quantity, Date importDate) {

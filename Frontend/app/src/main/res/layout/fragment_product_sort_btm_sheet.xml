@@ -5,6 +5,9 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="com.donhat.se330.flower_shop_management.frontend.features.customer.search.viewmodels.SearchFragmentViewModel" />
+        <variable
             name="eventHandler"
             type="com.donhat.se330.flower_shop_management.frontend.features.customer.search.eventhandlers.SortBtmSheetEventHandler" />
     </data>

@@ -26,7 +26,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/wayback_icon_user_info"
+                android:id="@+id/navigate_back"
+                android:onClick="@{activityCheckoutEventHandler::onNavigateBack}"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -35,8 +36,9 @@
 
                 <View
                     android:id="@+id/order_detail_return_view"
-                    android:layout_width="10dp"
-                    android:layout_height="12dp"
+                    android:background="@drawable/vector_left_arrow"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginHorizontal="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +50,6 @@
                 android:id="@+id/user_info_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:fontFamily="@font/pacifico"
                 android:gravity="center_vertical"
                 android:text="Checkout"
@@ -56,7 +57,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/wayback_icon_user_info"
+                app:layout_constraintStart_toEndOf="@+id/navigate_back"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -73,94 +74,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/title_order_tracking"
-                    android:layout_width="0dp"
-                    android:layout_height="24dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="12dp"
-                    android:gravity="top"
-                    android:lineSpacingExtra="5sp"
-                    android:text="Estimated time of delivery"
-                    android:textAppearance="@style/regular16_blackGrey"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/transport_info_order_detail_box"
-                    tools:ignore="HardcodedText,TextSizeCheck" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/order_tracking_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/vector_white_radius_8"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title_order_tracking">
-
-                    <View
-                        android:id="@+id/calendar_icon"
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/vector_calendar"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/next_arrow_order_detail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="1.0">
-
-                        <View
-                            android:layout_width="8dp"
-                            android:layout_height="14dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginEnd="32dp"
-                            android:background="@drawable/vector_right_arrow"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/box_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="12dp"
-                        android:layout_marginStart="16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/next_arrow_order_detail"
-                        app:layout_constraintStart_toEndOf="@id/calendar_icon"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/label_time"
-                            android:layout_width="0dp"
-                            android:layout_height="21dp"
-                            android:layout_marginTop="4dp"
-                            android:gravity="top"
-                            android:lineSpacingExtra="4sp"
-                            android:text="Monday, 13/11/2024"
-                            android:textAppearance="@style/regular14_blackGrey"
-                            android:translationY="-2.03sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="HardcodedText,TextSizeCheck" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/transport_info_order_detail"
@@ -220,8 +133,8 @@
                             app:layout_constraintVertical_bias="1.0">
 
                             <View
-                                android:layout_width="5dp"
-                                android:layout_height="10dp"
+                                android:layout_width="8dp"
+                                android:layout_height="14dp"
                                 android:layout_marginStart="16dp"
                                 android:layout_marginEnd="32dp"
                                 android:background="@drawable/vector_right_arrow"
@@ -264,7 +177,7 @@
                                 android:layout_marginTop="4dp"
                                 android:gravity="top"
                                 android:lineSpacingExtra="4sp"
-                                android:text="288 Erie Street South Unit D, Leamington, Ontario"
+                                android:text="No shipping info"
                                 android:textAppearance="@style/regular14_blackGrey"
                                 android:textStyle="bold"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -279,7 +192,7 @@
                                 android:layout_marginTop="4dp"
                                 android:gravity="top"
                                 android:lineSpacingExtra="3sp"
-                                android:text="Nick • 0969696969"
+                                android:text=""
                                 android:textAppearance="@style/regular12_darkGrey"
                                 android:textColor="#757575"
                                 android:translationY="-1.74sp"
@@ -298,7 +211,6 @@
                     android:layout_width="0dp"
                     android:layout_height="24dp"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="20dp"
                     android:gravity="top"
                     android:lineSpacingExtra="5sp"
                     android:text="Products infomation"
@@ -307,7 +219,7 @@
                     android:translationY="-2.32sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/order_tracking_box"
+                    app:layout_constraintTop_toBottomOf="@+id/transport_info_order_detail_box"
                     tools:ignore="HardcodedText,TextSizeCheck" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -523,7 +435,7 @@
                             android:layout_marginEnd="16dp"
                             android:gravity="top"
                             android:lineSpacingExtra="4sp"
-                            android:text="0 đ"
+                            android:text="$0"
                             android:textAppearance="@style/regular14_blackGrey"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -570,7 +482,7 @@
                             android:layout_marginEnd="16dp"
                             android:gravity="top"
                             android:lineSpacingExtra="4sp"
-                            android:text="- 0 đ"
+                            android:text="- $0"
                             android:textAppearance="@style/regular14_darkGreen"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -656,6 +568,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:onClick="@{activityCheckoutEventHandler::onCheckOutClick}"
                 android:id="@+id/status_change"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

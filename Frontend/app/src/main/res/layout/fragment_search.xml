@@ -7,8 +7,12 @@
     <data>
 
         <variable
-            name="searchEventHandler"
-            type="com.donhat.se330.flower_shop_management.frontend.features.customer.search.eventhandlers.SearchEventHandler" />
+            name="searchFragmentViewModel"
+            type="com.donhat.se330.flower_shop_management.frontend.features.customer.search.viewmodels.SearchFragmentViewModel" />
+
+        <variable
+            name="searchFragmentEventHandler"
+            type="com.donhat.se330.flower_shop_management.frontend.features.customer.search.eventhandlers.SearchFragmentEventHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,80 +20,19 @@
         android:layout_height="match_parent"
         android:background="@color/white"
 
+
         android:paddingHorizontal="16dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/header_constraint_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingVertical="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/pacifico"
-                android:text="Search"
-                android:textColor="@color/darkGreen"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <ImageView
-                android:layout_width="24sp"
-                android:layout_height="24sp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/vector_cart"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-
-                app:tint="@color/darkGreen" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!-- Add a search bar here -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/search_bar_constraint_layout"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/search_input"
-            android:paddingHorizontal="16dp"
+            android:queryHint="Enter keyword to search for product"
+            app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header_constraint_layout">
-
-            <View
-                android:id="@+id/search_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/vector_search"
-                android:backgroundTint="@color/darkGrey"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/search_edit_text"
-                android:layout_width="0dp"
-                android:layout_height="36dp"
-                android:background="@null"
-                android:hint="Enter the product keyword to search"
-                android:inputType="text"
-                android:textAppearance="@style/placeholder"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/search_icon"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sort_filter_constraint_layout"
@@ -97,20 +40,20 @@
             android:layout_height="56dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_bar_constraint_layout">
+            app:layout_constraintTop_toBottomOf="@id/search_bar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/filter_button"
                 android:layout_width="0dp"
                 android:layout_height="32dp"
                 android:background="@drawable/white_background_grey_btn"
-                android:onClick="@{searchEventHandler::onFilterBtnClicked}"
+                android:onClick="@{searchFragmentEventHandler::onFilterBtnClicked}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <View
-                    android:id="@+id/filter_icon_admin_product"
+                    android:id="@+id/filter_icon_product"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="8dp"
@@ -120,7 +63,7 @@
                     app:layout_constraintTop_toTopOf="@id/filter_button" />
 
                 <TextView
-                    android:id="@+id/label_filter_admin_product"
+                    android:id="@+id/label_filter_product"
                     android:layout_width="50dp"
                     android:layout_height="21dp"
                     android:layout_marginHorizontal="8dp"
@@ -130,7 +73,7 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@id/filter_button"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/filter_icon_admin_product"
+                    app:layout_constraintStart_toEndOf="@id/filter_icon_product"
                     app:layout_constraintTop_toTopOf="@id/filter_button" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -139,24 +82,23 @@
                 android:layout_width="0dp"
                 android:layout_height="32dp"
                 android:background="@drawable/white_background_btn"
-                android:onClick="@{searchEventHandler::onSortBtnClicked}"
+                android:onClick="@{searchFragmentEventHandler::onSortBtnClicked}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <View
-                    android:id="@+id/sort_icon_admin_product"
+                    android:id="@+id/sort_icon_product"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
                     android:background="@drawable/vector_sort"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/label_sort_admin_product"
+                    android:id="@+id/label_sort_product"
                     android:layout_width="50dp"
                     android:layout_height="21dp"
                     android:layout_marginStart="8dp"
@@ -168,20 +110,62 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/sort_icon_admin_product"
+                    app:layout_constraintStart_toEndOf="@+id/sort_icon_product"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_recycler_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/sort_filter_constraint_layout">
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sort_filter_constraint_layout" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/no_result_constraint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="24dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/no_result_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:contentDescription="No result found, try another keywords"
+                    android:src="@drawable/img_no_result"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/no_result_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_horizontal"
+                    android:text="No result found!\nTry another keywords"
+                    android:textAppearance="@style/bold_text"
+                    app:layout_constraintTop_toBottomOf="@id/no_result_image" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/label_suggest_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:text="Product you might like"
+                android:textAppearance="@style/label_green_text"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/no_result_constraint_layout" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/label_suggest_list" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,15 +3,37 @@ package com.donhat.se330.flower_shop_management.frontend.features.customer.categ
 import android.content.Context;
 import android.view.View;
 
+import com.donhat.se330.flower_shop_management.frontend.features.customer.category.servicehandlers.CategoryServiceHandler;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.category.viewmodels.CategoryViewModel;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.viewmodels.ProductListViewModel;
+import com.donhat.se330.flower_shop_management.frontend.models.Product;
+
+import java.util.List;
 
 public class CategoryEventHandler {
     private final CategoryViewModel _categoryViewModel;
-    private final Context _context;
+    private final ProductListViewModel _productListViewModel;
+    private final CategoryServiceHandler _categoryServiceHandler;
 
     public CategoryEventHandler(CategoryViewModel categoryViewModel, Context context) {
         _categoryViewModel = categoryViewModel;
-        _context = context;
+        _productListViewModel = new ProductListViewModel();
+        _categoryServiceHandler = new CategoryServiceHandler(context, _categoryViewModel);
+    }
+
+    public void onInitial() {
+        _categoryServiceHandler.getCategoryList();
+        _categoryServiceHandler.getComboTypeList();
+        _categoryServiceHandler.getFlowerTypeList();
+        _categoryServiceHandler.getCakeTypeList();
+        _categoryServiceHandler.getComboOccasionList();
+        _categoryServiceHandler.getFlowerOccasionList();
+        _categoryServiceHandler.getCakeOccasionList();
+    }
+
+    public void getCategoryById(View view) {
+        Boolean currentValue = _categoryViewModel.getIsComboClicked().getValue();
+        _categoryViewModel.getIsComboClicked().setValue(currentValue == null || !currentValue);
     }
 
     public void onComboClick(View view) {

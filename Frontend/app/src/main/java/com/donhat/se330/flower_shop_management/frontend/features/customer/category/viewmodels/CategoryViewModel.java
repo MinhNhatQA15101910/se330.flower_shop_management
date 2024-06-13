@@ -2,17 +2,36 @@ package com.donhat.se330.flower_shop_management.frontend.features.customer.categ
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.donhat.se330.flower_shop_management.frontend.models.Category;
+import com.donhat.se330.flower_shop_management.frontend.models.Occasion;
+import com.donhat.se330.flower_shop_management.frontend.models.Product;
+import com.donhat.se330.flower_shop_management.frontend.models.Type;
+
+import java.util.List;
+
 public class CategoryViewModel extends ViewModel {
 
-    private MutableLiveData<Boolean> isComboClicked = new MutableLiveData<>(false);
-    private MutableLiveData<Boolean> isFlowerClicked = new MutableLiveData<>(false);
-    private MutableLiveData<Boolean> isCakeClicked = new MutableLiveData<>(false);
-    private MutableLiveData<Boolean> isTypeComboClicked = new MutableLiveData<>(false);
-    private MutableLiveData<Boolean> isOccasionComboClicked = new MutableLiveData<>(false);
-    private MutableLiveData<Boolean> isTypeFlowerClicked = new MutableLiveData<>(false);
-    private MutableLiveData<Boolean> isOccasionFlowerClicked = new MutableLiveData<>(false);
-    private MutableLiveData<Boolean> isTypeCakeClicked = new MutableLiveData<>(false);
-    private MutableLiveData<Boolean> isOccasionCakeClicked = new MutableLiveData<>(false);
+
+    private final MutableLiveData<List<Category>> categoryList = new MutableLiveData<>();
+    private final MutableLiveData<List<Type>> typeList = new MutableLiveData<>();
+    private final MutableLiveData<List<Occasion>> occasionList = new MutableLiveData<>();
+    private final MutableLiveData<List<Type>> typeComboList = new MutableLiveData<>();
+    private final MutableLiveData<List<Occasion>> occasionComboList = new MutableLiveData<>();
+    private final MutableLiveData<List<Type>> typeFlowerList = new MutableLiveData<>();
+    private final MutableLiveData<List<Occasion>> occasionFlowerList = new MutableLiveData<>();
+    private final MutableLiveData<List<Type>> typeCakeList = new MutableLiveData<>();
+    private final MutableLiveData<List<Occasion>> occasionCakeList = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isComboClicked = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isFlowerClicked = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isCakeClicked = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isTypeComboClicked = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isOccasionComboClicked = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isTypeFlowerClicked = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isOccasionFlowerClicked = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isTypeCakeClicked = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> isOccasionCakeClicked = new MutableLiveData<>(false);
+    private final MutableLiveData<List<Product>> productList = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> getIsComboClicked() {
         return isComboClicked;
@@ -48,5 +67,44 @@ public class CategoryViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> getIsOccasionCakeClicked() {
         return isOccasionCakeClicked;
+    }
+
+    public MutableLiveData<List<Category>> getCategoryList() {
+        return categoryList;
+    }
+
+    public MutableLiveData<List<Type>> getTypeList() {
+        return typeList;
+    }
+
+    public MutableLiveData<List<Occasion>> getOccasionList() {
+        return occasionList;
+    }
+
+    public MutableLiveData<List<Type>> getTypeComboList() {
+        return typeComboList;
+    }
+
+    public MutableLiveData<List<Occasion>> getOccasionComboList() {
+        return occasionComboList;
+    }
+
+    public MutableLiveData<List<Type>> getTypeFlowerList() {
+        return typeFlowerList;
+    }
+
+    public MutableLiveData<List<Occasion>> getOccasionFlowerList() {
+        return occasionFlowerList;
+    }
+
+    public MutableLiveData<List<Type>> getTypeCakeList() {
+        return typeCakeList;
+    }
+
+    public MutableLiveData<List<Occasion>> getOccasionCakeList() {
+        return occasionCakeList;
+    }
+    public MutableLiveData<List<Product>> getProductList() {
+        return productList;
     }
 }
