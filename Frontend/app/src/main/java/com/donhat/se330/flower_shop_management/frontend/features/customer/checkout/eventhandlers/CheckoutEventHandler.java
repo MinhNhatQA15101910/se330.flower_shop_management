@@ -40,6 +40,11 @@ public class CheckoutEventHandler {
     public void onNavigateBack(View view) {
         _activity.finish();
     }
+
+    public void onApplyVoucherClick(View view) {
+
+    }
+
     public void onCheckOutClick(View view) {
         ShippingInfo shippingInfo = GlobalVariables.getShippingInfo().getValue();
         if(shippingInfo != null){
