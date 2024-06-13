@@ -602,6 +602,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/logout_box"
+                android:onClick="@{profileFragmentEventHandler::onLogOutClick}"
                 android:layout_width="match_parent"
                 android:layout_height="86dp"
                 android:layout_marginHorizontal="16dp"

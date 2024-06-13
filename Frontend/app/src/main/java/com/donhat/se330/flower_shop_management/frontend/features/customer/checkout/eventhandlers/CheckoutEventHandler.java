@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -40,18 +41,24 @@ public class CheckoutEventHandler {
         _activity.finish();
     }
     public void onCheckOutClick(View view) {
-        User user = GlobalVariables.getUser().getValue();
         ShippingInfo shippingInfo = GlobalVariables.getShippingInfo().getValue();
-        if (user != null && shippingInfo != null) {
-            Order order = new Order();
-            order.setProvince(shippingInfo.getProvinceName());
-            order.setDistrict(shippingInfo.getDistrictName());
-            order.setWard(shippingInfo.getWardName());
-            order.setDetailAddress(shippingInfo.getStreet());
-            order.setReceiverName(shippingInfo.getFullName());
-            order.setReceiverPhoneNumber(shippingInfo.getPhoneNumber());
-            _checkoutServiceHandler.createOrderFromCart(order);
-            ((Activity) _context).finish();
+        if(shippingInfo != null){
+            User user = GlobalVariables.getUser().getValue();
+            if (user != null) {
+                Order order = new Order();
+                order.setProvince(shippingInfo.getProvinceName());
+                order.setDistrict(shippingInfo.getDistrictName());
+                order.setWard(shippingInfo.getWardName());
+                order.setDetailAddress(shippingInfo.getStreet());
+                order.setReceiverName(shippingInfo.getFullName());
+                order.setReceiverPhoneNumber(shippingInfo.getPhoneNumber());
+                _checkoutServiceHandler.createOrderFromCart(order);
+                ((Activity) _context).finish();
+            }
+
+        }
+        else {
+            Toast.makeText(_context, "Please type your shipping information", Toast.LENGTH_SHORT).show();
         }
 
     }

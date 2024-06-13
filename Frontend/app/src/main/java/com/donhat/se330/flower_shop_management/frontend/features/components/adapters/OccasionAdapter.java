@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.donhat.se330.flower_shop_management.frontend.R;
 import com.donhat.se330.flower_shop_management.frontend.databinding.ItemCategoryBinding;
+import com.donhat.se330.flower_shop_management.frontend.features.customer.order.activities.OrderDetailActivity;
 import com.donhat.se330.flower_shop_management.frontend.features.customer.productlist.activities.ProductListActivity;
 import com.donhat.se330.flower_shop_management.frontend.models.Occasion;
 
@@ -46,6 +47,9 @@ public class OccasionAdapter extends RecyclerView.Adapter<OccasionAdapter.Occasi
         Glide.with(context).load(occasion.getImageUrl()).into(holder.itemCategoryBinding.itemImageCategory);
 
         holder.itemCategoryBinding.categoryItem.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductListActivity.class);
+            context.startActivity(intent);
+            ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
     }

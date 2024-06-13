@@ -8,10 +8,12 @@ import com.donhat.se330.flower_shop_management.frontend.features.customer.order.
 import com.donhat.se330.flower_shop_management.frontend.features.customer.order.viewmodel.OrderManagementViewModel;
 
 public class OrderEventHandlers {
+    Context context;
     private final OrderManagementViewModel _orderManagementViewModel;
     private final OrderServiceHandler _orderServiceHandler;
 
     public OrderEventHandlers(Context context, OrderManagementViewModel orderManagementViewModel) {
+        this.context=context;
         _orderManagementViewModel = orderManagementViewModel;
         _orderServiceHandler = new OrderServiceHandler(context, _orderManagementViewModel);
     }
@@ -31,5 +33,9 @@ public class OrderEventHandlers {
     public void getOrderById(int order_id) {
         _orderServiceHandler.getOrderById(order_id);
         GlobalVariables.getOrder().setValue(_orderManagementViewModel.getOrder().getValue());
+    }
+
+    public void onNavigateBack(int order_id) {
+        ((Activity) context).finish();
     }
 }
